@@ -8,6 +8,7 @@ vim.o.hidden = true
 vim.o.completeopt = "menuone,noselect"
 
 vim.o.relativenumber=true
+vim.o.number=true
 vim.o.tabstop=4
 vim.o.shiftwidth=4
 vim.o.smartcase=true

@@ -17,6 +17,7 @@ map('n', '<leader>w', ':w<CR>', {noremap=true})
 map('n', '<leader>q', ':wq<CR>', {noremap=true})
 
 map('i', 'jj', '<ESC>', {noremap=true})
+map('i', 'kk', '<ESC>', {noremap=true})
 map('n', '<C-q>', '<cmd>lua vim.lsp.buf.hover()<CR>', {silent = true, noremap = true})
 
 

@@ -37,5 +37,14 @@ return require('packer').startup(function()
   use "alvan/vim-closetag"
   use "tpope/vim-unimpaired"
   use "tpope/vim-surround"
+
+  use {
+  'lewis6991/gitsigns.nvim', 
+  config = function()
+	require("gitsigns").setup()
+  end
+  -- tag = 'release' -- To use the latest release
+  }
+  
 end)
 

@@ -39,12 +39,18 @@ return require('packer').startup(function()
   use "tpope/vim-surround"
 
   use {
-  'lewis6991/gitsigns.nvim', 
-  config = function()
-	require("gitsigns").setup()
-  end
-  -- tag = 'release' -- To use the latest release
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }	
+  use 'tpope/vim-fugitive'
+  use {
+	  'lewis6991/gitsigns.nvim', 
+	  tag = 'release',
+	  config = function()
+	   require("gitsigns").setup()
+	  end
   }
+
   
 end)
 

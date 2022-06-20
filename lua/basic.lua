@@ -18,5 +18,3 @@ vim.o.incsearch=true
 vim.o.termguicolors=true
 vim.o.clipboard = "unnamedplus"
 
-
-

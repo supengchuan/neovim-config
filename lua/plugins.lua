@@ -44,5 +44,7 @@ return require('packer').startup(function()
   }	
   use 'tpope/vim-fugitive'
   use 'lewis6991/gitsigns.nvim'
+  -- rust  To enable more of the features of rust-analyzer, such as inlay hints and more!
+  use 'simrat39/rust-tools.nvim'
 end)
 

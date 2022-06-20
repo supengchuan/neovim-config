@@ -43,14 +43,6 @@ return require('packer').startup(function()
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }	
   use 'tpope/vim-fugitive'
-  use {
-	  'lewis6991/gitsigns.nvim', 
-	  tag = 'release',
-	  config = function()
-	   require("gitsigns").setup()
-	  end
-  }
-
-  
+  use 'lewis6991/gitsigns.nvim'
 end)
 

@@ -14,10 +14,10 @@ require("formatter").setup(
   }
 })
 
--- auto  format  when saved
-vim.cmd [[
-augroup FormatAutogroup
-autocmd!
-autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.rs,*.lua FormatWrite
-augroup END
-]]
+-- -- auto  format  when saved
+-- vim.cmd [[
+-- augroup FormatAutogroup
+-- autocmd!
+-- autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.rs,*.lua FormatWrite
+-- augroup END
+-- ]]

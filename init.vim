@@ -9,3 +9,12 @@ lua require("plugin-config/gitsigns")
 
 " config status line
 lua require("lualine").setup()
+
+
+
+" vim cmd for auto format when file saved
+augroup FormatAutogroup
+autocmd!
+autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.rs,*.lua FormatWrite
+augroup END
+

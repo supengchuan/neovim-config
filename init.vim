@@ -18,3 +18,5 @@ autocmd!
 autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.rs,*.lua FormatWrite
 augroup END
 
+" set create a new file with LR end line
+set fileformats=unix,dos

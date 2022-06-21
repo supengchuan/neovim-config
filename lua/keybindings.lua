@@ -18,6 +18,9 @@ map('n', '<leader>q', ':wq<CR>', {noremap=true})
 
 map('i', 'jj', '<ESC>', {noremap=true})
 map('i', 'kk', '<ESC>', {noremap=true})
+-- show parameter hint
 map('n', '<C-q>', '<cmd>lua vim.lsp.buf.hover()<CR>', {silent = true, noremap = true})
+-- go to definition
+map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', {silent = true, noremap = true})
 
 

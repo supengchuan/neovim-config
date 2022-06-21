@@ -1,6 +1,7 @@
 lua require("basic")
 lua require("plugins")
 lua require("keybindings")
+lua require("format")
 
 lua require("lsp/cmp")
 lua require("lsp/rust")

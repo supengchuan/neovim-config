@@ -17,4 +17,6 @@ vim.o.cursorline=true
 vim.o.incsearch=true
 vim.o.termguicolors=true
 vim.o.clipboard = "unnamedplus"
-
+-- Set updatetime for CursorHold
+-- 300ms of no cursor movement to trigger CursorHold
+vim.o.updatetime=300

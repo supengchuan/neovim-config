@@ -5,12 +5,13 @@ lua require("format")
 
 lua require("lsp/cmp")
 lua require("lsp/rust")
-lua require("plugin-config/gitsigns")
 
 " config status line
 lua require("lualine").setup()
 
 
+lua require("plugin-config/gitsigns")
+lua require("plugin-config/tree-sitter")
 
 " vim cmd for auto format when file saved
 augroup FormatAutogroup

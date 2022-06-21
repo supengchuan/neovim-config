@@ -50,5 +50,9 @@ return require('packer').startup(function()
 
   -- format
   use "mhartington/formatter.nvim"
+  use {
+      'stevearc/aerial.nvim',
+      config = function() require('aerial').setup() end
+    }
 end)
 

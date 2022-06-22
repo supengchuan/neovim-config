@@ -4,7 +4,7 @@ lua require("keybindings")
 lua require("format")
 
 lua require("lsp/cmp")
-lua require("lsp/rust")
+"lua require("lsp/rust")
 
 " config status line
 lua require("lualine").setup()
@@ -22,3 +22,6 @@ augroup END
 
 " set create a new file with LR end line
 set fileformats=unix,dos
+
+" snip for jump to next parameter using tab
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'

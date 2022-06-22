@@ -11,6 +11,10 @@ map('n', '<C-n>', ':NERDTree<CR>', {noremap=true})
 -- open outline
 map('n', '<leader>o', ':AerialToggle<CR>', {silent = true, noremap = true})
 
+-- buffuer line
+map('n', '<leader>h', ':BufferLineCyclePrev<CR>', {silent = true, noremap = true})
+map('n', '<leader>l', ':BufferLineCycleNext<CR>', {silent = true, noremap = true})
+
 -- use ctrl-hjkl move cursor between windows
 map('n', '<C-h>', '<C-w>h', {noremap=true})
 map('n', '<C-j>', '<C-w>j', {noremap=true})

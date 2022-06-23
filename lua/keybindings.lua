@@ -18,6 +18,11 @@ map('n', '<leader>c', ':BufferLinePickClose<CR>', {silent = true, noremap = true
 -- write
 map('n', '<leader>w', ':w<CR>', {noremap=true})
 map('n', '<leader>q', ':wq<CR>', {noremap=true})
+map('n', '<leader>nl', ':nohlsearch<CR>', {silent = true, noremap = true})
+
+-- quick move
+map('n', '<leader>j', '10j', {silent = true, noremap = true})
+map('n', '<leader>k', '10k', {silent = true, noremap = true})
 
 
 -------------------- for leader map end -------------------- 

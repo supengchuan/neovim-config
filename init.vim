@@ -4,7 +4,7 @@ lua require("keybindings")
 lua require("format")
 
 lua require("lsp/cmp")
-"lua require("lsp/rust")
+lua require("lsp/rust")
 
 " config status line
 lua require("lualine").setup()

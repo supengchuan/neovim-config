@@ -69,8 +69,8 @@ require('lspconfig').gopls.setup {
   on_attach = require("aerial").on_attach
 }
 
-require('lspconfig').rls.setup {
-  capabilities = capabilities,
-  on_attach = require("aerial").on_attach
-}
+--require('lspconfig').rls.setup {
+--  capabilities = capabilities,
+--  on_attach = require("aerial").on_attach
+--}
 

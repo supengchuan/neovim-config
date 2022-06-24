@@ -33,7 +33,7 @@ map('n', '<leader>k', '10k', {silent = true, noremap = true})
 -------------------- for ctrl map start -------------------- 
 
 -- open nerdtree
-map('n', '<C-n>', ':NERDTree<CR>', {noremap=true})
+map('n', '<C-n>', ':NERDTreeToggle<CR>', {noremap=true})
 
 -- use ctrl-hjkl move cursor between windows
 map('n', '<C-h>', '<C-w>h', {noremap=true})

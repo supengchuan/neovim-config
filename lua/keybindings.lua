@@ -24,6 +24,9 @@ map('n', '<leader>nl', ':nohlsearch<CR>', {silent = true, noremap = true})
 map('n', '<leader>j', '10j', {silent = true, noremap = true})
 map('n', '<leader>k', '10k', {silent = true, noremap = true})
 
+-- resize
+map('n', '<leader>=', ':vertical resize +10<CR>', {silent = true, noremap = true})
+map('n', '<leader>-', ':vertical resize -10<CR>', {silent = true, noremap = true})
 
 -------------------- for leader map end -------------------- 
 

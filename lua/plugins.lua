@@ -13,9 +13,10 @@ return require('packer').startup(function()
     }
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
   -- theme
-  use 'sainnhe/sonokai'
-  use { "ellisonleao/gruvbox.nvim" }
-  use 'fatih/molokai'
+  use 'bluz71/vim-nightfly-guicolors'
+  use 'marko-cerovac/material.nvim'
+  use 'tanvirtin/monokai.nvim'
+
   use  'fatih/vim-go'
   use 'darrikonn/vim-gofmt'
   -- nvim-cmp
@@ -54,5 +55,7 @@ return require('packer').startup(function()
       'stevearc/aerial.nvim',
       config = function() require('aerial').setup() end
     }
+
+  use 'voldikss/vim-floaterm'
 end)
 

@@ -1,6 +1,4 @@
 local api=vim.api
--- api.nvim_command [[colorscheme gruvbox]]
-api.nvim_command [[colorscheme sonokai]]
 
 local map = vim.api.nvim_set_keymap
 
@@ -17,7 +15,7 @@ map('n', '<leader>c', ':BufferLinePickClose<CR>', {silent = true, noremap = true
 
 -- write
 map('n', '<leader>w', ':w<CR>', {noremap=true})
-map('n', '<leader>q', ':wq<CR>', {noremap=true})
+map('n', '<leader>q', ':q<CR>', {noremap=true})
 map('n', '<leader>nl', ':nohlsearch<CR>', {silent = true, noremap = true})
 
 -- quick move
@@ -28,6 +26,8 @@ map('n', '<leader>k', '10k', {silent = true, noremap = true})
 map('n', '<leader>=', ':vertical resize +10<CR>', {silent = true, noremap = true})
 map('n', '<leader>-', ':vertical resize -10<CR>', {silent = true, noremap = true})
 
+-- float term
+map('n', '<leader>f', ':FloatermNew<CR>', {silent = true, noremap = true})
 -------------------- for leader map end -------------------- 
 
 

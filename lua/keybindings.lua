@@ -47,7 +47,8 @@ map('n', '<C-l>', '<C-w>l', {noremap=true})
 map('n', '<C-q>', '<cmd>lua vim.lsp.buf.hover()<CR>', {silent = true, noremap = true})
 -- go to definition
 map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', {silent = true, noremap = true})
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {silent = true, noremap = true})
+--map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {silent = true, noremap = true})
+map('n', 'gr', '<cmd>Telescope lsp_references<CR>', {silent = true, noremap = true})
 
 -------------------- for ctrl map end -------------------- 
 

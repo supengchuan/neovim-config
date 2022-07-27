@@ -36,7 +36,8 @@ map('n', '<leader>f', ':FloatermNew<CR>', {silent = true, noremap = true})
 -------------------- for ctrl map start -------------------- 
 
 -- open nerdtree
-map('n', '<C-n>', ':NERDTreeToggle<CR>', {noremap=true})
+--map('n', '<C-n>', ':NERDTreeToggle<CR>', {noremap=true})
+map('n', '<C-n>', ':NvimTreeToggle<CR>', {silent = true, noremap=true})
 
 -- use ctrl-hjkl move cursor between windows
 map('n', '<C-h>', '<C-w>h', {noremap=true})

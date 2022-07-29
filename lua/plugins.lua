@@ -10,14 +10,18 @@ return require('packer').startup(function()
   use 'kyazdani42/nvim-web-devicons'
   use 'kyazdani42/nvim-tree.lua'
   use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
+	  'nvim-treesitter/nvim-treesitter',
+	  run = ':TSUpdate',
+	  requires = {
+		  'kyazdani42/nvim-web-devicons',
+	  },
+  }
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
   -- theme
   use 'bluz71/vim-nightfly-guicolors'
   use 'marko-cerovac/material.nvim'
   use 'tanvirtin/monokai.nvim'
+  use 'Mofiqul/dracula.nvim'
 
   use  'fatih/vim-go'
   use 'darrikonn/vim-gofmt'

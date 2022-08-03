@@ -5,6 +5,7 @@ lua require("format")
 
 lua require("lsp/cmp")
 lua require("lsp/rust")
+lua require("lsp/clangd")
 
 lua require("plugin-config/gitsigns")
 lua require("plugin-config/tree-sitter")

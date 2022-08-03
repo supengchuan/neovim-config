@@ -46,6 +46,7 @@ map('n', '<C-k>', '<C-w>k', {noremap=true})
 map('n', '<C-l>', '<C-w>l', {noremap=true})
 -- show parameter hint
 map('n', '<C-q>', '<cmd>lua vim.lsp.buf.hover()<CR>', {silent = true, noremap = true})
+map('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', {silent = true, noremap = true})
 -- go to definition
 map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', {silent = true, noremap = true})
 --map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {silent = true, noremap = true})

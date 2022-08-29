@@ -31,9 +31,9 @@ vim.wo.colorcolumn="120"
 --theme
 --vim.cmd [[colorscheme nightfly]]
 --vim.g.material_style = "palenight"
--- vim.g.material_style = "deep ocean"
--- vim.cmd 'colorscheme material'
+--vim.g.material_style = "deep ocean"
+--vim.cmd 'colorscheme material'
 
 -- use monokai
 require('monokai').setup{ palette = require('monokai').pro }
---vim.cmd [[colorscheme dracula]]
+-- vim.cmd [[colorscheme dracula]]

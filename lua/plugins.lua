@@ -18,12 +18,9 @@ return require('packer').startup(function()
   }
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
   -- theme
-  use 'bluz71/vim-nightfly-guicolors'
-  use 'marko-cerovac/material.nvim'
   use 'tanvirtin/monokai.nvim'
-  use 'Mofiqul/dracula.nvim'
 
-  use  'fatih/vim-go'
+  --use 'fatih/vim-go'
   use 'darrikonn/vim-gofmt'
   -- nvim-cmp
   use 'hrsh7th/cmp-nvim-lsp'
@@ -57,9 +54,10 @@ return require('packer').startup(function()
 
   -- format
   use "mhartington/formatter.nvim"
+  -- outline 
   use {
       'stevearc/aerial.nvim',
-      config = function() require('aerial').setup() end
+      --config = function() require('aerial').setup() end
     }
 
   use 'voldikss/vim-floaterm'

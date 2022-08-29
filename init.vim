@@ -12,6 +12,7 @@ lua require("plugin-config/tree-sitter")
 lua require("plugin-config/bufferline")
 lua require("plugin-config/lualine-config")
 lua require("plugin-config/nvim-tree")
+lua require("plugin-config/aerial-config")
 
 " vim cmd for auto format when file saved
 augroup FormatAutogroup

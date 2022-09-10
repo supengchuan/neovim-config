@@ -13,11 +13,12 @@ lua require("plugin-config/bufferline")
 lua require("plugin-config/lualine-config")
 lua require("plugin-config/nvim-tree")
 lua require("plugin-config/aerial-config")
+" lua require("plugin-config/ufo-config")
 
 " vim cmd for auto format when file saved
 augroup FormatAutogroup
 autocmd!
-autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.rs,*.lua FormatWrite
+autocmd BufWritePost *.go,*.js,*.jsx,*.ts,*.tsx,*.rs,*.lua FormatWrite
 augroup END
 
 " set create a new file with LR end line
@@ -32,3 +33,4 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 endif
+autocmd vimenter * ++nested colorscheme gruvbox

@@ -19,6 +19,7 @@ return require('packer').startup(function()
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
   -- theme
   use 'tanvirtin/monokai.nvim'
+  use 'morhetz/gruvbox'
 
   --use 'fatih/vim-go'
   use 'darrikonn/vim-gofmt'
@@ -67,6 +68,12 @@ return require('packer').startup(function()
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
+  use 'mhinz/vim-startify'
+
+  -- git graph
+  use 'rbong/vim-flog'
+
+  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
   
 end)
 

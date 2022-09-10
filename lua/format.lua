@@ -10,14 +10,15 @@ require("formatter").setup(
 		    stdin = true
 		  }
 	  end
-    }
+    },
+	go = {
+		function ()
+			return {
+				exe = "goimports",
+				stdin = true,
+			}
+		end
+	}
   }
 })
 
--- -- auto  format  when saved
--- vim.cmd [[
--- augroup FormatAutogroup
--- autocmd!
--- autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.rs,*.lua FormatWrite
--- augroup END
--- ]]

@@ -27,13 +27,13 @@ vim.o.updatetime=300
 
 vim.wo.colorcolumn="120"
 
+-- set code fold using ufo
+--vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+--vim.o.foldlevelstart = 99
+--vim.o.foldenable = true
+--vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+--vim.o.foldcolumn = '1'
+------ Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+--vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+--vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
---theme
---vim.cmd [[colorscheme nightfly]]
---vim.g.material_style = "palenight"
---vim.g.material_style = "deep ocean"
---vim.cmd 'colorscheme material'
-
--- use monokai
-require('monokai').setup{ palette = require('monokai').pro }
--- vim.cmd [[colorscheme dracula]]

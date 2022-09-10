@@ -61,3 +61,9 @@ map('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', {silent = true, noremap
 map('i', 'jj', '<ESC>', {noremap=true})
 map('i', 'kk', '<ESC>', {noremap=true})
 -------------------- insert mode key map start -------------------- 
+
+
+-------------------- some record -------------------- 
+-- zR unfold all function
+-- zc fold code
+-- za unfold code

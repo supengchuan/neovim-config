@@ -6,7 +6,6 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  use 'preservim/nerdtree'
   use 'kyazdani42/nvim-web-devicons'
   use 'kyazdani42/nvim-tree.lua'
   use {
@@ -72,8 +71,5 @@ return require('packer').startup(function()
 
   -- git graph
   use 'rbong/vim-flog'
-
-  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
-  
 end)
 

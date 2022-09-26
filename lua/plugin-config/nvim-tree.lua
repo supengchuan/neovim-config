@@ -1,7 +1,8 @@
 require("nvim-tree").setup({
       sort_by = "case_sensitive",
       view = {
-        adaptive_size = true,
+        adaptive_size = false,
+		width = 30,
         mappings = {
           list = {
             { key = "u", action = "dir_up" },
@@ -9,14 +10,14 @@ require("nvim-tree").setup({
         },
       },
       renderer = {
-        add_trailing = false,
+        add_trailing = true,
         group_empty = false,
         highlight_git = false,
         full_name = false,
         highlight_opened_files = "none",
         root_folder_modifier = ":~",
         indent_markers = {
-          enable = false,
+          enable = true,
           icons = {
             corner = "└",
             edge = "│",

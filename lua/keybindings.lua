@@ -64,6 +64,3 @@ map('i', 'kk', '<ESC>', {noremap=true})
 
 
 -------------------- some record -------------------- 
--- zR unfold all function
--- zc fold code
--- za unfold code

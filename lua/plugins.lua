@@ -71,5 +71,21 @@ return require('packer').startup(function()
 
   -- git graph
   use 'rbong/vim-flog'
+  -- color
+  use 'norcalli/nvim-colorizer.lua'
+
+  --debug
+  use 'mfussenegger/nvim-dap'
+  use 'leoluz/nvim-dap-go'
+  use 'theHamsta/nvim-dap-virtual-text'
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+
+  -- markdown
+  -- install without yarn or npm
+  use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+  })
+
 end)
 

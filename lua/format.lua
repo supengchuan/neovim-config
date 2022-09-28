@@ -39,5 +39,36 @@ require("formatter").setup({
 				}
 			end,
 		},
+		cpp = {
+			function()
+				return {
+					exe = "clang-format",
+					args = {
+						"--style=LLVM",
+					},
+					stdin = true,
+				}
+			end,
+		},
+		c = {
+			function()
+				return {
+					exe = "clang-format",
+					args = {
+						"--style=google",
+					},
+					stdin = true,
+				}
+			end,
+		},
+		json = {
+			function()
+				return {
+					exe = "jq",
+					args = { "." },
+					stdin = true,
+				}
+			end,
+		},
 	},
 })

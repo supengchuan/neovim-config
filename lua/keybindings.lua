@@ -26,8 +26,10 @@ map("n", "<leader>k", "10k", { silent = true, noremap = true })
 map("n", "<leader>=", ":vertical resize +10<CR>", { silent = true, noremap = true })
 map("n", "<leader>-", ":vertical resize -10<CR>", { silent = true, noremap = true })
 
--- float term
-map("n", "<leader>f", ":FloatermNew<CR>", { silent = true, noremap = true })
+-- format
+map("n", "<leader>f", ":Format<CR>", { noremap = true, silent = true })
+map("n", "<leader>t", ":FloatermToggle<CR>", { noremap = true, silent = true })
+map("t", "<leader>t", "<C-\\><C-n>:FloatermToggle<CR>", { noremap = true, silent = true })
 -------------------- for leader map end --------------------
 
 -------------------- for ctrl map start --------------------
@@ -54,7 +56,6 @@ map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { silent = true, norema
 
 -------------------- insert mode key map start --------------------
 map("i", "jj", "<ESC>", { noremap = true })
-map("i", "kk", "<ESC>", { noremap = true })
 -------------------- insert mode key map start --------------------
 
 -------------------- some record --------------------

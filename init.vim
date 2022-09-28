@@ -13,7 +13,7 @@ lua require("plugin-config/bufferline")
 lua require("plugin-config/lualine-config")
 lua require("plugin-config/nvim-tree")
 lua require("plugin-config/aerial-config")
-lua require'colorizer'.setup()
+lua require("colorizer").setup()
 
 "debug
 lua require('dap-config')
@@ -21,7 +21,7 @@ lua require('dap-config')
 " vim cmd for auto format when file saved
 augroup FormatAutogroup
 autocmd!
-autocmd BufWritePost *.go,*.js,*.jsx,*.ts,*.tsx,*.rs,*.lua FormatWrite
+autocmd BufWritePost *.go,*.js,*.ts,*.rs,*.lua FormatWrite
 augroup END
 
 " set create a new file with LR end line
@@ -41,7 +41,7 @@ endif
 colorscheme monokai_pro
 
 " use F12 control floaterm
-let g:floaterm_keymap_toggle = '<F12>'
+" let g:floaterm_keymap_toggle = '<F12>'
 
 " for debug
 nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>
@@ -53,5 +53,4 @@ nnoremap <silent> <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('B
 nnoremap <silent> <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
 nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
-
 

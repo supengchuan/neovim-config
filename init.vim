@@ -14,6 +14,7 @@ lua require("plugin-config/lualine-config")
 lua require("plugin-config/nvim-tree")
 lua require("plugin-config/aerial-config")
 lua require("colorizer").setup()
+lua require("plugin-config/indent")
 
 "debug
 lua require('dap-config')
@@ -54,3 +55,5 @@ nnoremap <silent> <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.
 nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
 nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
 
+" do not show current block under line
+let g:indent_blankline_show_current_context_start = v:false

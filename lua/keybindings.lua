@@ -28,8 +28,9 @@ map("n", "<leader>-", ":vertical resize -10<CR>", { silent = true, noremap = tru
 
 -- format
 map("n", "<leader>f", ":Format<CR>", { noremap = true, silent = true })
+
 map("n", "<leader>t", ":FloatermToggle<CR>", { noremap = true, silent = true })
-map("t", "<leader>t", "<C-\\><C-n>:FloatermToggle<CR>", { noremap = true, silent = true })
+map("t", "<C-t>", "<C-\\><C-n>:FloatermToggle<CR>", { noremap = true, silent = true })
 -------------------- for leader map end --------------------
 
 -------------------- for ctrl map start --------------------

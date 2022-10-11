@@ -11,7 +11,6 @@ require("bufferline").setup({
 			reveal = { "close" },
 		},
 		indicator = {
-			--icon = " ",
 			icon = "  ",
 			style = "icon",
 		},
@@ -27,16 +26,17 @@ require("bufferline").setup({
 				separator = true,
 			},
 		},
-		buffer_close_icon = "",
-		close_icon = "",
+		buffer_close_icon = "",
+		close_icon = "",
 		left_trunc_marker = "",
 		right_trunc_marker = "",
 		separator_style = "thin",
-		show_buffer_close_icon = false,
+		show_buffer_close_icon = true,
 		show_close_icon = false,
-		left_mouse_command = function(bufnum)
-			require("bufdelete").bufdelete(bufnum, true)
-		end,
+		--		middle_mouse_command = function(bufnum)
+		--			require("bufdelete").bufdelete(bufnum, true)
+		--		end,
+		right_mouse_command = "vertical sbuffer %d",
 		diagnostics_indicator = function(count, level, diagnostics_dict, context)
 			local icon = level:match("error") and " " or " "
 			return " " .. icon .. count

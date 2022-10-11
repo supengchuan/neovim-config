@@ -37,6 +37,8 @@ return require("packer").startup(function()
 
 	-- bufferline
 	use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
+	use("famiu/bufdelete.nvim")
+
 	use("jiangmiao/auto-pairs")
 	use("alvan/vim-closetag")
 	use("tpope/vim-unimpaired")

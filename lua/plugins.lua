@@ -3,7 +3,11 @@
 -- Only required if you have packer configured as `opt`
 vim.cmd([[packadd packer.nvim]])
 
-return require("packer").startup(function()
+local packer = require("packer")
+packer.init({
+	max_jobs = 5,
+})
+return packer.startup(function()
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
 	use("kyazdani42/nvim-web-devicons")

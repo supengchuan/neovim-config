@@ -66,7 +66,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protoc
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 require("lspconfig").gopls.setup({
 	capabilities = capabilities,
-	on_attach = require("aerial").on_attach,
+	--on_attach = require("aerial").on_attach,
 })
 
 --require('lspconfig').rls.setup {

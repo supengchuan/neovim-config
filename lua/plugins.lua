@@ -5,7 +5,7 @@ vim.cmd([[packadd packer.nvim]])
 
 local packer = require("packer")
 packer.init({
-	max_jobs = 5,
+	max_jobs = 20,
 })
 return packer.startup(function()
 	-- Packer can manage itself
@@ -80,6 +80,7 @@ return packer.startup(function()
 	use("rbong/vim-flog")
 	-- color
 	use("norcalli/nvim-colorizer.lua")
+	use("Mofiqul/dracula.nvim")
 
 	--debug
 	use("mfussenegger/nvim-dap")

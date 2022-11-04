@@ -39,7 +39,8 @@ if has("autocmd")
 endif
 
 "autocmd vimenter * ++nested colorscheme gruvbox
-colorscheme monokai_pro
+"colorscheme monokai_pro
+colorscheme dracula
 
 " use F12 control floaterm
 " let g:floaterm_keymap_toggle = '<F12>'

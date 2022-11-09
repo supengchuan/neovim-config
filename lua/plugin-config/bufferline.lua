@@ -3,7 +3,7 @@ vim.opt.termguicolors = true
 require("bufferline").setup({
 	options = {
 		mode = "buffers",
-		numbers = "none",
+		numbers = "ordinal",
 		tab_size = 10,
 		hover = {
 			enbaled = true,

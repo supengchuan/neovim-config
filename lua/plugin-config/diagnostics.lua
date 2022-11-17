@@ -1,11 +1,6 @@
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>do",
-	"<cmd>lua vim.diagnostic.open_float()<CR>",
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap("n", "<leader>d[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>d]", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>i", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
+--vim.api.nvim_set_keymap("n", "<leader>d[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = true })
+--vim.api.nvim_set_keymap("n", "<leader>d]", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = true })
 -- The following command requires plug-ins "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim", and optionally "kyazdani42/nvim-web-devicons" for icon support
 vim.api.nvim_set_keymap("n", "<leader>dd", "<cmd>Telescope diagnostics<CR>", { noremap = true, silent = true })
 -- If you don't want to use the telescope plug-in but still want to see all the errors/warnings, comment out the telescope line and uncomment this:
@@ -17,6 +12,7 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+-- no useage
 function PrintDiagnostics(opts, bufnr, line_nr, client_id)
 	bufnr = bufnr or 0
 	line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
@@ -38,8 +34,6 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
 	vim.api.nvim_echo({ { diagnostic_message, "Normal" } }, false, {})
 end
 
---vim.cmd([[ autocmd! CursorHold * lua PrintDiagnostics() ]])
-
 vim.diagnostic.config({
 	virtual_text = {
 		source = "always", -- Or "if_many"
@@ -49,5 +43,6 @@ vim.diagnostic.config({
 	severity_sort = true,
 	float = {
 		source = "always", -- Or "if_many"
+		border = "rounded",
 	},
 })

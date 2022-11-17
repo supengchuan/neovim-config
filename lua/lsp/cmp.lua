@@ -69,6 +69,10 @@ require("lspconfig").gopls.setup({
 	--on_attach = require("aerial").on_attach,
 })
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	border = "rounded",
+})
+
 --require('lspconfig').rls.setup {
 --  capabilities = capabilities,
 --  on_attach = require("aerial").on_attach

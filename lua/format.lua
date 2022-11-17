@@ -50,6 +50,17 @@ require("formatter").setup({
 				}
 			end,
 		},
+		proto = {
+			function()
+				return {
+					exe = "clang-format",
+					args = {
+						"--style=LLVM",
+					},
+					stdin = true,
+				}
+			end,
+		},
 		c = {
 			function()
 				return {

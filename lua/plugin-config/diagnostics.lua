@@ -43,6 +43,6 @@ vim.diagnostic.config({
 	severity_sort = true,
 	float = {
 		source = "always", -- Or "if_many"
-		border = "rounded",
+		border = "double",
 	},
 })

@@ -15,6 +15,7 @@ lua require("plugin-config/nvim-tree")
 lua require("plugin-config/aerial-config")
 lua require("colorizer").setup()
 lua require("plugin-config/indent")
+lua require("plugin-config/diagnostics")
 
 "debug
 lua require('dap-config')

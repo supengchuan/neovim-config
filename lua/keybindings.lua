@@ -53,6 +53,9 @@ map("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", { silent = true, nore
 map("n", "gr", "<cmd>Telescope lsp_references<CR>", { silent = true, noremap = true })
 map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { silent = true, noremap = true })
 
+-- wrap virtual text
+--vim.diagnostic.open_float()
+map("n", "<leader>v", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent = true, noremap = true })
 -------------------- for ctrl map end --------------------
 
 -------------------- insert mode key map start --------------------

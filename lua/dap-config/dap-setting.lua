@@ -3,7 +3,7 @@ local M = {}
 local function config_sign()
 	local dap_breakpoint = {
 		error = {
-			text = "",
+			text = "",
 			texthl = "LspDiagnosticsSignError",
 			linehl = "",
 			numhl = "",

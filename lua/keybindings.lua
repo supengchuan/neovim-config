@@ -60,6 +60,40 @@ map("n", "<leader>v", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent = tru
 
 -------------------- insert mode key map start --------------------
 map("i", "jj", "<ESC>", { noremap = true })
+map("i", "<Tab>", "vsnip#jumpable(1)?'<Plug>(vsnip-jump-next)':'<Tab>'", { expr = true, noremap = true })
+
 -------------------- insert mode key map start --------------------
+
+-- buffuer select
+map("n", "<leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>", { silent = true, noremap = true })
+map("n", "<leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>", { silent = true, noremap = true })
+map("n", "<leader>3", "<Cmd>BufferLineGoToBuffer 3<CR>", { silent = true, noremap = true })
+map("n", "<leader>4", "<Cmd>BufferLineGoToBuffer 4<CR>", { silent = true, noremap = true })
+map("n", "<leader>5", "<Cmd>BufferLineGoToBuffer 5<CR>", { silent = true, noremap = true })
+map("n", "<leader>6", "<Cmd>BufferLineGoToBuffer 6<CR>", { silent = true, noremap = true })
+map("n", "<leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { silent = true, noremap = true })
+map("n", "<leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { silent = true, noremap = true })
+map("n", "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { silent = true, noremap = true })
+
+-- dap
+map("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", { silent = true, noremap = true })
+map("n", "<F10>", "<Cmd>lua require'dap'.step_over()<CR>", { silent = true, noremap = true })
+map("n", "<F11>", "<Cmd>lua require'dap'.step_into()<CR>", { silent = true, noremap = true })
+map("n", "<F12>", "<Cmd>lua require'dap'.step_out()<CR>", { silent = true, noremap = true })
+map("n", "<Leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", { silent = true, noremap = true })
+map(
+	"n",
+	"<Leader>B",
+	"<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+	{ silent = true, noremap = true }
+)
+map(
+	"n",
+	"<Leader>lp",
+	"<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
+	{ silent = true, noremap = true }
+)
+map("n", "<Leader>dr", "<Cmd>lua require'dap'.repl.open()<CR>", { silent = true, noremap = true })
+map("n", "<Leader>dl", "<Cmd>lua require'dap'.run_last()<CR>", { silent = true, noremap = true })
 
 -------------------- some record --------------------

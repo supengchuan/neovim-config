@@ -1,4 +1,10 @@
-require("lualine").setup({
+local status, lualine = pcall(require, "lualine")
+if not status then
+	vim.notify("没有找到 lualine")
+	return
+end
+
+lualine.setup({
 	options = {
 		icons_enabled = true,
 		theme = "auto",
@@ -51,5 +57,5 @@ require("lualine").setup({
 	tabline = {},
 	winbar = {},
 	inactive_winbar = {},
-	extensions = { "nvim-tree", "aerial", "nvim-dap-ui" },
+	extensions = { "man","nvim-tree", "aerial", "nvim-dap-ui" },
 })

@@ -74,6 +74,15 @@ return packer.startup(function()
 		tag = "0.1.0",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
+	-- improve telescope performance
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	-- look environment variables with telescope
+	use({ "LinArcX/telescope-env.nvim" })
+	-- Project need
+	use({ "nvim-telescope/telescope-project.nvim" })
+	-- telesocpe-dap
+	use("nvim-telescope/telescope-dap.nvim")
+
 	use("mhinz/vim-startify")
 
 	-- git graph
@@ -109,4 +118,9 @@ return packer.startup(function()
 	})
 	--
 	use("lukas-reineke/indent-blankline.nvim")
+	-- TODO Comments
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+	})
 end)

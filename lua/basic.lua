@@ -5,8 +5,6 @@ vim.wo.wrap = false
 -- utf8
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
--- use space as the leader key
-vim.g.mapleader = " "
 
 vim.o.hidden = true
 
@@ -18,7 +16,7 @@ vim.o.number = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.smartcase = true
-vim.o.scrolloff = 25
+vim.o.scrolloff = 10
 vim.o.cursorline = true
 vim.o.incsearch = true
 vim.o.termguicolors = true
@@ -29,7 +27,7 @@ vim.o.clipboard = "unnamedplus"
 vim.o.updatetime = 300
 
 vim.wo.colorcolumn = "120"
-vim.o.fileformats="unix,dos"
+vim.o.fileformats = "unix"
 
 -- 自动补全不自动选中
 vim.g.completeopt = "menu,menuone,noselect,noinsert"

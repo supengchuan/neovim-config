@@ -1,3 +1,4 @@
-require("lsp-config.cmp")
+require("lsp-config.setup")
+
+-- rust can not using common config
 require("lsp-config.rust")
-require("lsp-config.clangd")

@@ -1,99 +1,119 @@
-local api = vim.api
+-- Modes
+--   normal_mode = "n",
+--   insert_mode = "i",
+--   visual_mode = "v",
+--   visual_block_mode = "x",
+--   term_mode = "t",
+--   command_mode = "c",
+
+local keybindingAlias = require("keybindingAlias")
+-- silent = true 结果不会在command栏显示 为false会在command栏显示
+local opt = { noremap = true, silent = true }
+
+-- leader key "<space>"
+vim.g.mapleader = keybindingAlias.norl.leader_key
+--vim.g.maplocalleader = keybindingAlias.norl.leader_key
 
 local map = vim.api.nvim_set_keymap
 
--------------------- for leader map start --------------------
+-- 取消insert模式下 f1键的默认功能
+map("i", "<F1>", "", opt)
 
--- open outline
-map("n", "<leader>o", ":AerialToggle<CR>", { silent = true, noremap = true })
+-- insert模式下键盘映射
+local inser = keybindingAlias.insert
+map("i", inser.goto_command_mode, "<Esc>:", { noremap = true, silent = false })
 
--- buffuer line
-map("n", "<leader>h", ":BufferLineCyclePrev<CR>", { silent = true, noremap = true })
-map("n", "<leader>l", ":BufferLineCycleNext<CR>", { silent = true, noremap = true })
-map("n", "<leader>p", ":BufferLinePick<CR>", { silent = true, noremap = true })
-map("n", "<leader>c", ":BufferLinePickClose<CR>", { silent = true, noremap = true })
+--  bufferline.nvim
+local bufferline = keybindingAlias.bufferline
+map("n", bufferline.BufferLineCyclePrev, ":BufferLineCyclePrev<CR>", opt)
+map("n", bufferline.BufferLineCycleNext, ":BufferLineCycleNext<CR>", opt)
+map("n", bufferline.BufferLinePick, ":BufferLinePick<CR>", opt)
+map("n", bufferline.BufferLinePickClose, ":BufferLinePickClose<CR>", opt)
+-- buffuer select
+map("n", bufferline.ToBuffer1, "<Cmd>BufferLineGoToBuffer 1<CR>", opt)
+map("n", bufferline.ToBuffer2, "<Cmd>BufferLineGoToBuffer 2<CR>", opt)
+map("n", bufferline.ToBuffer3, "<Cmd>BufferLineGoToBuffer 3<CR>", opt)
+map("n", bufferline.ToBuffer4, "<Cmd>BufferLineGoToBuffer 4<CR>", opt)
+map("n", bufferline.ToBuffer5, "<Cmd>BufferLineGoToBuffer 5<CR>", opt)
+map("n", bufferline.ToBuffer6, "<Cmd>BufferLineGoToBuffer 6<CR>", opt)
+map("n", bufferline.ToBuffer7, "<Cmd>BufferLineGoToBuffer 7<CR>", opt)
+
+-- 取消normal模式下 H L键默认功能
+map("n", "<F1>", "", opt)
+map("n", "H", "", opt)
+map("n", "L", "", opt)
+--
+local norl = keybindingAlias.norl
+map("n", norl.goto_command_mode, ":", { noremap = true, silent = false })
+
+map("n", norl.go_left35, "35h", opt)
+map("n", norl.go_right35, "35l", opt)
+-- quick move
+map("n", norl.go_up_10line, "10j", opt)
+map("n", norl.go_down_10line, "10k", opt)
 
 -- write
-map("n", "<leader>w", ":w<CR>", { noremap = true })
-map("n", "<leader>q", ":q<CR>", { noremap = true })
-map("n", "<leader>nl", ":nohlsearch<CR>", { silent = true, noremap = true })
+-- save and exit
+map("n", norl.save_window, "<cmd>w<CR>", opt)
+map("n", norl.quit_window, "<cmd>q<CR>", opt)
+map("n", "<leader>nl", "<cmd>nohlsearch<CR>", opt)
 
--- quick move
-map("n", "<leader>j", "10j", { silent = true, noremap = true })
-map("n", "<leader>k", "10k", { silent = true, noremap = true })
+-- open outline
+map("n", "<leader>o", ":AerialToggle<CR>", opt)
 
 -- resize
-map("n", "<leader>=", ":vertical resize +10<CR>", { silent = true, noremap = true })
-map("n", "<leader>-", ":vertical resize -10<CR>", { silent = true, noremap = true })
-
+map("n", "<leader>=", "<cmd>vertical resize +10<CR>", opt)
+map("n", "<leader>-", "<cmd>vertical resize -10<CR>", opt)
 -- format
-map("n", "<leader>f", ":Format<CR>", { noremap = true, silent = true })
+map("n", "<leader>f", "<cmd>Format<CR>", opt)
 
-map("n", "<leader>t", ":FloatermToggle<CR>", { noremap = true, silent = true })
-map("t", "<C-t>", "<C-\\><C-n>:FloatermToggle<CR>", { noremap = true, silent = true })
--------------------- for leader map end --------------------
+-- nvim-tree
+map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", opt)
 
--------------------- for ctrl map start --------------------
-
--- open nerdtree
---map('n', '<C-n>', ':NERDTreeToggle<CR>', {noremap=true})
-map("n", "<C-n>", ":NvimTreeToggle<CR>", { silent = true, noremap = true })
-
+-- 窗口之间跳转
 -- use ctrl-hjkl move cursor between windows
-map("n", "<C-h>", "<C-w>h", { noremap = true })
-map("n", "<C-j>", "<C-w>j", { noremap = true })
-map("n", "<C-k>", "<C-w>k", { noremap = true })
-map("n", "<C-l>", "<C-w>l", { noremap = true })
+map("n", "<C-h>", "<C-w>h", opt)
+map("n", "<C-j>", "<C-w>j", opt)
+map("n", "<C-k>", "<C-w>k", opt)
+map("n", "<C-l>", "<C-w>l", opt)
+
+local pluginKeys = {}
+-- toggleterm
+-- <leader>t 浮动
+-- <C-t> close
+local toggletermm = keybindingAlias.toggerterm
+pluginKeys.mapToggleTerm = function(toggleterm)
+	vim.keymap.set("n", toggletermm.open_float, toggleterm.toggle)
+	vim.keymap.set("t", toggletermm.hide, toggleterm.toggle)
+end
+
+map("n", "<leader>i", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
+map("n", "<leader>d[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
+map("n", "<leader>d]", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
+map("n", "<leader>dd", "<cmd>Telescope diagnostics<CR>", opt)
+map("n", "<C-q>", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 -- show parameter hint
-map("n", "<C-q>", "<cmd>lua vim.lsp.buf.hover()<CR>", { silent = true, noremap = true })
-map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { silent = true, noremap = true })
+map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 -- go to definition
-map("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", { silent = true, noremap = true })
---map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', {silent = true, noremap = true})
-map("n", "gr", "<cmd>Telescope lsp_references<CR>", { silent = true, noremap = true })
-map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { silent = true, noremap = true })
+map("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
+map("n", "gr", "<cmd>Telescope lsp_references<CR>", opt)
+map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opt)
 
--- wrap virtual text
---vim.diagnostic.open_float()
-map("n", "<leader>v", "<cmd>lua vim.diagnostic.open_float()<CR>", { silent = true, noremap = true })
--------------------- for ctrl map end --------------------
-
--------------------- insert mode key map start --------------------
+-- double j to normal mode
 map("i", "jj", "<ESC>", { noremap = true })
-map("i", "<Tab>", "vsnip#jumpable(1)?'<Plug>(vsnip-jump-next)':'<Tab>'", { expr = true, noremap = true })
-
--------------------- insert mode key map start --------------------
-
--- buffuer select
-map("n", "<leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>", { silent = true, noremap = true })
-map("n", "<leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>", { silent = true, noremap = true })
-map("n", "<leader>3", "<Cmd>BufferLineGoToBuffer 3<CR>", { silent = true, noremap = true })
-map("n", "<leader>4", "<Cmd>BufferLineGoToBuffer 4<CR>", { silent = true, noremap = true })
-map("n", "<leader>5", "<Cmd>BufferLineGoToBuffer 5<CR>", { silent = true, noremap = true })
-map("n", "<leader>6", "<Cmd>BufferLineGoToBuffer 6<CR>", { silent = true, noremap = true })
-map("n", "<leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { silent = true, noremap = true })
-map("n", "<leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { silent = true, noremap = true })
-map("n", "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { silent = true, noremap = true })
+map("i", "<Tab>", "vsnip#jumpable(1)?'<Plug>(vsnip-jump-next)':'<Tab>'", opt)
 
 -- dap
-map("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", { silent = true, noremap = true })
-map("n", "<F10>", "<Cmd>lua require'dap'.step_over()<CR>", { silent = true, noremap = true })
-map("n", "<F11>", "<Cmd>lua require'dap'.step_into()<CR>", { silent = true, noremap = true })
-map("n", "<F12>", "<Cmd>lua require'dap'.step_out()<CR>", { silent = true, noremap = true })
-map("n", "<Leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", { silent = true, noremap = true })
-map(
-	"n",
-	"<Leader>B",
-	"<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-	{ silent = true, noremap = true }
-)
-map(
-	"n",
-	"<Leader>lp",
-	"<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
-	{ silent = true, noremap = true }
-)
-map("n", "<Leader>dr", "<Cmd>lua require'dap'.repl.open()<CR>", { silent = true, noremap = true })
-map("n", "<Leader>dl", "<Cmd>lua require'dap'.run_last()<CR>", { silent = true, noremap = true })
+map("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", opt)
+map("n", "<F10>", "<Cmd>lua require'dap'.step_over()<CR>", opt)
+map("n", "<F11>", "<Cmd>lua require'dap'.step_into()<CR>", opt)
+map("n", "<F12>", "<Cmd>lua require'dap'.step_out()<CR>", opt)
+map("n", "<Leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", opt)
+map("n", "<Leader>B", "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opt)
+map("n", "<Leader>lp", "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", opt)
+
+map("n", "<Leader>dr", "<Cmd>lua require'dap'.repl.open()<CR>", opt)
+map("n", "<Leader>dl", "<Cmd>lua require'dap'.run_last()<CR>", opt)
 
 -------------------- some record --------------------
+return pluginKeys

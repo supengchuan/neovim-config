@@ -31,7 +31,8 @@ autocmd({ "InsertLeave", "TextChanged" }, {
 autocmd("BufWritePre", {
 	group = myAutoGroup,
 	pattern = { "*.lua", "*.py", "*.sh", "*.go", "*.rs" },
-	callback = vim.lsp.buf.formatting_sync,
+	--	callback = vim.lsp.buf.formatting_sync,
+	command = "Format",
 })
 
 -- Highlight on yank

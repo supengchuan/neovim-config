@@ -33,12 +33,12 @@ return packer.startup(function()
 	use("hrsh7th/cmp-cmdline")
 	use("hrsh7th/nvim-cmp")
 	-- vsnip
-	use("hrsh7th/cmp-vsnip") -- { name = 'vsnip' }
-	use("hrsh7th/vim-vsnip")
 	use("rafamadriz/friendly-snippets")
 	-- lspkind
 	use("onsails/lspkind-nvim")
 
+	use("L3MON4D3/LuaSnip")
+	use("saadparwaiz1/cmp_luasnip")
 	-- bufferline
 	use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
 	use("famiu/bufdelete.nvim")
@@ -66,8 +66,13 @@ return packer.startup(function()
 		--config = function() require('aerial').setup() end
 	})
 
-	use("voldikss/vim-floaterm")
-
+	use({
+		"akinsho/toggleterm.nvim",
+		tag = "*",
+		config = function()
+			require("toggleterm").setup()
+		end,
+	})
 	use("nvim-lua/plenary.nvim")
 	use({
 		"nvim-telescope/telescope.nvim",

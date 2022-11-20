@@ -3,6 +3,8 @@ require("plugins")
 require("keybindings")
 require("format")
 
+--cmp
+require("cmp-config")
 --lsp
 require("lsp-config")
 
@@ -17,10 +19,3 @@ require("autocmd")
 
 -- colorscheme
 require("colorscheme")
-
---vim.cmd([[
---	augroup FormatAutogroup
---		autocmd!
---		autocmd BufWritePost *.go,*.js,*.ts,*.rs,*.lua FormatWrite
---	augroup END
---]])

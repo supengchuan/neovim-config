@@ -29,7 +29,7 @@ map("n", bufferline.BufferLineCyclePrev, ":BufferLineCyclePrev<CR>", opt)
 map("n", bufferline.BufferLineCycleNext, ":BufferLineCycleNext<CR>", opt)
 map("n", bufferline.BufferLinePick, ":BufferLinePick<CR>", opt)
 map("n", bufferline.BufferLinePickClose, ":BufferLinePickClose<CR>", opt)
--- buffuer select
+-- buffer select
 map("n", bufferline.ToBuffer1, "<Cmd>BufferLineGoToBuffer 1<CR>", opt)
 map("n", bufferline.ToBuffer2, "<Cmd>BufferLineGoToBuffer 2<CR>", opt)
 map("n", bufferline.ToBuffer3, "<Cmd>BufferLineGoToBuffer 3<CR>", opt)
@@ -103,6 +103,9 @@ map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opt)
 map("i", "jj", "<ESC>", { noremap = true })
 -- no use
 --map("i", "<Tab>", "vsnip#jumpable(1)?'<Plug>(vsnip-jump-next)':'<Tab>'", opt)
+
+-- telescope
+map("n", "<leader>e", "<cmd>Telescope buffers<CR>", opt)
 
 -- dap
 map("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", opt)

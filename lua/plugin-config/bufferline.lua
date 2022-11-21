@@ -13,7 +13,7 @@ bufferline.setup({
 			end)
 		end,
 		mode = "buffers",
-		numbers = "ordinal",
+		numbers = "none",
 		tab_size = 10,
 		hover = {
 			enbaled = true,
@@ -56,14 +56,14 @@ bufferline.setup({
 				text_align = "right",
 			},
 		},
---		offsets = {
---			{
---				filetype = "NvimTree",
---				text = "File Explorer",
---				highlight = "Directory",
---				separator = true,
---			},
---		},
+		--		offsets = {
+		--			{
+		--				filetype = "NvimTree",
+		--				text = "File Explorer",
+		--				highlight = "Directory",
+		--				separator = true,
+		--			},
+		--		},
 		buffer_close_icon = "",
 		close_icon = "",
 		left_trunc_marker = "",

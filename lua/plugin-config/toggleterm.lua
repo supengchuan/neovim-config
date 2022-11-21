@@ -1,7 +1,17 @@
+local on_windows = vim.loop.os_uname().version:match("Windows")
 local st_floattus, toggleterm = pcall(require, "toggleterm")
 if not st_floattus then
 	vim.notify("没有找到 toggleterm")
 	return
+elseif on_windows then
+	-- use pwsh on windows
+	vim.opt.shell = vim.fn.executable("pwsh") and "pwsh" or "powershell"
+	vim.opt.shellcmdflag =
+		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+	vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+	vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+	vim.opt.shellquote = ""
+	vim.opt.shellxquote = ""
 end
 
 toggleterm.setup({

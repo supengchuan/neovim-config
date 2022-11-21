@@ -1,5 +1,4 @@
 -- Setup lspconfig.
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local lspconfig
 status, lspconfig = pcall(require, "lspconfig")
@@ -9,7 +8,6 @@ if not status then
 end
 
 local servers = {
-	sumneko_lua = require("lsp-config.servers.lua"), --/lua/lsp-config/servers/
 	clangd = require("lsp-config.servers.clangd"),
 	gopls = require("lsp-config.servers.gopls"),
 }

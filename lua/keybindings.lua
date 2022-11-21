@@ -6,64 +6,42 @@
 --   term_mode = "t",
 --   command_mode = "c",
 
-local keybindingAlias = require("keybindingAlias")
 -- silent = true 结果不会在command栏显示 为false会在command栏显示
 local opt = { noremap = true, silent = true }
 
 -- leader key "<space>"
-vim.g.mapleader = keybindingAlias.norl.leader_key
---vim.g.maplocalleader = keybindingAlias.norl.leader_key
+vim.g.mapleader = " "
 
 local map = vim.api.nvim_set_keymap
 
--- 取消insert模式下 f1键的默认功能
-map("i", "<F1>", "", opt)
-
--- insert模式下键盘映射
-local inser = keybindingAlias.insert
-map("i", inser.goto_command_mode, "<Esc>:", { noremap = true, silent = false })
-
 --  bufferline.nvim
-local bufferline = keybindingAlias.bufferline
-map("n", bufferline.BufferLineCyclePrev, ":BufferLineCyclePrev<CR>", opt)
-map("n", bufferline.BufferLineCycleNext, ":BufferLineCycleNext<CR>", opt)
-map("n", bufferline.BufferLinePick, ":BufferLinePick<CR>", opt)
-map("n", bufferline.BufferLinePickClose, ":BufferLinePickClose<CR>", opt)
--- buffer select
-map("n", bufferline.ToBuffer1, "<Cmd>BufferLineGoToBuffer 1<CR>", opt)
-map("n", bufferline.ToBuffer2, "<Cmd>BufferLineGoToBuffer 2<CR>", opt)
-map("n", bufferline.ToBuffer3, "<Cmd>BufferLineGoToBuffer 3<CR>", opt)
-map("n", bufferline.ToBuffer4, "<Cmd>BufferLineGoToBuffer 4<CR>", opt)
-map("n", bufferline.ToBuffer5, "<Cmd>BufferLineGoToBuffer 5<CR>", opt)
-map("n", bufferline.ToBuffer6, "<Cmd>BufferLineGoToBuffer 6<CR>", opt)
-map("n", bufferline.ToBuffer7, "<Cmd>BufferLineGoToBuffer 7<CR>", opt)
+map("n", "<leader>h", "<cmd>BufferLineCyclePrev<CR>", opt)
+map("n", "<leader>l", "<cmd>BufferLineCycleNext<CR>", opt)
+map("n", "<leader>p", "<cmd>BufferLinePick<CR>", opt)
+map("n", "<leader>c", "<cmd>BufferLinePickClose<CR>", opt)
 
--- 取消normal模式下 H L键默认功能
-map("n", "<F1>", "", opt)
-map("n", "H", "", opt)
-map("n", "L", "", opt)
---
-local norl = keybindingAlias.norl
-map("n", norl.goto_command_mode, ":", { noremap = true, silent = false })
-
-map("n", norl.go_left35, "35h", opt)
-map("n", norl.go_right35, "35l", opt)
 -- quick move
-map("n", norl.go_up_10line, "10j", opt)
-map("n", norl.go_down_10line, "10k", opt)
+-- 取消 HL原本的映射, 作为快速移动的映射
+map("n", "H", "", opt)
+map("n", "H", "35h", opt)
+map("n", "L", "", opt)
+map("n", "L", "35l", opt)
+map("n", "<leader>j", "10j", opt)
+map("n", "<leader>k", "10k", opt)
 
 -- write
 -- save and exit
-map("n", norl.save_window, "<cmd>w<CR>", opt)
-map("n", norl.quit_window, "<cmd>q<CR>", opt)
+map("n", "<leader>w", "<cmd>w<CR>", opt)
+map("n", "<leader>q", "<cmd>q<CR>", opt)
 map("n", "<leader>nl", "<cmd>nohlsearch<CR>", opt)
 
 -- open outline
-map("n", "<leader>o", ":AerialToggle<CR>", opt)
+map("n", "<leader>o", "<cmd>AerialToggle<CR>", opt)
 
 -- resize
 map("n", "<leader>=", "<cmd>vertical resize +10<CR>", opt)
 map("n", "<leader>-", "<cmd>vertical resize -10<CR>", opt)
+
 -- format
 map("n", "<leader>f", "<cmd>Format<CR>", opt)
 
@@ -77,27 +55,20 @@ map("n", "<C-j>", "<C-w>j", opt)
 map("n", "<C-k>", "<C-w>k", opt)
 map("n", "<C-l>", "<C-w>l", opt)
 
-local pluginKeys = {}
--- toggleterm
--- <leader>t 浮动
--- <C-t> close
-local toggletermm = keybindingAlias.toggerterm
-pluginKeys.mapToggleTerm = function(toggleterm)
-	vim.keymap.set("n", toggletermm.open_float, toggleterm.toggle)
-	vim.keymap.set("t", toggletermm.hide, toggleterm.toggle)
-end
-
+-- diagnostic
 map("n", "<leader>i", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
 map("n", "<leader>d[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
 map("n", "<leader>d]", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
 map("n", "<leader>dd", "<cmd>Telescope diagnostics<CR>", opt)
 map("n", "<C-q>", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
+
 -- show parameter hint
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
 -- go to definition
 map("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 map("n", "gr", "<cmd>Telescope lsp_references<CR>", opt)
 map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opt)
+map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
 
 -- double j to normal mode
 map("i", "jj", "<ESC>", { noremap = true })
@@ -119,5 +90,17 @@ map("n", "<Leader>lp", "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.in
 map("n", "<Leader>dr", "<Cmd>lua require'dap'.repl.open()<CR>", opt)
 map("n", "<Leader>dl", "<Cmd>lua require'dap'.run_last()<CR>", opt)
 
+map("n", "<leader>gr", "<cmd>Gitsigns resert_hunk<CR>", opt)
+map("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", opt)
+
 -------------------- some record --------------------
+
+local pluginKeys = {}
+-- toggleterm
+-- <leader>t 浮动
+-- <C-t> close
+pluginKeys.mapToggleTerm = function(toggleterm)
+	vim.keymap.set("n", "<leader>t", toggleterm.toggle)
+	vim.keymap.set("t", "<C-t>", toggleterm.toggle)
+end
 return pluginKeys

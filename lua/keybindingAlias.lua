@@ -46,10 +46,7 @@ local M = {
 		ToBuffer6 = "<leader>6",
 		ToBuffer7 = "<leader>7",
 	},
-	telescope = {
-		find_files = "<C-f>",
-		find_files_insertmode = "<C-f>",
-	},
+
 	dap = {
 		debugg = "<F5>",
 		debugg_step_over = "<F6>",
@@ -59,19 +56,6 @@ local M = {
 		-- dapUI
 		eval_expression = "<space>h",
 		eval_expression_visual = "<Leader><Leader>",
-	},
-	cmp = {
-		cmp_next = "<Tab>",
-		cmp_pre = "<S-Tab>",
-		cmp_confirm = "<CR>",
-		cmp_scroll_doc_up = "<C-u>",
-		cmp_scroll_doc_down = "<C-d>",
-		cmp_select_prev_item = "<C-k>",
-		cmp_select_next_item = "<C-j>",
-		cmp_trigge = "<C-Space>",
-		cmp_abort = "<Space>e",
-
-		-- luasnip
 	},
 	toggerterm = {
 		open_float = "<leader>t",

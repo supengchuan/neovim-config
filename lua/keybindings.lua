@@ -101,7 +101,8 @@ map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opt)
 
 -- double j to normal mode
 map("i", "jj", "<ESC>", { noremap = true })
-map("i", "<Tab>", "vsnip#jumpable(1)?'<Plug>(vsnip-jump-next)':'<Tab>'", opt)
+-- no use
+--map("i", "<Tab>", "vsnip#jumpable(1)?'<Plug>(vsnip-jump-next)':'<Tab>'", opt)
 
 -- dap
 map("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", opt)

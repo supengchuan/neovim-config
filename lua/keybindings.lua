@@ -92,7 +92,7 @@ map("n", "<Leader>dl", "<Cmd>lua require'dap'.run_last()<CR>", opt)
 
 map("n", "<leader>gr", "<cmd>Gitsigns resert_hunk<CR>", opt)
 map("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", opt)
-
+map("n", "<leader>gb", "<cmd>Gitsigns blame_line<CR>", opt)
 -------------------- some record --------------------
 
 local pluginKeys = {}

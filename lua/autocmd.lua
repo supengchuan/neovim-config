@@ -55,7 +55,8 @@ autocmd("BufEnter", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("BufReadPost", {
+-- reopen file in the same position
+autocmd("BufReadPost", {
 	callback = function()
 		local row, col = unpack(vim.api.nvim_buf_get_mark(0, '"'))
 		if { row, col } ~= { 0, 0 } then
@@ -63,4 +64,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		end
 	end,
 	group = myAutoGroup,
+})
+
+-- wrap file according filetype
+autocmd("BufEnter", {
+	pattern = { "*.md" },
+	group = myAutoGroup,
+	command = "setlocal wrap",
 })

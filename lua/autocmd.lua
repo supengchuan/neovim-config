@@ -1,6 +1,11 @@
 local myAutoGroup = vim.api.nvim_create_augroup("myAutoGroup", {
 	clear = true,
 })
+
+local fileWrapGroup = vim.api.nvim_create_augroup("fileWrapGroup", {
+	clear = true,
+})
+
 local autocmd = vim.api.nvim_create_autocmd
 
 -- nvim-tree 自动关闭
@@ -55,7 +60,7 @@ autocmd("BufEnter", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("BufReadPost", {
+autocmd("BufReadPost", {
 	callback = function()
 		local row, col = unpack(vim.api.nvim_buf_get_mark(0, '"'))
 		if { row, col } ~= { 0, 0 } then
@@ -63,4 +68,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		end
 	end,
 	group = myAutoGroup,
+})
+
+autocmd("BufEnter", {
+	pattern = { "*.md" },
+	group = fileWrapGroup,
+	command = "setlocal wrap",
 })

@@ -46,7 +46,15 @@ return packer.startup(function()
 	use("jiangmiao/auto-pairs")
 	use("alvan/vim-closetag")
 	use("tpope/vim-unimpaired")
-	use("tpope/vim-surround")
+	use({
+		"kylechui/nvim-surround",
+		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end,
+	})
 
 	use({
 		"nvim-lualine/lualine.nvim",

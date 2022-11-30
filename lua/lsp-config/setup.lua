@@ -10,6 +10,7 @@ end
 local servers = {
 	clangd = require("lsp-config.servers.clangd"),
 	gopls = require("lsp-config.servers.gopls"),
+	sumneko_lua = require("lsp-config.servers.lua"),
 }
 
 for name, config in pairs(servers) do

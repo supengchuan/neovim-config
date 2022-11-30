@@ -12,6 +12,15 @@ require("formatter").setup({
 				}
 			end,
 		},
+		sql = {
+			function()
+				return {
+					exe = "sql-formatter",
+					args = { "-l mysql" },
+					stdin = true,
+				}
+			end,
+		},
 		go = {
 			function()
 				return {

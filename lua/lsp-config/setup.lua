@@ -13,6 +13,7 @@ local servers = {
 	sumneko_lua = require("lsp-config.servers.lua"),
 	pyright = require("lsp-config.servers.pyright"),
 	sqls = require("lsp-config.servers.sqls"),
+	bashls = require("lsp-config.servers.bashls"),
 }
 
 for name, config in pairs(servers) do

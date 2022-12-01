@@ -14,6 +14,7 @@ local servers = {
 	pyright = require("lsp-config.servers.pyright"),
 	sqls = require("lsp-config.servers.sqls"),
 	bashls = require("lsp-config.servers.bashls"),
+	bufls = require("lsp-config.servers.bufls"),
 }
 
 for name, config in pairs(servers) do

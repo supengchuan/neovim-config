@@ -12,6 +12,7 @@ bufferline.setup({
 				return buf_a.id < buf_b.id
 			end)
 		end,
+		show_buffer_icons = false,
 		mode = "buffers",
 		numbers = "none",
 		tab_size = 10,
@@ -75,9 +76,5 @@ bufferline.setup({
 		--			require("bufdelete").bufdelete(bufnum, true)
 		--		end,
 		right_mouse_command = "vertical sbuffer %d",
-		diagnostics_indicator = function(count, level, diagnostics_dict, context)
-			local icon = level:match("error") and " " or " "
-			return " " .. icon .. count
-		end,
 	},
 })

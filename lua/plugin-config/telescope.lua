@@ -17,6 +17,12 @@ telescope.setup({
 			},
 		},
 	},
+	pickers = {
+		buffers = {
+			ignore_current_buffer = true,
+			sort_lastused = true,
+		},
+	},
 	extensions = {
 		fzf = {
 			fuzzy = true, -- false will only do exact matching

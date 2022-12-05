@@ -2,7 +2,7 @@ local function clangd_formater()
 	return {
 		exe = "clang-format",
 		args = {
-			"--style=LLVM",
+			"--style=GNU",
 		},
 		stdin = true,
 	}
@@ -12,7 +12,7 @@ require("formatter").setup({
 	logging = false,
 	filetype = {
 		markdown = {
-			require("formatter.filetypes.markdown").prettierd,
+			require("formatter.filetypes.markdown").prettier,
 		},
 		["*"] = {
 			require("formatter.filetypes.any").remove_trailing_whitespace,

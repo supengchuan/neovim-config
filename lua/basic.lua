@@ -19,8 +19,7 @@ vim.o.smartcase = true
 vim.o.scrolloff = 10
 vim.o.cursorline = true
 vim.o.incsearch = true
-vim.o.termguicolors = true
-vim.o.spelllang = en
+vim.o.spelllang = "en"
 vim.o.clipboard = "unnamedplus"
 -- Set updatetime for CursorHold
 -- 300ms of no cursor movement to trigger CursorHold

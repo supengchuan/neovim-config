@@ -1,8 +1,5 @@
-local capabilities = require("lsp-config.common").capabilities
-capabilities.offsetEncoding = { "utf-16" }
 local opts = {
-	filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-	capabilities = capabilities,
+	capabilities = require("lsp-config.common").capabilities,
 	on_attach = function(client, bufnr)
 		local lspComm = require("lsp-config.common")
 		lspComm.keyAttach(bufnr)

@@ -6,14 +6,21 @@ end
 
 telescope.setup({
 	defaults = {
-		prompt_prefix = "🔍",
+		--prompt_prefix = "",
 		-- 打开弹窗后进入的初始模式，默认为 normal，也可以是 insert
 		initial_mode = "normal",
 
 		mappings = {
 			n = {
 				["q"] = "close",
+				["<c-d>"] = require("telescope.actions").delete_buffer,
 			},
+		},
+	},
+	pickers = {
+		buffers = {
+			ignore_current_buffer = false,
+			sort_lastused = true,
 		},
 	},
 	extensions = {

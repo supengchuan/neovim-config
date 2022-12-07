@@ -3,13 +3,10 @@ if not status then
 	vim.notify("没有找到 cmp")
 	return
 end
-if not status then
-	vim.notify("没有找到 luasnip")
-	return
-end
 
-local luasnip_status, luasnip = pcall(require, "luasnip")
-if not luasnip_status then
+local luasnip
+status, luasnip = pcall(require, "luasnip")
+if not status then
 	vim.notify("没有找到 luasnip")
 	return
 end
@@ -120,12 +117,11 @@ cmp.setup({
 		--	["<C-f>"] = cmp.mapping.scroll_docs(4),
 		--	["<C-Space>"] = cmp.mapping.complete(),
 		--	["<C-e>"] = cmp.mapping.abort(),
-		--	["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 	}),
 
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp", group_index = 1 },
-		--{ name = "vsnip" },
 		{ name = "luasnip", group_index = 1 }, -- For luasnip users.
 		{ name = "nvim_lsp_signature_help", group_index = 1 },
 		{

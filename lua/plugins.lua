@@ -39,7 +39,7 @@ return packer.startup({
 		use("onsails/lspkind-nvim")
 
 		use({ "L3MON4D3/LuaSnip" })
-		use({ "saadparwaiz1/cmp_luasnip", run = "make install_jsregexp" })
+		use({ "saadparwaiz1/cmp_luasnip" })
 
 		-- bufferline
 		use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })

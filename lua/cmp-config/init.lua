@@ -4,26 +4,26 @@ if not status then
 	return
 end
 
-local ls
-status, ls = pcall(require, "luasnip")
-if not status then
-	vim.notify("没有找到 luasnip")
-	return
-end
+--local ls
+--status, ls = pcall(require, "luasnip")
+--if not status then
+--	vim.notify("没有找到 luasnip")
+--	return
+--end
 
 require("cmp-config.luasnip")
 
-local unlinkgrp = vim.api.nvim_create_augroup("UnlinkSnippetOnModeChange", { clear = true })
-vim.api.nvim_create_autocmd("ModeChanged", {
-	group = unlinkgrp,
-	pattern = { "s:n", "i:*" },
-	desc = "Forget the current snippet when leaving the insert mode",
-	callback = function(evt)
-		if ls.session and ls.session.current_nodes[evt.buf] and not ls.session.jump_active then
-			ls.unlink_current()
-		end
-	end,
-})
+--local unlinkgrp = vim.api.nvim_create_augroup("UnlinkSnippetOnModeChange", { clear = true })
+--vim.api.nvim_create_autocmd("ModeChanged", {
+--	group = unlinkgrp,
+--	pattern = { "s:n", "i:*" },
+--	desc = "Forget the current snippet when leaving the insert mode",
+--	callback = function(evt)
+--		if ls.session and ls.session.current_nodes[evt.buf] and not ls.session.jump_active then
+--			ls.unlink_current()
+--		end
+--	end,
+--})
 
 -- use friendly snip
 require("luasnip/loaders/from_vscode").lazy_load()
@@ -93,6 +93,15 @@ cmp.setup({
 		expand = function(args)
 			require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
 		end,
+	},
+	window = {
+		--completion = cmp.config.window.bordered({
+		--	border = "rounded",
+		--	scrollbar = false,
+		--}),
+		--documentation = cmp.config.window.bordered({
+		--	border = "rounded",
+		--}),
 	},
 
 	mapping = cmp.mapping.preset.insert({

@@ -104,19 +104,33 @@ local mysplit = function(input_str, sep)
 	return nil
 end
 
-local get_text = function()
+local tag_position = function()
 	local line = vim.api.nvim_get_current_line()
 	local first_word = mysplit(line, " ")
+	local last_char = string.sub(line, -1)
 
-	if first_word ~= nil then
-		return first_word
+	if first_word == nil then
+		first_word = "value"
 	end
 
-	return "no args"
+	first_word = first_word:match("^%s*(.-)%s*$")
+
+	if last_char == "`" then
+		return true, first_word
+	else
+		return false, first_word
+	end
 end
 
 ls.add_snippets("go", {
-	s("tag", {
-		f(get_text, {}),
+	s("json", {
+		d(1, function()
+			local in_backquote, field_name = tag_position()
+			if in_backquote then
+				return sn(nil, { i(1, "json"), t(':"'), i(2, field_name), t('"') })
+			end
+
+			return sn(nil, { t("`"), i(1, "json"), t(':"'), i(2, field_name), t('"`') })
+		end),
 	}),
 })

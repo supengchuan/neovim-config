@@ -78,7 +78,7 @@ map("i", "jj", "<ESC>", { noremap = true })
 
 -- telescope
 map("n", "<leader>e", "<cmd>Telescope buffers<CR>", opts)
-map("n", "<leader>g", "<cmd>lua require('telescope.builtin').live_grep({initial_mode = 'insert'})<cr>", opts)
+map("n", "<leader>lg", "<cmd>lua require('telescope.builtin').live_grep({initial_mode = 'insert'})<cr>", opts)
 map("n", "<leader>s", "<cmd>lua require('telescope.builtin').grep_string({initial_mode = 'insert'})<cr>", opts)
 
 -- dap

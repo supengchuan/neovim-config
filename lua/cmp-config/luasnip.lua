@@ -134,3 +134,13 @@ ls.add_snippets("go", {
 		end),
 	}),
 })
+
+ls.add_snippets("sql", {
+	s("table", {
+		t("CREATE TABLE IF NOT EXISTS `"),
+		i(1, "table_name"),
+		t({ "` (", "\tid BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,", "\t" }),
+		i(2, "other field"),
+		t({ "", "\tPRIMARY KEY (id)", ") ENGINE=InnoDB AUTO_INCREMENT=1 default charset=utf8;" }),
+	}),
+})

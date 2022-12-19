@@ -66,7 +66,8 @@ map("n", "<C-q>", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- go to definition
 map("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+--map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+map("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references({include_declaration = false})<CR>", opts)
 map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
@@ -77,6 +78,8 @@ map("i", "jj", "<ESC>", { noremap = true })
 
 -- telescope
 map("n", "<leader>e", "<cmd>Telescope buffers<CR>", opts)
+map("n", "<leader>lg", "<cmd>lua require('telescope.builtin').live_grep({initial_mode = 'insert'})<cr>", opts)
+map("n", "<leader>s", "<cmd>lua require('telescope.builtin').grep_string({initial_mode = 'insert'})<cr>", opts)
 
 -- dap
 map("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", opts)

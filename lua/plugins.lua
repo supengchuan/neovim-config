@@ -24,11 +24,13 @@ return packer.startup({
 		-- theme
 		use("tanvirtin/monokai.nvim")
 		use("morhetz/gruvbox")
-
-		--use 'fatih/vim-go'
-		use("darrikonn/vim-gofmt")
+		use("EdenEast/nightfox.nvim") -- Packer
+		use("Mofiqul/dracula.nvim")
+		use({ "catppuccin/nvim", as = "catppuccin" })
+		use("folke/tokyonight.nvim")
 		-- nvim-cmp
 		use("hrsh7th/cmp-nvim-lsp")
+		use("hrsh7th/cmp-nvim-lua")
 		use("hrsh7th/cmp-buffer")
 		use("hrsh7th/cmp-path")
 		use("hrsh7th/cmp-cmdline")
@@ -104,7 +106,6 @@ return packer.startup({
 		use("rbong/vim-flog")
 		-- color
 		use("norcalli/nvim-colorizer.lua")
-		use("Mofiqul/dracula.nvim")
 
 		--debug
 		use("mfussenegger/nvim-dap")

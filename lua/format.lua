@@ -2,7 +2,17 @@ local function clangd_formater()
 	return {
 		exe = "clang-format",
 		args = {
-			"--style=GNU",
+			'--style="{BasedOnStyle: llvm, IndentWidth: 4}"',
+		},
+		stdin = true,
+	}
+end
+
+local function proto_formater()
+	return {
+		exe = "clang-format",
+		args = {
+			"--style=google",
 		},
 		stdin = true,
 	}
@@ -45,7 +55,7 @@ require("formatter").setup({
 			clangd_formater(),
 		},
 		proto = {
-			clangd_formater(),
+			proto_formater(),
 		},
 		c = {
 			clangd_formater(),

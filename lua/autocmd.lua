@@ -35,7 +35,7 @@ autocmd({ "InsertLeave", "TextChanged" }, {
 -- 保存时自动格式化
 autocmd("BufWritePre", {
 	group = myAutoGroup,
-	pattern = { "*.lua", "*.py", "*.go", "*.rs" },
+	pattern = { "*.lua", "*.py", "*.go", "*.rs", "*.md" },
 	--	callback = vim.lsp.buf.formatting_sync,
 	command = "Format",
 })

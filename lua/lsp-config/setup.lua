@@ -8,7 +8,8 @@ if not status then
 end
 
 local servers = {
-	clangd = require("lsp-config.servers.clangd"),
+	--	clangd = require("lsp-config.servers.clangd"),
+	ccls = require("lsp-config.servers.ccls"),
 	gopls = require("lsp-config.servers.gopls"),
 	sumneko_lua = require("lsp-config.servers.lua"),
 	pyright = require("lsp-config.servers.pyright"),

@@ -27,7 +27,6 @@ return packer.startup({
 		use("EdenEast/nightfox.nvim") -- Packer
 		use("Mofiqul/dracula.nvim")
 		use({ "catppuccin/nvim", as = "catppuccin" })
-		use("folke/tokyonight.nvim")
 		-- nvim-cmp
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-nvim-lua")
@@ -78,6 +77,7 @@ return packer.startup({
 			--config = function() require('aerial').setup() end
 		})
 
+		-- float termnial
 		use({
 			"akinsho/toggleterm.nvim",
 			tag = "*",
@@ -85,6 +85,7 @@ return packer.startup({
 				require("toggleterm").setup()
 			end,
 		})
+		-- telescope
 		use("nvim-lua/plenary.nvim")
 		use({
 			"nvim-telescope/telescope.nvim",
@@ -121,7 +122,7 @@ return packer.startup({
 				vim.fn["mkdp#util#install"]()
 			end,
 		})
-		-- Lua
+		-- key map
 		use({
 			"folke/which-key.nvim",
 			config = function()
@@ -132,14 +133,14 @@ return packer.startup({
 				})
 			end,
 		})
-		--
+		-- indent
 		use("lukas-reineke/indent-blankline.nvim")
 		-- TODO Comments
 		use({
 			"folke/todo-comments.nvim",
 			requires = "nvim-lua/plenary.nvim",
 		})
-		--
+		-- package manager
 		use({ "williamboman/mason.nvim" })
 	end,
 })

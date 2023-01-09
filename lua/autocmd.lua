@@ -2,10 +2,6 @@ local myAutoGroup = vim.api.nvim_create_augroup("myAutoGroup", {
 	clear = true,
 })
 
-local fileWrapGroup = vim.api.nvim_create_augroup("fileWrapGroup", {
-	clear = true,
-})
-
 local autocmd = vim.api.nvim_create_autocmd
 
 -- nvim-tree 自动关闭
@@ -41,13 +37,13 @@ autocmd("BufWritePre", {
 })
 
 -- Highlight on yank
-autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = myAutoGroup,
-	pattern = "*",
-})
+--autocmd("TextYankPost", {
+--	callback = function()
+--		vim.highlight.on_yank()
+--	end,
+--	group = myAutoGroup,
+--	pattern = "*",
+--})
 
 -- 用o换行不要延续注释
 autocmd("BufEnter", {

@@ -142,5 +142,8 @@ return packer.startup({
 		})
 		-- package manager
 		use({ "williamboman/mason.nvim" })
+
+		-- latex
+		use({ "lervag/vimtex" })
 	end,
 })

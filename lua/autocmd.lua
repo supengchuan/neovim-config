@@ -69,7 +69,10 @@ autocmd("BufReadPost", {
 
 -- wrap file according filetype
 autocmd("BufEnter", {
-	pattern = { "*.md" },
+	pattern = { "*.md", "*.tex" },
 	group = myAutoGroup,
-	command = "setlocal wrap",
+	callback = function()
+		vim.wo.colorcolumn = ""
+		vim.o.wrap = true
+	end,
 })

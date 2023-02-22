@@ -77,10 +77,20 @@ map("i", "jj", "<ESC>", { noremap = true })
 --map("i", "<Tab>", "vsnip#jumpable(1)?'<Plug>(vsnip-jump-next)':'<Tab>'", opt)
 
 -- telescope
-map("n", "<leader>e", "<cmd>Telescope buffers<CR>", opts)
+map(
+	"n",
+	"<leader>e",
+	"<cmd>lua require('telescope.builtin').buffers({layout_strategy='vertical',layout_config={width=0.75}})<CR>",
+	opts
+)
 map("n", "<leader>lg", "<cmd>lua require('telescope.builtin').live_grep({initial_mode = 'insert'})<cr>", opts)
 map("n", "<leader>s", "<cmd>lua require('telescope.builtin').grep_string({initial_mode = 'insert'})<cr>", opts)
-
+map(
+	"n",
+	"<leader>ff",
+	"<cmd>lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width=0.75}})<CR>",
+	opts
+)
 -- dap
 map("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", opts)
 map("n", "<F10>", "<Cmd>lua require'dap'.step_over()<CR>", opts)

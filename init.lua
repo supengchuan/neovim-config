@@ -19,3 +19,6 @@ require("autocmd")
 
 -- colorscheme
 require("colorscheme")
+
+--latex
+require("tex")

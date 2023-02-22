@@ -1,7 +1,6 @@
 -- Setup lspconfig.
 
-local lspconfig
-status, lspconfig = pcall(require, "lspconfig")
+local status, lspconfig = pcall(require, "lspconfig")
 if not status then
 	vim.notify("没有找到 lspconfig")
 	return
@@ -11,7 +10,7 @@ local servers = {
 	--	clangd = require("lsp-config.servers.clangd"),
 	ccls = require("lsp-config.servers.ccls"),
 	gopls = require("lsp-config.servers.gopls"),
-	sumneko_lua = require("lsp-config.servers.lua"),
+	lua_ls = require("lsp-config.servers.lua"),
 	pyright = require("lsp-config.servers.pyright"),
 	sqls = require("lsp-config.servers.sqls"),
 	bashls = require("lsp-config.servers.bashls"),

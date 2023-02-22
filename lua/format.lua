@@ -21,6 +21,9 @@ end
 require("formatter").setup({
 	logging = false,
 	filetype = {
+		yaml = {
+			require("formatter.filetypes.yaml").prettier,
+		},
 		markdown = {
 			require("formatter.filetypes.markdown").prettier,
 		},

@@ -2,27 +2,27 @@ local M = {}
 
 local function config_sign()
 	local dap_breakpoint = {
-		error = {
-			text = "",
+		breakpoint = {
+			text = "",
 			texthl = "LspDiagnosticsSignError",
 			linehl = "",
 			numhl = "",
 		},
 		rejected = {
-			text = "",
+			text = "",
 			texthl = "LspDiagnosticsSignHint",
 			linehl = "",
 			numhl = "",
 		},
 		stopped = {
-			text = "⭐️",
+			text = "",
 			texthl = "LspDiagnosticsSignInformation",
 			linehl = "DiagnosticUnderlineInfo",
 			numhl = "LspDiagnosticsSignInformation",
 		},
 	}
 
-	vim.fn.sign_define("DapBreakpoint", dap_breakpoint.error)
+	vim.fn.sign_define("DapBreakpoint", dap_breakpoint.breakpoint)
 	vim.fn.sign_define("DapStopped", dap_breakpoint.stopped)
 	vim.fn.sign_define("DapBreakpointRejected", dap_breakpoint.rejected)
 end

@@ -114,6 +114,7 @@ local tag_position = function()
 	end
 
 	first_word = first_word:match("^%s*(.-)%s*$")
+	first_word = first_word:gsub("^%u", string.lower)
 
 	if last_char == "`" then
 		return true, first_word

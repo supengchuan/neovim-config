@@ -114,6 +114,9 @@ return packer.startup({
 		use("theHamsta/nvim-dap-virtual-text")
 		use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
+		-- golang tool
+		use("ray-x/go.nvim")
+		use("ray-x/guihua.lua") -- recommended if need floating window support
 		-- markdown
 		-- install without yarn or npm
 		use({

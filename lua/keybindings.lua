@@ -14,11 +14,12 @@ vim.g.mapleader = " "
 
 local map = vim.api.nvim_set_keymap
 
---  bufferline.nvim
-map("n", "<leader>h", "<cmd>BufferLineCyclePrev<CR>", opts)
-map("n", "<leader>l", "<cmd>BufferLineCycleNext<CR>", opts)
-map("n", "<leader>p", "<cmd>BufferLinePick<CR>", opts)
-map("n", "<leader>c", "<cmd>BufferLinePickClose<CR>", opts)
+-- bufferline.nvim
+-- no usage, use telescope
+--map("n", "<leader>h", "<cmd>BufferLineCyclePrev<CR>", opts)
+--map("n", "<leader>l", "<cmd>BufferLineCycleNext<CR>", opts)
+--map("n", "<leader>p", "<cmd>BufferLinePick<CR>", opts)
+--map("n", "<leader>c", "<cmd>BufferLinePickClose<CR>", opts)
 
 -- quick move
 -- 取消 HL原本的映射, 作为快速移动的映射
@@ -28,6 +29,9 @@ map("n", "L", "", opts)
 map("n", "L", "35l", opts)
 map("n", "<leader>j", "5j", opts)
 map("n", "<leader>k", "5k", opts)
+
+-- markdown preview
+map("n", "<leader>p", "<cmd>MarkdownPreviewToggle<CR>", opts)
 
 -- write
 -- save and exit

@@ -148,5 +148,8 @@ return packer.startup({
 
 		-- latex
 		use({ "lervag/vimtex" })
+
+		-- jump
+		use("ggandor/leap.nvim")
 	end,
 })

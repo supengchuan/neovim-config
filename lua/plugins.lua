@@ -46,8 +46,12 @@ return packer.startup({
 		use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
 		use("famiu/bufdelete.nvim")
 
-		use("jiangmiao/auto-pairs")
-		use("alvan/vim-closetag")
+		use({
+			"windwp/nvim-autopairs",
+			config = function()
+				require("nvim-autopairs").setup({})
+			end,
+		})
 		use("tpope/vim-unimpaired")
 		use({
 			"kylechui/nvim-surround",

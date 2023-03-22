@@ -74,7 +74,7 @@ map("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 map(
 	"n",
 	"gr",
-	"<cmd>lua require('telescope.builtin').lsp_references({include_declaration = false, show_line = false})<CR>",
+	"<cmd>lua require('telescope.builtin').lsp_references({layout_strategy= 'vertical', include_declaration = false, show_line = false})<CR>",
 	opts
 )
 map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)

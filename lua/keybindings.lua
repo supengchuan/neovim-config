@@ -77,7 +77,12 @@ map(
 	"<cmd>lua require('telescope.builtin').lsp_references({layout_strategy= 'vertical', include_declaration = false, show_line = false})<CR>",
 	opts
 )
-map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+map(
+	"n",
+	"gi",
+	"<cmd>lua require('telescope.builtin').lsp_implementations({layout_strategy= 'vertical', include_declaration = false, show_line = false})<CR>",
+	opts
+)
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
 -- double j to normal mode

@@ -10,6 +10,12 @@ telescope.setup({
 		-- 打开弹窗后进入的初始模式，默认为 normal，也可以是 insert
 		initial_mode = "normal",
 
+		layout_strategy = "vertical",
+		layout_config = {
+			height = 0.95,
+			width = 0.75,
+		},
+
 		mappings = {
 			n = {
 				["q"] = "close",

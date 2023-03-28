@@ -10,7 +10,7 @@
 ```bash
 cd ~/.config/
 ## 需要确保 nvim 目录不存在
-git clone https://github.com/neovim/neovim.git nvim
+git clone https://github.com/supengchuan/neovim-config.git nvim
 
 cd nvim
 

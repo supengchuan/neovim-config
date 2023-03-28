@@ -1,5 +1,3 @@
-local nimv_lsp = require("lspconfig")
-
 local opts = {
 	tools = { -- rust-tools options
 		autoSetHints = true,

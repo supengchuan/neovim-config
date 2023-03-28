@@ -1,8 +1,35 @@
-local util = require("formatter.util")
+local function clangd_formater()
+	return {
+		exe = "clang-format",
+		args = {
+			'--style="{BasedOnStyle: llvm, IndentWidth: 4}"',
+		},
+		stdin = true,
+	}
+end
+
+local function proto_formater()
+	return {
+		exe = "clang-format",
+		args = {
+			"--style=google",
+		},
+		stdin = true,
+	}
+end
 
 require("formatter").setup({
 	logging = false,
 	filetype = {
+		yaml = {
+			require("formatter.filetypes.yaml").prettier,
+		},
+		markdown = {
+			require("formatter.filetypes.markdown").prettier,
+		},
+		["*"] = {
+			require("formatter.filetypes.any").remove_trailing_whitespace,
+		},
 		rust = {
 			function()
 				return {
@@ -12,82 +39,35 @@ require("formatter").setup({
 				}
 			end,
 		},
-		go = {
+		sql = {
 			function()
 				return {
-					exe = "goimports",
+					exe = "sql-formatter",
+					args = { "-l mysql" },
 					stdin = true,
 				}
 			end,
+		},
+		go = {
+			require("formatter.filetypes.go").goimports,
 		},
 		lua = {
 			require("formatter.filetypes.lua").stylua,
-			function()
-				if util.get_current_buffer_file_name() == "special.lua" then
-					return nil
-				end
-				return {
-					exe = "stylua",
-					args = {
-						"--search-parent-directories",
-						"--stdin-filepath",
-						util.escape_path(util.get_current_buffer_file_path()),
-						"--",
-						"-",
-					},
-					stdin = true,
-				}
-			end,
 		},
 		cpp = {
-			function()
-				return {
-					exe = "clang-format",
-					args = {
-						"--style=LLVM",
-					},
-					stdin = true,
-				}
-			end,
+			clangd_formater(),
 		},
 		proto = {
-			function()
-				return {
-					exe = "clang-format",
-					args = {
-						"--style=LLVM",
-					},
-					stdin = true,
-				}
-			end,
+			proto_formater(),
 		},
 		c = {
-			function()
-				return {
-					exe = "clang-format",
-					args = {
-						"--style=google",
-					},
-					stdin = true,
-				}
-			end,
+			clangd_formater(),
 		},
 		json = {
-			function()
-				return {
-					exe = "jq",
-					args = { "." },
-					stdin = true,
-				}
-			end,
+			require("formatter.filetypes.json").prettier,
 		},
 		sh = {
-			function()
-				return {
-					exe = "shfmt",
-					stdin = true,
-				}
-			end,
+			require("formatter.filetypes.sh").shfmt,
 		},
 	},
 })

@@ -1,6 +1,6 @@
 # Readme.md
 
-需要现在 neovim, 建议安装最新的版本, 具体的安装方法可以参考: [neovim-github](https://github.com/neovim/neovim)
+需要先安装 neovim, 建议安装最新的版本, 具体的安装方法可以参考: [neovim-github](https://github.com/neovim/neovim)
 
 同时, 需要安装一些插件需要的程序, 如语言服务器: gopls, rust-analyzer 等等, 这些有些可以通过 Mason 插件进行安装.
 有些需要自己手动安装. 特别是 rust-analyzer 可能需要自己进行编译

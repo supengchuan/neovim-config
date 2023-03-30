@@ -40,6 +40,11 @@ nvim_tree.setup({
 			},
 		},
 	},
+	actions = {
+		open_file = {
+			quit_on_open = true,
+		},
+	},
 	renderer = {
 		add_trailing = true,
 		group_empty = false,

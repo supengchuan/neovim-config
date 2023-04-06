@@ -63,6 +63,7 @@ return packer.startup({
 			end,
 		})
 
+		use("arkav/lualine-lsp-progress")
 		use({
 			"nvim-lualine/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },

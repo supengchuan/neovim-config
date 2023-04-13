@@ -4,7 +4,8 @@ vim.o.background = "dark"
 -- 半透明
 -- vim.g.tokyonight_transparent = true
 -- vim.g.tokyonight_transparent_sidebar = true
-local colorscheme = "dracula"
+--local colorscheme = "dracula"
+local colorscheme = "nordfox"
 --local colorscheme = "tokyonight-storm"
 --local colorscheme = "tokyonight-moon"
 -- tokyonight

@@ -13,7 +13,7 @@ local servers = {
 	--gopls = require("lsp-config.servers.gopls"),
 	lua_ls = require("lsp-config.servers.lua"),
 	pyright = require("lsp-config.servers.pyright"),
-	sqls = require("lsp-config.servers.sqls"),
+	sqlls = require("lsp-config.servers.sqls"),
 	bashls = require("lsp-config.servers.bashls"),
 	bufls = require("lsp-config.servers.bufls"),
 }

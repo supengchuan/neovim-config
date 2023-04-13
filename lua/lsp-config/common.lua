@@ -3,8 +3,19 @@ local M = {}
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#borders
 -- LSP settings (for overriding per client)  set border of lsp.hover and signature_help
 -- 修改gh(lsp.hover) 窗口UI的border
+local border = {
+	{ "╭", "FloatBorder" },
+	{ "─", "FloatBorder" },
+	{ "╮", "FloatBorder" },
+	{ "│", "FloatBorder" },
+	{ "╯", "FloatBorder" },
+	{ "─", "FloatBorder" },
+	{ "╰", "FloatBorder" },
+	{ "│", "FloatBorder" },
+}
+
 M.handlers = {
-	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
 	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "double" }),
 }
 

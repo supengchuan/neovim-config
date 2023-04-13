@@ -23,7 +23,6 @@ return packer.startup({
 		use("neovim/nvim-lspconfig") -- Collection of configurations for the built-in LSP client
 		-- theme
 		use("Mofiqul/dracula.nvim")
-		use("folke/tokyonight.nvim")
 		-- nvim-cmp
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-nvim-lua")

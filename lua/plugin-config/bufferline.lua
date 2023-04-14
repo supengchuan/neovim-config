@@ -37,7 +37,7 @@ bufferline.setup({
 			-- e=level,n=count
 			for e, n in pairs(diagnostics_dict) do
 				-- sym  symbol的缩写
-				local sym = e == "error" and " " or (e == "warning" and " " or "")
+				local sym = e == "error" and " " or (e == "warning" and " " or " ")
 				s = s .. n .. sym
 			end
 			return s

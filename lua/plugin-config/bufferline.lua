@@ -29,10 +29,10 @@ bufferline.setup({
 		-- 使用 nvim 内置lsp
 		diagnostics = "nvim_lsp",
 		diagnostics_indicator = function(count, level, diagnostics_dict, context)
-			-- -- current buffer don't show LSP indicators
-			-- if context.buffer:current() then
-			--     return ''
-			-- end
+			-- current buffer don't show LSP indicators
+			if context.buffer:current() then
+				return ""
+			end
 			local s = " "
 			-- e=level,n=count
 			for e, n in pairs(diagnostics_dict) do
@@ -57,14 +57,6 @@ bufferline.setup({
 				text_align = "right",
 			},
 		},
-		--		offsets = {
-		--			{
-		--				filetype = "NvimTree",
-		--				text = "File Explorer",
-		--				highlight = "Directory",
-		--				separator = true,
-		--			},
-		--		},
 		buffer_close_icon = "",
 		close_icon = "",
 		left_trunc_marker = "",
@@ -72,9 +64,6 @@ bufferline.setup({
 		separator_style = "thin",
 		show_buffer_close_icon = true,
 		show_close_icon = false,
-		--		middle_mouse_command = function(bufnum)
-		--			require("bufdelete").bufdelete(bufnum, true)
-		--		end,
 		right_mouse_command = "vertical sbuffer %d",
 	},
 })

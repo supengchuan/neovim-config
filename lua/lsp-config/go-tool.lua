@@ -1,4 +1,3 @@
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp_common = require("lsp-config.common")
 require("go").setup({
 	tag_transform = "camelcase",

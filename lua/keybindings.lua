@@ -69,19 +69,12 @@ map("n", "<C-q>", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- show parameter hint
 map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- go to definition
---map("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+map("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 --map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
 map(
 	"n",
 	"gr",
 	"<cmd>lua require('telescope.builtin').lsp_references({layout_strategy= 'vertical', include_declaration = false, show_line = false})<CR>",
-	opts
-)
-
-map(
-	"n",
-	"<C-]>",
-	"<cmd> lua require('telescope.builtin').lsp_definitions({jump_type='tab', show_line=false})<CR>",
 	opts
 )
 

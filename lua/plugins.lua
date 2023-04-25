@@ -11,13 +11,13 @@ return packer.startup({
 	function(use)
 		-- Packer can manage itself
 		use("wbthomason/packer.nvim")
-		use("kyazdani42/nvim-web-devicons")
-		use("kyazdani42/nvim-tree.lua")
+		use("nvim-tree/nvim-web-devicons")
+		use("nvim-tree/nvim-tree.lua")
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			run = ":TSUpdate",
 			requires = {
-				"kyazdani42/nvim-web-devicons",
+				"nvim-tree/nvim-web-devicons",
 			},
 		})
 		use("neovim/nvim-lspconfig") -- Collection of configurations for the built-in LSP client
@@ -40,7 +40,7 @@ return packer.startup({
 		use({ "saadparwaiz1/cmp_luasnip" })
 
 		-- bufferline
-		use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
+		use({ "akinsho/bufferline.nvim", requires = "nvim-tree/nvim-web-devicons" })
 		use("famiu/bufdelete.nvim")
 
 		use({
@@ -63,7 +63,7 @@ return packer.startup({
 		use("arkav/lualine-lsp-progress")
 		use({
 			"nvim-lualine/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+			requires = { "nvim-tree/nvim-web-devicons", opt = true },
 		})
 		use("tpope/vim-fugitive")
 		use("lewis6991/gitsigns.nvim")
@@ -119,6 +119,18 @@ return packer.startup({
 		-- golang tool
 		use("ray-x/go.nvim")
 		use("ray-x/guihua.lua") -- recommended if need floating window support
+		use({
+			"folke/trouble.nvim",
+			requires = "nvim-tree/nvim-web-devicons",
+			config = function()
+				require("trouble").setup({
+					-- your configuration comes here
+					-- or leave it empty to use the default settings
+
+					-- refer to the configuration section below
+				})
+			end,
+		})
 		-- markdown
 		-- install without yarn or npm
 		use({
@@ -140,11 +152,6 @@ return packer.startup({
 		})
 		-- indent
 		use("lukas-reineke/indent-blankline.nvim")
-		-- TODO Comments
-		use({
-			"folke/todo-comments.nvim",
-			requires = "nvim-lua/plenary.nvim",
-		})
 		-- package manager
 		use({ "williamboman/mason.nvim" })
 

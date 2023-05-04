@@ -8,7 +8,7 @@ end
 bufferline.setup({
 	options = {
 		middle_mouse_command = function()
-			require("bufferline").sort_buffers_by(function(buf_a, buf_b)
+			require("bufferline").sort_by(function(buf_a, buf_b)
 				return buf_a.id < buf_b.id
 			end)
 		end,

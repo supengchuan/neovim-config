@@ -10,6 +10,7 @@ require("go").setup({
 			lsp_common.keyAttach(bufnr)
 		end,
 	},
+	lsp_diag_underline = false,
 	lsp_inlay_hints = {
 		only_current_line = true,
 	},

@@ -11,7 +11,7 @@ require("aerial").setup({
 		-- max_width = {40, 0.2} means "the lesser of 40 columns or 20% of total"
 		max_width = { 40, 0.2 },
 		width = nil,
-		min_width = 10,
+		min_width = 30,
 
 		-- Determines the default direction to open the aerial window. The 'prefer'
 		-- options will open the window in the other direction *if* there is a
@@ -86,7 +86,33 @@ require("aerial").setup({
 	-- "nerd_font" option below.
 	-- If you have lspkind-nvim installed, it will be the default icon set.
 	-- This can be a filetype map (see :help aerial-filetype-map)
-	icons = {},
+	icons = {
+		Text = "",
+		Method = "",
+		Function = "",
+		Constructor = "",
+		Field = "",
+		Variable = "",
+		Class = "ﴯ",
+		Interface = "",
+		Module = "",
+		Property = "ﰠ",
+		Unit = "",
+		Value = "",
+		Enum = "",
+		Keyword = "",
+		Snippet = "",
+		Color = "",
+		File = "",
+		Reference = "",
+		Folder = "",
+		EnumMember = "",
+		Constant = "",
+		Struct = "",
+		Event = "",
+		Operator = "",
+		TypeParameter = "",
+	},
 
 	-- Control which windows and buffers aerial should ignore.
 	-- If attach_mode is "global", focusing an ignored window/buffer will

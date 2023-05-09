@@ -3,6 +3,7 @@ if not status then
 	vim.notify("没有找到 nvim-tree")
 	return
 end
+
 local function open_nvim_tree(data)
 	-- buffer is a [No Name]
 	local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
@@ -23,7 +24,7 @@ local function open_nvim_tree(data)
 	require("nvim-tree.api").tree.open()
 end
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+--vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
 require("nvim-web-devicons").setup({
 	override = {

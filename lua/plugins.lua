@@ -103,7 +103,17 @@ return packer.startup({
 		-- telesocpe-dap
 		use("nvim-telescope/telescope-dap.nvim")
 
-		use("mhinz/vim-startify")
+		use({
+			"glepnir/dashboard-nvim",
+
+			event = "VimEnter",
+			config = function()
+				require("dashboard").setup({
+					-- config
+				})
+			end,
+			requires = { "nvim-tree/nvim-web-devicons" },
+		})
 
 		-- git graph
 		use("rbong/vim-flog")

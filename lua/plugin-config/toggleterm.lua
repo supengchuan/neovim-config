@@ -15,22 +15,25 @@ elseif on_windows then
 end
 
 toggleterm.setup({
+	-- size can be a number or function which is passed the current terminal
 	size = function(term)
-		if term.direction == "horizont_floatl" then
-			return 10
+		if term.direction == "horizontal" then
+			return 15
 		elseif term.direction == "vertical" then
-			return vim.o.columns * 0.3
+			return vim.o.columns * 0.4
 		end
 	end,
-	st_floatrt_in_insert = true,
+	start_in_insert = true,
 })
 
 local Terminal = require("toggleterm.terminal").Terminal
 
 local t_float = Terminal:new({
+	-- direction = 'vertical' | 'horizontal' | 'tab' | 'float',
 	direction = "float",
 	float_opts = {
-		border = "double",
+		-- border = 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
+		border = "curved",
 	},
 	close_on_exit = true,
 })

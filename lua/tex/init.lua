@@ -1,2 +1,2 @@
-require("tex/config")
+require("tex/latex")
 require("tex/markdown")

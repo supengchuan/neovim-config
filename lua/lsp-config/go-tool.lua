@@ -15,6 +15,7 @@ require("go").setup({
 	lsp_diag_underline = false,
 	lsp_inlay_hints = {
 		only_current_line = true,
+		parameter_hints_prefix = "󰊕 ",
 	},
 
 	lsp_keymaps = false,

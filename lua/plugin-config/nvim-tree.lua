@@ -107,7 +107,7 @@ nvim_tree.setup({
 			glyphs = {
 				default = "",
 				symlink = "",
-				bookmark = "",
+				bookmark = "󰆤",
 				modified = "●",
 				folder = {
 					arrow_closed = "",

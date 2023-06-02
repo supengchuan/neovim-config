@@ -10,6 +10,8 @@ require("go").setup({
 			lsp_common.keyAttach(bufnr)
 		end,
 	},
+	lsp_diag_virtual_text = { space = 0, prefix = "󰄛" },
+	lsp_diag_signs = true,
 	lsp_diag_underline = false,
 	lsp_inlay_hints = {
 		only_current_line = true,

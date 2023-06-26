@@ -40,8 +40,7 @@ map("n", "<leader>q", "<cmd>q<CR>", opts)
 map("n", "<leader>nl", "<cmd>nohlsearch<CR>", opts)
 
 -- open outline
---map("n", "<leader>o", "<cmd>AerialToggle<CR>", opts)
-map("n", "<leader>o", "<cmd>SymbolsOutline<CR>", opts)
+map("n", "<leader>o", "<cmd>AerialToggle<CR>", opts)
 
 -- resize
 map("n", "<leader>=", "<cmd>vertical resize +10<CR>", opts)

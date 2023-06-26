@@ -78,7 +78,6 @@ return packer.startup({
 			"stevearc/aerial.nvim",
 			--config = function() require('aerial').setup() end
 		})
-		use("simrat39/symbols-outline.nvim")
 
 		-- float termnial
 		use({

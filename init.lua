@@ -35,3 +35,6 @@ require("colorscheme")
 
 --latex
 require("tex")
+
+-- set bg transparent
+vim.cmd([[highlight Normal ctermbg=NONE guibg=NONE]])

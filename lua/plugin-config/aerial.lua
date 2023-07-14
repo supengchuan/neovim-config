@@ -86,7 +86,7 @@ require("aerial").setup({
 	-- "nerd_font" option below.
 	-- If you have lspkind-nvim installed, it will be the default icon set.
 	-- This can be a filetype map (see :help aerial-filetype-map)
-	icons = require("lua.icons"),
+	icons = require("icons"),
 
 	-- Control which windows and buffers aerial should ignore.
 	-- If attach_mode is "global", focusing an ignored window/buffer will

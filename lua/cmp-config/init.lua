@@ -29,7 +29,7 @@ require("cmp-config.luasnip")
 require("luasnip/loaders/from_vscode").lazy_load()
 
 -- UI
-local kind_icons = require("lua.icons")
+local kind_icons = require("icons")
 -- Setup nvim-cmp.
 cmp.setup({
 	formatting = {

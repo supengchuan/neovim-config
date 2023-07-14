@@ -9,6 +9,7 @@ lualine.setup({
 		icons_enabled = true,
 		--theme = "dracula-nvim",
 		--theme = "everforest",
+		theme = require("plugin-config.lualine-theme").theme(),
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = {

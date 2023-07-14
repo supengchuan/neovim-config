@@ -29,34 +29,7 @@ require("cmp-config.luasnip")
 require("luasnip/loaders/from_vscode").lazy_load()
 
 -- UI
-local kind_icons = {
-	Text = "",
-	Method = "󰆧",
-	Function = "󰊕",
-	Constructor = "",
-	Field = "󰇽",
-	Variable = "",
-	Class = "󰠱",
-	Interface = "",
-	Module = "",
-	Property = "",
-	Unit = "",
-	Value = "󰎠",
-	Enum = "",
-	Keyword = "󰌋",
-	Snippet = "",
-	Color = "󰏘",
-	File = "󰈙",
-	Reference = "",
-	Folder = "󰉋",
-	EnumMember = "",
-	Constant = "󰏿",
-	Struct = "",
-	Event = "",
-	Operator = "󰆕",
-	TypeParameter = "󰅲",
-}
-
+local kind_icons = require("lua.icons")
 -- Setup nvim-cmp.
 cmp.setup({
 	formatting = {

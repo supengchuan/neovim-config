@@ -68,13 +68,13 @@ cmp.setup({
 		end,
 	},
 	window = {
-		--completion = cmp.config.window.bordered({
-		--	border = "rounded",
-		--	scrollbar = false,
-		--}),
-		--documentation = cmp.config.window.bordered({
-		--	border = "rounded",
-		--}),
+		completion = cmp.config.window.bordered({
+			border = "rounded",
+			scrollbar = false,
+		}),
+		documentation = cmp.config.window.bordered({
+			border = "rounded",
+		}),
 	},
 
 	mapping = cmp.mapping.preset.insert({

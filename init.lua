@@ -37,7 +37,7 @@ require("colorscheme")
 require("tex")
 
 -- set bg transparent
-vim.cmd([[highlight Normal ctermbg=NONE guibg=NONE]])
+vim.cmd([[highlight Normal ctermbg=NONE guibg=NONE guifg=NONE ]])
 vim.cmd([[highlight NormalFloat ctermbg=NONE guibg=NONE]])
 vim.cmd([[highlight SignColumn ctermbg=NONE guibg=NONE]])
 vim.cmd([[highlight NvimTreeNormal guibg=NONE ctermbg=NONE]])

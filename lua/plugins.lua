@@ -24,6 +24,7 @@ return packer.startup({
 		-- theme
 		use("Mofiqul/dracula.nvim")
 		use("neanias/everforest-nvim")
+		use("marko-cerovac/material.nvim")
 		-- nvim-cmp
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-nvim-lua")

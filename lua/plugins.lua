@@ -25,6 +25,7 @@ return packer.startup({
 		use("Mofiqul/dracula.nvim")
 		use("neanias/everforest-nvim")
 		use("marko-cerovac/material.nvim")
+		use { "ellisonleao/gruvbox.nvim" }
 		-- nvim-cmp
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-nvim-lua")

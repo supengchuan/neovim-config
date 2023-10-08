@@ -29,6 +29,23 @@ require("ibl").setup({
 	scope = {
 		show_end = true,
 	},
+	exclude = {
+		filetypes = {
+			"null-ls-info",
+			"dashboard",
+			"packer",
+			"terminal",
+			"help",
+			"log",
+			"markdown",
+			"TelescopePrompt",
+			"lspinfo",
+			"mason.nvim",
+			"toggleterm",
+			"lspsagaoutline",
+			"text",
+		},
+	},
 })
 
 vim.opt.list = true

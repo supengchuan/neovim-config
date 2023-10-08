@@ -40,6 +40,10 @@ require("nvim-web-devicons").setup({
 nvim_tree.setup({
 	sort_by = "name",
 	root_dirs = {},
+	update_focused_file = {
+		enable = true,
+		update_root = true,
+	},
 	prefer_startup_root = true,
 	sync_root_with_cwd = true,
 	reload_on_bufenter = false,
@@ -51,7 +55,6 @@ nvim_tree.setup({
 		cursorline = true,
 		debounce_delay = 15,
 		width = 30,
-		hide_root_folder = false,
 		side = "left",
 		preserve_window_proportions = false,
 		number = false,

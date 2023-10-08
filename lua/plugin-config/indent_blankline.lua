@@ -1,46 +1,32 @@
-local status, indent_blankline = pcall(require, "indent_blankline")
-if not status then
-	vim.notify("没有找到 indent_blankline")
-	return
-end
+local highlight = {
+	"RainbowRed",
+	"RainbowYellow",
+	"RainbowBlue",
+	"RainbowOrange",
+	"RainbowGreen",
+	"RainbowViolet",
+	"RainbowCyan",
+}
 
-vim.opt.list = true
+local hooks = require("ibl.hooks")
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+	vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+	vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+	vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+	vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+	vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+	vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+	vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
 
-vim.cmd([[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]])
-
-vim.opt.listchars:append("space:⋅")
-vim.opt.listchars:append("eol:↵")
-indent_blankline.setup({
-	-- for example, context is off by default, use this to turn it on
-	show_current_context = true,
-	show_current_context_start = false,
-	-- echo &filetype
-	filetype_exclude = {
-		"null-ls-info",
-		"dashboard",
-		"packer",
-		"terminal",
-		"help",
-		"log",
-		"markdown",
-		"TelescopePrompt",
-		"lspinfo",
-		"mason.nvim",
-		"toggleterm",
-		"lspsagaoutline",
-		"text",
+require("ibl").setup({
+	indent = {
+		char = "▏",
+		highlight = highlight,
 	},
-	char_highlight_list = {
-		"IndentBlanklineIndent1",
-		"IndentBlanklineIndent2",
-		"IndentBlanklineIndent3",
-		"IndentBlanklineIndent4",
-		"IndentBlanklineIndent5",
-		"IndentBlanklineIndent6",
+	scope = {
+		show_end = true,
 	},
 })

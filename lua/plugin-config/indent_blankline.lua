@@ -30,3 +30,9 @@ require("ibl").setup({
 		show_end = true,
 	},
 })
+
+vim.opt.list = true
+vim.opt.listchars:append("space:⋅")
+vim.opt.listchars:append("eol:↵")
+-- 竖线后面必须跟一个空格, 不然会报错
+vim.opt.listchars:append("tab:▏ ")

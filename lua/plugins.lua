@@ -6,6 +6,7 @@
 local packer = require("packer")
 packer.init({
 	max_jobs = 20,
+	clone_timeout = 180, -- Timeout, in seconds, for git clones
 })
 
 local function theme(use)

@@ -10,27 +10,44 @@
 --	return false
 --end
 --ensure_packer()
+--require("packer_plugins")
 
-local function bootstrap_pckr()
-  local pckr_path = vim.fn.stdpath("data") .. "/pckr/pckr.nvim"
-  if not vim.loop.fs_stat(pckr_path) then
+-- pckr package manage
+--local function bootstrap_pckr()
+--  local pckr_path = vim.fn.stdpath("data") .. "/pckr/pckr.nvim"
+--  if not vim.loop.fs_stat(pckr_path) then
+--    vim.fn.system({
+--      'git',
+--      'clone',
+--      "--filter=blob:none",
+--      'https://github.com/lewis6991/pckr.nvim',
+--      pckr_path
+--    })
+--  end
+--
+--  vim.opt.rtp:prepend(pckr_path)
+--end
+--bootstrap_pckr()
+--require("pckr_plugins")
+
+local function ensure_lazy()
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
-      'git',
-      'clone',
+      "git",
+      "clone",
       "--filter=blob:none",
-      'https://github.com/lewis6991/pckr.nvim',
-      pckr_path
+      "https://github.com/folke/lazy.nvim.git",
+      "--branch=stable", -- latest stable release
+      lazypath,
     })
   end
-
-  vim.opt.rtp:prepend(pckr_path)
+  vim.opt.rtp:prepend(lazypath)
 end
+ensure_lazy()
+require("lazy_plugins")
 
-bootstrap_pckr()
-
-require("pckr_plugins")
 require("basic")
---require("plugins")
 require("keybindings")
 require("format")
 

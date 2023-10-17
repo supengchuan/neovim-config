@@ -48,6 +48,17 @@ require("formatter").setup({
 				}
 			end,
 		},
+		nginx = {
+			function()
+				return {
+					-- download from: https://github.com/slomkowski/nginx-config-formatter
+					-- rename nginxfmt.py -> nginxfmt to exec path
+					exe = "nginxfmt",
+					args = { "--pipe" },
+					stdin = true,
+				}
+			end
+		},
 		go = {
 			require("formatter.filetypes.go").goimports,
 		},

@@ -26,6 +26,8 @@ local plugins = {
 	"marko-cerovac/material.nvim",
 	"ellisonleao/gruvbox.nvim",
 	"folke/tokyonight.nvim",
+	{ 'rose-pine/neovim', name = 'rose-pine' },
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	-- nvim tree
 	"nvim-tree/nvim-web-devicons",
 	"nvim-tree/nvim-tree.lua",

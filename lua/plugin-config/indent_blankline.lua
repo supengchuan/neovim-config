@@ -27,6 +27,7 @@ require("ibl").setup({
 		highlight = highlight,
 	},
 	scope = {
+		show_start = true,
 		show_end = true,
 	},
 	exclude = {

@@ -178,7 +178,7 @@ local plugins = {
 		},
 	},
 	-- indent
-	"lukas-reineke/indent-blankline.nvim",
+	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 	-- package manager
 	"williamboman/mason.nvim",
 

@@ -25,10 +25,11 @@ require("ibl").setup({
 	indent = {
 		char = "▏",
 		highlight = highlight,
+		tab_char = { "▏" },
 	},
 	scope = {
-		show_start = true,
-		show_end = true,
+		show_start = false,
+		show_end = false,
 	},
 	exclude = {
 		filetypes = {
@@ -53,4 +54,4 @@ vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
 vim.opt.listchars:append("eol:↵")
 -- 竖线后面必须跟一个空格, 不然会报错
-vim.opt.listchars:append("tab:▏ ")
+--vim.opt.listchars:append("tab:▏ ")

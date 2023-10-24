@@ -1,4 +1,4 @@
-status, nvim_tree = pcall(require, "nvim-tree")
+local status, nvim_tree = pcall(require, "nvim-tree")
 if not status then
 	vim.notify("没有找到 nvim-tree")
 	return
@@ -38,6 +38,9 @@ require("nvim-web-devicons").setup({
 })
 
 nvim_tree.setup({
+	filters = {
+		custom = { "^\\.git$" },
+	},
 	sort_by = "name",
 	root_dirs = {},
 	update_focused_file = {

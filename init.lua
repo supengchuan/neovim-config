@@ -27,4 +27,4 @@ require("colorscheme")
 require("tex")
 
 -- set bg transparent
-require("highlight")
+--require("highlight")

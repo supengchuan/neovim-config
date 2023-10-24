@@ -30,9 +30,14 @@ local plugins = {
 	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	{ "olimorris/onedarkpro.nvim", priority = 1000 },
+
 	-- nvim tree
-	"nvim-tree/nvim-web-devicons",
-	"nvim-tree/nvim-tree.lua",
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
+		dependencies = "nvim-tree/nvim-web-devicons",
+	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -43,12 +48,18 @@ local plugins = {
 	-- Collection of configurations for the built-in LSP client
 	"neovim/nvim-lspconfig",
 	-- nvim-cmp
-	"hrsh7th/cmp-nvim-lsp",
-	"hrsh7th/cmp-nvim-lua",
-	"hrsh7th/cmp-buffer",
-	"hrsh7th/cmp-path",
-	"hrsh7th/cmp-cmdline",
-	"hrsh7th/nvim-cmp",
+	{
+		"hrsh7th/nvim-cmp",
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lua",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+		},
+	},
 	-- vsnip
 	"rafamadriz/friendly-snippets",
 	-- lspkind
@@ -60,9 +71,10 @@ local plugins = {
 	-- bufferline
 	{
 		"akinsho/bufferline.nvim",
+		event = "VimEnter",
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
-	"famiu/bufdelete.nvim",
+	{ "famiu/bufdelete.nvim", event = "VimEnter" },
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
@@ -101,11 +113,10 @@ local plugins = {
 		config = true,
 	},
 	-- telescope
-	"nvim-lua/plenary.nvim",
 	{
 		"nvim-telescope/telescope.nvim",
 		version = "0.1.0",
-		dependencies = { { "nvim-lua/plenary.nvim" } },
+		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	-- improve telescope performance
 	{
@@ -126,7 +137,7 @@ local plugins = {
 				-- config
 			})
 		end,
-		dependencies = { { "nvim-tree/nvim-web-devicons" } },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 
 	-- git graph
@@ -180,10 +191,10 @@ local plugins = {
 	-- indent
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 	-- package manager
-	"williamboman/mason.nvim",
+	{ "williamboman/mason.nvim", event = "VimEnter" },
 
 	-- latex
-	"lervag/vimtex",
+	{ "lervag/vimtex", event = "VeryLazy" },
 
 	-- jump
 	"ggandor/leap.nvim",

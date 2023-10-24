@@ -57,7 +57,10 @@ nvim_tree.setup({
 		centralize_selection = false,
 		cursorline = true,
 		debounce_delay = 15,
-		width = 30,
+		width = {
+			min=30,
+			max=100,
+		},
 		side = "left",
 		preserve_window_proportions = false,
 		number = false,
@@ -86,7 +89,7 @@ nvim_tree.setup({
 		root_folder_label = ":~:s?$?/..?",
 		indent_width = 2,
 		indent_markers = {
-			enable = false,
+			enable = true,
 			inline_arrows = true,
 			icons = {
 				corner = "└",

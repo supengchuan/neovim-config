@@ -103,7 +103,7 @@ map("n", "<leader>s", "<cmd>lua require('telescope.builtin').grep_string({initia
 map(
 	"n",
 	"<leader>ff",
-	"<cmd>lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width=0.75}})<CR>",
+	"<cmd>lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width=0.75}, initial_mode = 'insert'})<CR>",
 	opts
 )
 -- dap

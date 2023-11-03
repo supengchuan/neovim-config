@@ -115,7 +115,7 @@ local plugins = {
 	-- telescope
 	{
 		"nvim-telescope/telescope.nvim",
-		version = "0.1.0",
+		version = "0.1.4",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	-- improve telescope performance

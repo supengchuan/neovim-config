@@ -1,9 +1,11 @@
-local on_windows = vim.loop.os_uname().version:match("Windows")
 local st_floattus, toggleterm = pcall(require, "toggleterm")
 if not st_floattus then
 	vim.notify("没有找到 toggleterm")
 	return
-elseif on_windows then
+end
+
+local on_windows = vim.loop.os_uname().version:match("Windows")
+if on_windows then
 	-- use pwsh on windows
 	vim.opt.shell = vim.fn.executable("pwsh") and "pwsh" or "powershell"
 	vim.opt.shellcmdflag =
@@ -24,6 +26,13 @@ toggleterm.setup({
 		end
 	end,
 	start_in_insert = true,
+	shell = function()
+		if on_windows then
+			return "pwsh"
+		else
+			return vim.o.shell
+		end
+	end,
 })
 
 local Terminal = require("toggleterm.terminal").Terminal

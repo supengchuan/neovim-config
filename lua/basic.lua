@@ -1,5 +1,8 @@
 vim.cmd([[set mouse-=a]])
 
+-- 搜索忽略大小写
+vim.opt.ignorecase = true
+
 -- 禁止折行
 vim.wo.wrap = false
 -- utf8

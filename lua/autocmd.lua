@@ -61,6 +61,10 @@ autocmd("BufReadPost", {
 	callback = function()
 		local row, col = unpack(vim.api.nvim_buf_get_mark(0, '"'))
 		if { row, col } ~= { 0, 0 } then
+			local max_rows = vim.api.nvim_buf_line_count(0)
+			if max_rows < row then
+				row = max_rows
+			end
 			vim.api.nvim_win_set_cursor(0, { row, 0 })
 		end
 	end,

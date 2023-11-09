@@ -47,6 +47,12 @@ local t_float = Terminal:new({
 	close_on_exit = true,
 })
 
+local lazygit = Terminal:new({
+	direction = "float",
+	cmd = "lazygit",
+	hidden = true,
+})
+
 local M = {}
 
 M.toggle = function(cmd)
@@ -58,6 +64,10 @@ M.toggle = function(cmd)
 	if cmd ~= nil then
 		t_float:send(cmd)
 	end
+end
+
+M.lazygit_toggle = function(cmd)
+	lazygit:toggle()
 end
 
 require("keybindings").mapToggleTerm(M)

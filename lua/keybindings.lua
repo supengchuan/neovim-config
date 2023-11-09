@@ -130,5 +130,6 @@ local pluginKeys = {}
 pluginKeys.mapToggleTerm = function(toggleterm)
 	vim.keymap.set("n", "<leader>t", toggleterm.toggle)
 	vim.keymap.set("t", "<C-t>", toggleterm.toggle)
+	vim.keymap.set("n", "<leader>gg", toggleterm.lazygit_toggle)
 end
 return pluginKeys

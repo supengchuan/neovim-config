@@ -1,5 +1,3 @@
---require("packer_plugins")
---require("pckr_plugins")
 require("lazy_plugins")
 
 require("basic")

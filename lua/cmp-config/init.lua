@@ -86,7 +86,7 @@ cmp.setup({
 	}),
 
 	sources = cmp.config.sources({
-		{ nam = "nvim_lua" },
+		{ name = "nvim_lua" },
 		{ name = "nvim_lsp", group_index = 1 },
 		{ name = "luasnip", group_index = 1 }, -- For luasnip users.
 		{ name = "nvim_lsp_signature_help", group_index = 1 },

@@ -22,12 +22,9 @@ local lazy = require("lazy")
 local plugins = {
 	-- color theme
 	"Mofiqul/dracula.nvim",
-	"neanias/everforest-nvim",
 	"marko-cerovac/material.nvim",
 	"ellisonleao/gruvbox.nvim",
 	"folke/tokyonight.nvim",
-	"cpea2506/one_monokai.nvim",
-	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	{ "olimorris/onedarkpro.nvim", priority = 1000 },
 
@@ -107,8 +104,6 @@ local plugins = {
 		version = "^3", -- Recommended
 		ft = { "rust" },
 	},
-	--"simrat39/rust-tools.nvim", --archived
-	--"rust-lang/rust.vim",
 
 	-- format
 	"mhartington/formatter.nvim",
@@ -149,8 +144,6 @@ local plugins = {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 
-	-- git graph
-	"rbong/vim-flog",
 	-- color
 	"norcalli/nvim-colorizer.lua",
 
@@ -164,8 +157,21 @@ local plugins = {
 	},
 
 	-- golang tool
-	"ray-x/go.nvim",
-	"ray-x/guihua.lua", -- recommended if need floating window support
+	{
+		"ray-x/go.nvim",
+		dependencies = { -- optional packages
+			"ray-x/guihua.lua",
+			"neovim/nvim-lspconfig",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			-- set config
+			require("lsp-config.go-tool")
+		end,
+		--event = { "CmdlineEnter" },
+		ft = { "go", "gomod" },
+		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+	},
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -179,6 +185,8 @@ local plugins = {
 	-- install without yarn or npm
 	{
 		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
 		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,

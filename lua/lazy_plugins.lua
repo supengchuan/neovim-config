@@ -53,8 +53,8 @@ local plugins = {
 		version = "*",
 		lazy = false,
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lua",
+			"hrsh7th/cmp-nvim-lsp", --nvim-cmp source for neovim's built-in language server client.
+			"hrsh7th/cmp-nvim-lua", -- nvim-cmp source for neovim Lua API.
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
@@ -62,7 +62,7 @@ local plugins = {
 	},
 	-- vsnip
 	"rafamadriz/friendly-snippets",
-	-- lspkind
+	-- lspkind adds vscode-like pictograms to neovim built-in lsp
 	"onsails/lspkind-nvim",
 
 	"L3MON4D3/LuaSnip",
@@ -74,7 +74,8 @@ local plugins = {
 		event = "VimEnter",
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
-	{ "famiu/bufdelete.nvim", event = "VimEnter" },
+	-- no usage
+	--{ "famiu/bufdelete.nvim", event = "VimEnter" },
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
@@ -95,11 +96,19 @@ local plugins = {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	},
+
+	-- for git
 	"tpope/vim-fugitive",
 	"lewis6991/gitsigns.nvim",
+
 	-- rust  To enable more of the features of rust-analyzer, such as inlay hints and more!
-	"simrat39/rust-tools.nvim",
-	"rust-lang/rust.vim",
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^3", -- Recommended
+		ft = { "rust" },
+	},
+	--"simrat39/rust-tools.nvim", --archived
+	--"rust-lang/rust.vim",
 
 	-- format
 	"mhartington/formatter.nvim",

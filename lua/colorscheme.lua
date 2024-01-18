@@ -4,8 +4,8 @@ local colorscheme = ""
 
 colorscheme = "gruvbox"
 colorscheme = "dracula"
-colorscheme = "catppuccin"
 colorscheme = "tokyonight"
+colorscheme = "catppuccin"
 
 if colorscheme == "tokyonight" then
 	require("theme-config.tokyonight")

@@ -7,8 +7,8 @@ if not status then
 end
 
 local servers = {
-	--	clangd = require("lsp-config.servers.clangd"),
-	ccls = require("lsp-config.servers.ccls"),
+	clangd = require("lsp-config.servers.clangd"),
+	--ccls = require("lsp-config.servers.ccls"),
 	-- use go-tool instead of gopls config
 	--gopls = require("lsp-config.servers.gopls"),
 	lua_ls = require("lsp-config.servers.lua"),

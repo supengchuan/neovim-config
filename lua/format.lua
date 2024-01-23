@@ -57,7 +57,7 @@ require("formatter").setup({
 					args = { "--pipe" },
 					stdin = true,
 				}
-			end
+			end,
 		},
 		go = {
 			require("formatter.filetypes.go").goimports,
@@ -79,6 +79,10 @@ require("formatter").setup({
 		},
 		sh = {
 			require("formatter.filetypes.sh").shfmt,
+		},
+		-- should install taplo at first
+		toml = {
+			require("formatter.filetypes.toml").taplo,
 		},
 	},
 })

@@ -11,6 +11,7 @@ local M = {
 		local servers = {
 			clangd = require("lsp-config.servers.clangd"),
 			--ccls = require("lsp-config.servers.ccls"),
+			nginx_language_server = require("lsp-config.servers.nginx-language-server"),
 			lua_ls = require("lsp-config.servers.lua"),
 			pyright = require("lsp-config.servers.pyright"),
 			sqlls = require("lsp-config.servers.sqls"),

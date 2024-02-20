@@ -32,7 +32,7 @@ local plugins = {
 	require("plugins.nvim-tree"),
 	require("plugins.tree-sitter"),
 	-- Collection of configurations for the built-in LSP client
-	"neovim/nvim-lspconfig",
+	require ("plugins.lspconfig"),
 	-- nvim-cmp
 	{
 		"hrsh7th/nvim-cmp",
@@ -94,28 +94,11 @@ local plugins = {
 	require("plugins.aerial"),
 
 	-- float termnial
-	{
-		"akinsho/toggleterm.nvim",
-		version = "*",
-		config = true,
-	},
+	require("plugins.toggleterm")
+	,
+
 	-- telescope
-	{
-		"nvim-telescope/telescope.nvim",
-		version = "0.1.4",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-	-- improve telescope performance
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-	},
-	-- look environment variables with telescope
-	"LinArcX/telescope-env.nvim",
-	-- Project need
-	"nvim-telescope/telescope-project.nvim",
-	-- telesocpe-dap
-	"nvim-telescope/telescope-dap.nvim",
+	require("plugins.telescope"),
 	{
 		"nvimdev/dashboard-nvim",
 		event = "VimEnter",
@@ -184,7 +167,8 @@ local plugins = {
 	{ "lervag/vimtex", event = "VeryLazy" },
 
 	-- jump
-	"ggandor/leap.nvim",
+	--"ggandor/leap.nvim",
+	require("plugins.leap"),
 }
 
 local opts = {

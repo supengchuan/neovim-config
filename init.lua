@@ -7,10 +7,9 @@ require("format")
 --cmp
 require("cmp-config")
 --lsp
-require("lsp-config")
+--require("lsp-config")
 
--- plugin-config
-require("plugin-config")
+require("diagnostics")
 
 -- debug
 require("dap-config")

@@ -29,19 +29,8 @@ local plugins = {
 	{ "olimorris/onedarkpro.nvim", priority = 1000 },
 
 	-- nvim tree
-	{
-		"nvim-tree/nvim-tree.lua",
-		version = "*",
-		lazy = false,
-		dependencies = "nvim-tree/nvim-web-devicons",
-	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-	},
+	require("plugins.nvim-tree"),
+	require("plugins.tree-sitter"),
 	-- Collection of configurations for the built-in LSP client
 	"neovim/nvim-lspconfig",
 	-- nvim-cmp
@@ -66,11 +55,8 @@ local plugins = {
 	"saadparwaiz1/cmp_luasnip",
 
 	-- bufferline
-	{
-		"akinsho/bufferline.nvim",
-		event = "VimEnter",
-		dependencies = "nvim-tree/nvim-web-devicons",
-	},
+	require("plugins.bufferline"),
+
 	-- no usage
 	--{ "famiu/bufdelete.nvim", event = "VimEnter" },
 	{
@@ -89,26 +75,23 @@ local plugins = {
 		end,
 	},
 	"arkav/lualine-lsp-progress",
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
-	},
+	require("plugins.lualine"),
 
 	-- for git
 	"tpope/vim-fugitive",
-	"lewis6991/gitsigns.nvim",
+	require("plugins.gitsigns"),
 
 	-- rust  To enable more of the features of rust-analyzer, such as inlay hints and more!
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^3", -- Recommended
+		version = "^4", -- Recommended
 		ft = { "rust" },
 	},
 
 	-- format
 	"mhartington/formatter.nvim",
 	-- outline
-	"stevearc/aerial.nvim",
+	require("plugins.aerial"),
 
 	-- float termnial
 	{
@@ -145,7 +128,7 @@ local plugins = {
 	},
 
 	-- color
-	"norcalli/nvim-colorizer.lua",
+	require("plugins.nvim-colorizer"),
 
 	--debug
 	"mfussenegger/nvim-dap",
@@ -157,21 +140,8 @@ local plugins = {
 	},
 
 	-- golang tool
-	{
-		"ray-x/go.nvim",
-		dependencies = { -- optional packages
-			"ray-x/guihua.lua",
-			"neovim/nvim-lspconfig",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		config = function()
-			-- set config
-			require("lsp-config.go-tool")
-		end,
-		--event = { "CmdlineEnter" },
-		ft = { "go", "gomod" },
-		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-	},
+	require("plugins.go"),
+
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -206,9 +176,9 @@ local plugins = {
 		},
 	},
 	-- indent
-	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+	require("plugins.indent_blankline"),
 	-- package manager
-	{ "williamboman/mason.nvim", event = "VimEnter" },
+	require("plugins.mason"),
 
 	-- latex
 	{ "lervag/vimtex", event = "VeryLazy" },

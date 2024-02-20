@@ -1,6 +1,6 @@
+require("basic")
 require("lazy_plugins")
 
-require("basic")
 require("keybindings")
 require("format")
 

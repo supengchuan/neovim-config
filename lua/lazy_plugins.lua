@@ -32,7 +32,7 @@ local plugins = {
 	require("plugins.nvim-tree"),
 	require("plugins.tree-sitter"),
 	-- Collection of configurations for the built-in LSP client
-	require ("plugins.lspconfig"),
+	require("plugins.lspconfig"),
 	-- nvim-cmp
 	{
 		"hrsh7th/nvim-cmp",
@@ -94,8 +94,7 @@ local plugins = {
 	require("plugins.aerial"),
 
 	-- float termnial
-	require("plugins.toggleterm")
-	,
+	require("plugins.toggleterm"),
 
 	-- telescope
 	require("plugins.telescope"),
@@ -174,6 +173,9 @@ local plugins = {
 local opts = {
 	defaults = {
 		lazy = false,
+	},
+	ui = {
+		border = "single",
 	},
 }
 

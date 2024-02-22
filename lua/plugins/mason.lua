@@ -5,7 +5,7 @@ local M = {
 	config = function()
 		require("mason").setup({
 			ui = {
-				border = "double",
+				border = "single",
 				icons = {
 					package_installed = "✓",
 					package_pending = "➜",
@@ -18,16 +18,20 @@ local M = {
 		local others = {
 			-- lsp
 			"bash-language-server",
-			"clangd",
+			-- "clangd",
 			"gopls",
 			"lua-language-server",
 			"nginx-language-server",
 			"rust-analyzer",
+			"buf-language-server",
 
 			-- formatter
 			"stylua",
 			"goimports",
 			"shfmt",
+			"taplo",
+			"prettier",
+			"sql-formatter",
 
 			-- linter
 			"shellcheck",

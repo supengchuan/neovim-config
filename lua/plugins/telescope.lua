@@ -11,6 +11,8 @@ local M = {
 		"nvim-telescope/telescope-project.nvim",
 		-- telesocpe-dap
 		"nvim-telescope/telescope-dap.nvim",
+		-- goimpl in telescope
+		"edolphin-ydf/goimpl.nvim",
 	},
 	config = function()
 		local status, telescope = pcall(require, "telescope")
@@ -64,6 +66,8 @@ local M = {
 		pcall(telescope.load_extension, "projects")
 		-- extension telescope-dap
 		pcall(telescope.load_extension, "dap")
+		-- extension goimpl
+		pcall(telescope.load_extension, "goimpl")
 	end,
 }
 

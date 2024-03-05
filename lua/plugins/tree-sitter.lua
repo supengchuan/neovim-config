@@ -7,7 +7,7 @@ local M = {
 	config = function()
 		require("nvim-treesitter.install").compilers = { "gcc" }
 
-		return {
+		require("nvim-treesitter.configs").setup({
 			-- A list of parser names, or "all"
 			ensure_installed = { "c", "lua", "vim", "rust", "go" },
 
@@ -33,7 +33,7 @@ local M = {
 				-- Instead of true it can also be a list of languages
 				additional_vim_regex_highlighting = false,
 			},
-		}
+		})
 	end,
 }
 

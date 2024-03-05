@@ -71,6 +71,7 @@ map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- go to definition
 map("n", "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 --map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+-- list references
 map(
 	"n",
 	"gr",
@@ -106,6 +107,8 @@ map(
 	"<cmd>lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width=0.75}, initial_mode = 'insert'})<CR>",
 	opts
 )
+map("n", "<leader>im", "<cmd>lua require('telescope').extensions.goimpl.goimpl{initial_mode='insert'}<CR>", opts)
+
 -- dap
 map("n", "<F5>", "<Cmd>lua require'dap'.continue()<CR>", opts)
 map("n", "<F10>", "<Cmd>lua require'dap'.step_over()<CR>", opts)

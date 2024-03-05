@@ -19,7 +19,7 @@ local M = {
 			-- lsp
 			"bash-language-server",
 			-- "clangd",
-			"gopls",
+			--"gopls",
 			"lua-language-server",
 			"nginx-language-server",
 			"rust-analyzer",

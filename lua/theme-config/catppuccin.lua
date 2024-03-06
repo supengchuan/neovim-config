@@ -16,7 +16,7 @@ require("catppuccin").setup({
 		functions = {},
 		keywords = { "bold" },
 		strings = { "italic" },
-		variables = { "bold" },
+		variables = {},
 		numbers = { "bold" },
 		booleans = {},
 		properties = {},

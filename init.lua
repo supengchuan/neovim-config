@@ -1,7 +1,7 @@
 require("basic")
 require("lazy_plugins")
 
-require("keybindings")
+require("wk")
 require("format")
 
 --cmp

@@ -1,6 +1,9 @@
 local M = {
 	"akinsho/toggleterm.nvim",
 	version = "*",
+	dependencies = {
+		"folke/which-key.nvim",
+	},
 	config = function()
 		local st_floattus, toggleterm = pcall(require, "toggleterm")
 		if not st_floattus then
@@ -57,9 +60,7 @@ local M = {
 			hidden = true,
 		})
 
-		local M = {}
-
-		M.toggle = function(cmd)
+		local toggle = function(cmd)
 			if t_float:is_open() then
 				t_float:close()
 				return
@@ -70,11 +71,17 @@ local M = {
 			end
 		end
 
-		M.lazygit_toggle = function(cmd)
+		local lazygit_toggle = function(cmd)
 			lazygit:toggle()
 		end
+		-- register hot key
+		local wk = require("which-key")
+		wk.register({
+			t = { toggle, "toggleterm" },
+			["gg"] = { lazygit_toggle, "lazygit toggle using terminal" },
+		}, { prefix = "<leader>" })
 
-		require("keybindings").mapToggleTerm(M)
+		wk.register({ ["<C-t>"] = { toggle, "toggleterm" } }, { mode = "t" })
 	end,
 }
 

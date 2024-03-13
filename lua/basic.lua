@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 vim.cmd([[set mouse-=a]])
 
 -- 搜索忽略大小写

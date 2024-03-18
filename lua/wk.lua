@@ -16,7 +16,6 @@ local wk = require("which-key")
 wk.register({
 	["ff"] = {
 		"<cmd>lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width=0.75}, initial_mode = 'insert'})<CR>",
-
 		"Find File",
 	},
 	j = { "5j", "move cursor down five lines" },

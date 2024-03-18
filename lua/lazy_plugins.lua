@@ -82,12 +82,7 @@ local plugins = {
 	require("plugins.gitsigns"),
 
 	-- rust  To enable more of the features of rust-analyzer, such as inlay hints and more!
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^4", -- Recommended
-		ft = { "rust" },
-	},
-
+	require("plugins.rust"),
 	-- format
 	"mhartington/formatter.nvim",
 	-- outline

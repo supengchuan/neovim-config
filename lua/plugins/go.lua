@@ -26,6 +26,7 @@ local M = {
 
 			lsp_keymaps = false,
 			comment_placeholder = "  ",
+			diagnostic = false,
 		})
 	end,
 	--event = { "CmdlineEnter" },

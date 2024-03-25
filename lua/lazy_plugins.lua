@@ -113,7 +113,7 @@ local plugins = {
 	"theHamsta/nvim-dap-virtual-text",
 	{
 		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap" },
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
 	},
 
 	-- golang tool

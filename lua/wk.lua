@@ -13,6 +13,16 @@ local wk = require("which-key")
 --  expr = false, -- use `expr` when creating keymaps
 --}
 
+function Toggle_wrap()
+	local id = vim.api.nvim_get_current_win()
+
+	if vim.wo[id].wrap == true then
+		vim.wo[id].wrap = false
+	else
+		vim.wo[id].wrap = true
+	end
+end
+
 wk.register({
 	["ff"] = {
 		"<cmd>lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width=0.75}, initial_mode = 'insert'})<CR>",
@@ -58,6 +68,7 @@ wk.register({
 	["gr"] = { "<cmd>Gitsigns reset_hunk<CR>", "reset hunk" },
 	["gs"] = { "<cmd>Gitsigns stage_hunk<CR>", "stage hunk" },
 	["gb"] = { "<cmd>Gitsigns blame_line<CR>", "blame line" },
+	["<CR>"] = { "<cmd>lua Toggle_wrap()<CR>", "set file wrap or no wrap" },
 }, { prefix = "<leader>" })
 
 wk.register({

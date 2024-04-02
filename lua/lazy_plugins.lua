@@ -21,12 +21,9 @@ local lazy = require("lazy")
 
 local plugins = {
 	-- color theme
-	"Mofiqul/dracula.nvim",
-	"marko-cerovac/material.nvim",
-	"ellisonleao/gruvbox.nvim",
 	"folke/tokyonight.nvim",
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{ "olimorris/onedarkpro.nvim", priority = 1000 },
+	require("plugins.tokyonight"),
+	require("plugins.catppuccin"),
 
 	-- nvim tree
 	require("plugins.nvim-tree"),

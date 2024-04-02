@@ -17,11 +17,11 @@ require("dap-config")
 -- autocmd
 require("autocmd")
 
--- colorscheme
-require("colorscheme")
-
 --latex
 require("tex")
 
 -- set bg transparent
 --require("highlight")
+
+--vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme catppuccin]])

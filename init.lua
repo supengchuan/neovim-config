@@ -23,5 +23,6 @@ require("tex")
 -- set bg transparent
 --require("highlight")
 
+-- set colorscheme at last
 --vim.cmd([[colorscheme tokyonight]])
 vim.cmd([[colorscheme catppuccin]])

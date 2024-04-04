@@ -160,6 +160,9 @@ local plugins = {
 	-- jump
 	--"ggandor/leap.nvim",
 	require("plugins.leap"),
+
+	-- float input
+	{ "liangxianzhe/floating-input.nvim" },
 }
 
 local opts = {

@@ -33,7 +33,6 @@ local plugins = {
 	-- nvim-cmp
 	{
 		"hrsh7th/nvim-cmp",
-		version = "*",
 		lazy = false,
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp", --nvim-cmp source for neovim's built-in language server client.

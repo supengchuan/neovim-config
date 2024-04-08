@@ -21,11 +21,13 @@ local M = {
 			},
 			lsp_inlay_hints = {
 				enable = true,
+				style = "eol", -- 'default: inlay', 'eol': show at end of line, 'inlay': show in the middle of the line
 
+				-- Note: following setup only for for style == 'eol'
 				-- Only show inlay hints for the current line
 				only_current_line = false,
 
-				-- Event which triggers a refersh of the inlay hints.
+				-- Event which triggers a refresh of the inlay hints.
 				-- You can make this "CursorMoved" or "CursorMoved,CursorMovedI" but
 				-- not that this may cause higher CPU usage.
 				-- This option is only respected when only_current_line and
@@ -41,9 +43,10 @@ local M = {
 				show_parameter_hints = true,
 
 				-- prefix for all the other hints (type, chaining)
+				-- default: "=>"
 				other_hints_prefix = "=> ",
 
-				-- whether to align to the lenght of the longest line in the file
+				-- whether to align to the length of the longest line in the file
 				max_len_align = false,
 
 				-- padding from the left if max_len_align is true

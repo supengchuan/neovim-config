@@ -42,12 +42,12 @@ local M = {
 				leap = true, -- only set bg transparent can make this enabled
 				aerial = true,
 			},
-
-			custom_highlights = function(colors)
-				return {
-					Comment = { fg = colors.flamingo },
-				}
-			end,
+			-- disable overide color for comments
+			--			custom_highlights = function(colors)
+			--				return {
+			--					Comment = { fg = colors.flamingo },
+			--				}
+			--			end,
 		})
 		vim.cmd.colorscheme("catppuccin")
 	end,

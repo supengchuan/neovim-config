@@ -13,9 +13,6 @@ vim.o.fileencoding = "utf-8"
 
 vim.o.hidden = true
 
--- needed by nvim-compe
-vim.o.completeopt = "menuone,noselect"
-
 vim.o.relativenumber = true
 vim.o.number = true
 vim.o.tabstop = 4

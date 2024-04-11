@@ -21,7 +21,6 @@ local lazy = require("lazy")
 
 local plugins = {
 	-- color theme
-	"folke/tokyonight.nvim",
 	require("plugins.tokyonight"),
 	require("plugins.catppuccin"),
 
@@ -70,7 +69,6 @@ local plugins = {
 			})
 		end,
 	},
-	"arkav/lualine-lsp-progress",
 	require("plugins.lualine"),
 
 	-- for git

@@ -6,14 +6,14 @@ end
 
 vim.diagnostic.config({
 	virtual_text = {
-		source = "always", -- Or "if_many"
+		source = "if_many", -- Or "if_many"
 		prefix = "●", -- Could be '■', '▎', 'x'
 		spacing = 20,
 	},
 	signs = true,
 	severity_sort = true,
 	float = {
-		source = "always", -- Or "if_many"
+		source = true, -- Or "if_many"
 		border = "double",
 	},
 })

@@ -80,3 +80,14 @@ autocmd("BufEnter", {
 		vim.o.wrap = true
 	end,
 })
+
+-- Turn off syntax highlighting for large files
+autocmd("BufEnter", {
+	group = myAutoGroup,
+	pattern = "*",
+	callback = function()
+		if vim.api.nvim_buf_line_count(0) > 20000 then
+			vim.cmd([[ syntax off ]])
+		end
+	end,
+})

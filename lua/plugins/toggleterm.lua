@@ -11,7 +11,7 @@ local M = {
 			return
 		end
 
-		local on_windows = vim.loop.os_uname().version:match("Windows")
+		local on_windows = vim.uv.os_uname().sysname:match("Windows")
 		if on_windows then
 			-- use pwsh on windows
 			vim.opt.shell = vim.fn.executable("pwsh") and "pwsh" or "powershell"

@@ -30,6 +30,9 @@ require("formatter").setup({
 		["*"] = {
 			require("formatter.filetypes.any").remove_trailing_whitespace,
 		},
+		python = {
+			require("formatter.filetypes.python").yapf,
+		},
 		rust = {
 			function()
 				return {

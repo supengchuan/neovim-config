@@ -81,6 +81,15 @@ autocmd("BufEnter", {
 	end,
 })
 
+-- set tab as 4space for c or cpp
+--autocmd("BufEnter", {
+--	pattern = { "*.c", "*.cpp" },
+--	group = myAutoGroup,
+--	callback = function()
+--		vim.o.expandtab = true
+--	end,
+--})
+
 -- Turn off syntax highlighting for large files
 autocmd("BufEnter", {
 	group = myAutoGroup,

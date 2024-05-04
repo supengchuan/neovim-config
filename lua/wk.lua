@@ -92,10 +92,10 @@ wk.register({
 
 wk.register({
 	["<C-n>"] = { "<cmd>NvimTreeToggle<CR>", "toggle folder tree on left" },
-	["<C-h>"] = { "<C-w>h", "move cursor to left window" },
-	["<C-j>"] = { "<C-w>j", "move cursor to blow window" },
-	["<C-k>"] = { "<C-w>k", "move cursor to up window" },
-	["<C-l>"] = { "<C-w>l", "move cursor to right window" },
+	["<C-h>"] = { "<cmd>NvimTmuxNavigateLeft<CR>", "move cursor to left window" },
+	["<C-j>"] = { "<cmd>NvimTmuxNavigateDown<CR>", "move cursor to blow window" },
+	["<C-k>"] = { "<cmd>NvimTmuxNavigateUp<CR>", "move cursor to up window" },
+	["<C-l>"] = { "<cmd>NvimTmuxNavigateRight<CR>", "move cursor to right window" },
 	["<C-]>"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "go to definition" },
 	-- dap
 	["F5"] = { "<cmd>lua require'dap'.continue()<CR>", "debug continue" },

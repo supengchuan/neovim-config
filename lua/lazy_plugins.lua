@@ -164,6 +164,7 @@ local plugins = {
 	require("plugins.fidget"),
 	-- cmake tools
 	require("plugins.cmake_tools"),
+	require("plugins.nvim-tmux-navigation"),
 }
 
 local opts = {

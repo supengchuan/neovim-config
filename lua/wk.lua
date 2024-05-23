@@ -23,6 +23,16 @@ function Toggle_wrap()
 	end
 end
 
+function Toggle_inlay_hints()
+	if vim.lsp.inlay_hint.is_enabled() then
+		vim.lsp.inlay_hint.enable(false)
+		print("Disable inlay hints")
+	else
+		vim.lsp.inlay_hint.enable(true)
+		print("Enable inlay hints")
+	end
+end
+
 wk.register({
 	["ff"] = {
 		"<cmd>lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width=0.75}, initial_mode = 'insert'})<CR>",
@@ -69,6 +79,7 @@ wk.register({
 	["gs"] = { "<cmd>Gitsigns stage_hunk<CR>", "stage hunk" },
 	["gb"] = { "<cmd>Gitsigns blame_line<CR>", "blame line" },
 	["<CR>"] = { "<cmd>lua Toggle_wrap()<CR>", "set file wrap or no wrap" },
+	["h"] = { "<cmd>lua Toggle_inlay_hints()<CR>", "set a buffer enable inlay hints or not" },
 }, { prefix = "<leader>" })
 
 wk.register({

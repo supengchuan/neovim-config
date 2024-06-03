@@ -87,6 +87,13 @@ wk.register({
 }, { mode = "i" })
 
 wk.register({
+	["s"] = {
+		"y<cmd>lua require('telescope.builtin').grep_string({search=vim.fn.getreg('\"')})<cr>",
+		"grep a string in visual block",
+	},
+}, { mode = "x", prefix = "<leader>" })
+
+wk.register({
 	f = { name = "+format", f = { "<cmd>Format<CR>", "file format" } },
 	g = {
 		h = { "<cmd>lua vim.lsp.buf.hover()<CR>", "show lsp hint" },

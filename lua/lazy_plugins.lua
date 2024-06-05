@@ -165,6 +165,7 @@ local plugins = {
 	-- cmake tools
 	require("plugins.cmake_tools"),
 	require("plugins.nvim-tmux-navigation"),
+	require("plugins.llm"),
 }
 
 local opts = {

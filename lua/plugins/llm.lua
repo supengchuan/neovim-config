@@ -1,6 +1,6 @@
 local function getEnable()
 	local enable = false
-	local fromENV = os.getenv("ENABLE_LLM")
+	local fromENV = os.getenv("LLM_ENABLE")
 	if fromENV == "true" then
 		enable = true
 	end

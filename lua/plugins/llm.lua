@@ -1,3 +1,13 @@
+local function getEnable()
+	local enable = false
+	local fromENV = os.getenv("ENABLE_LLM")
+	if fromENV == "true" then
+		enable = true
+	end
+
+	return enable
+end
+
 local function getModel()
 	local model = "codellama:7b-code"
 	local fromENV = os.getenv("LLM_MODEL")
@@ -20,6 +30,7 @@ end
 
 return {
 	"huggingface/llm.nvim",
+	cond = getEnable(),
 	opts = {
 		-- cf Setup
 		api_token = nil, -- cf Install paragraph

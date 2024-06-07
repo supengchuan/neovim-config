@@ -23,7 +23,7 @@ local M = {
 	version = "*",
 	lazy = false,
 	dependencies = "nvim-tree/nvim-web-devicons",
-	config = {
+	opts = {
 		filters = {
 			custom = { "^\\.git$" },
 		},
@@ -125,7 +125,7 @@ local M = {
 				},
 			},
 			special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
-			symlink_destination = true,
+			symlink_destination = false,
 		},
 		hijack_directories = {
 			enable = true,

@@ -3,7 +3,7 @@ local M = {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
-	config = {
+	opts = {
 		options = {
 			icons_enabled = true,
 			--theme = "dracula-nvim",

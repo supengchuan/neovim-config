@@ -22,6 +22,7 @@ local M = {
 					--	end
 				end,
 			},
+			lsp_codelens = false,
 			lsp_inlay_hints = {
 				enable = false,
 			},

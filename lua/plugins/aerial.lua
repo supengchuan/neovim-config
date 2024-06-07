@@ -2,13 +2,12 @@ local M = {}
 
 M = {
 	"stevearc/aerial.nvim",
-	opts = {},
 	-- Optional dependencies
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-tree/nvim-web-devicons",
 	},
-	config = {
+	opts = {
 		-- Priority list of preferred backends for aerial.
 		-- This can be a filetype map (see :help aerial-filetype-map)
 		backends = { "treesitter", "lsp", "markdown" },

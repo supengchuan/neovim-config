@@ -22,6 +22,14 @@ return {
 						winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
 					},
 				},
+				mini = {
+					win_options = {
+						winhighlight = {
+							Normal = "Normal",
+						},
+						winblend = 30,
+					},
+				},
 			},
 			cmdline = {
 				view = "cmdline_popup",

@@ -160,8 +160,6 @@ local plugins = {
 
 	-- float input
 	{ "liangxianzhe/floating-input.nvim" },
-	-- 显示一些信息在角落
-	require("plugins.fidget"),
 	-- cmake tools
 	require("plugins.cmake_tools"),
 	require("plugins.nvim-tmux-navigation"),

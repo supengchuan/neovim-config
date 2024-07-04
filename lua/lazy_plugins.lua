@@ -41,19 +41,12 @@ local plugins = {
 			"hrsh7th/cmp-cmdline",
 		},
 	},
-	-- vsnip
-	"rafamadriz/friendly-snippets",
-	-- lspkind adds vscode-like pictograms to neovim built-in lsp
-	"onsails/lspkind-nvim",
 
-	"L3MON4D3/LuaSnip",
-	"saadparwaiz1/cmp_luasnip",
-
+	require("plugins.luaSnip"),
 	-- bufferline
 	require("plugins.bufferline"),
 
 	-- no usage
-	--{ "famiu/bufdelete.nvim", event = "VimEnter" },
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",

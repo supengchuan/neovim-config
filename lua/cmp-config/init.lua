@@ -11,7 +11,7 @@ end
 --	return
 --end
 
-require("cmp-config.luasnip")
+--require("cmp-config.luasnip")
 
 --local unlinkgrp = vim.api.nvim_create_augroup("UnlinkSnippetOnModeChange", { clear = true })
 --vim.api.nvim_create_autocmd("ModeChanged", {
@@ -25,8 +25,6 @@ require("cmp-config.luasnip")
 --	end,
 --})
 
--- use friendly snip
-require("luasnip/loaders/from_vscode").lazy_load()
 
 -- UI
 local kind_icons = require("icons")

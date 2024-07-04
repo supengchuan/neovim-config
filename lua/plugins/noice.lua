@@ -44,8 +44,7 @@ return {
 			},
 			lsp = {
 				signature = {
-					enabled = false,
-					view = "mini",
+					enabled = true,
 				},
 			},
 			messages = {

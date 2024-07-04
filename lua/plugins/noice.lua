@@ -15,7 +15,7 @@ return {
 				cmdline_popup = {
 					border = {
 						style = "double",
-						padding = { 2, 3 },
+						padding = { 1, 3 },
 					},
 					filter_options = {},
 					win_options = {
@@ -27,7 +27,7 @@ return {
 						winhighlight = {
 							Normal = "Normal",
 						},
-						winblend = 30,
+						winblend = 0,
 					},
 				},
 			},
@@ -42,9 +42,22 @@ return {
 					},
 				},
 			},
+			lsp = {
+				signature = {
+					enabled = false,
+					view = "mini",
+				},
+			},
+			messages = {
+				view = "notify",
+			},
 		})
 		require("notify").setup({
 			background_colour = "#000000",
+			timeout = 5000,
+			stages = "static",
+			top_down = true,
+			render = "wrapped-compact",
 		})
 	end,
 }

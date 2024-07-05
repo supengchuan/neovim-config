@@ -4,8 +4,8 @@ local M = {
 	priority = 1000,
 	config = function()
 		require("catppuccin").setup({
-			flavour = "frappe", -- latte, frappe, macchiato, mocha
-			transparent_background = true, -- disables setting the background color.
+			flavour = "macchiato", -- latte, frappe, macchiato, mocha
+			transparent_background = false, -- disables setting the background color.
 			no_underline = true, -- Force no underline
 			term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
 			dim_inactive = {
@@ -30,6 +30,7 @@ local M = {
 			},
 
 			integrations = {
+				bufferline = true,
 				cmp = true,
 				gitsigns = true,
 				nvimtree = true,
@@ -43,11 +44,11 @@ local M = {
 				aerial = true,
 			},
 			-- disable overide color for comments
-			--			custom_highlights = function(colors)
-			--				return {
-			--					Comment = { fg = colors.flamingo },
-			--				}
-			--			end,
+			custom_highlights = function(colors)
+				return {
+					LeapBackdrop = { fg = colors.overlay0 },
+				}
+			end,
 		})
 		vim.cmd.colorscheme("catppuccin")
 	end,

@@ -24,5 +24,14 @@ require("tex")
 --require("highlight")
 
 -- set colorscheme at last
---vim.cmd([[colorscheme tokyonight]])
-vim.cmd([[colorscheme catppuccin]])
+local function getColorshemeFromENV()
+	local scheme = "tokyonight"
+	local fromENV = os.getenv("NVIM-COLOR")
+	if fromENV ~= nil then
+		scheme = fromENV
+	end
+
+	return scheme
+end
+
+vim.cmd.colorscheme(getColorshemeFromENV())

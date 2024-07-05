@@ -50,7 +50,6 @@ local M = {
 				}
 			end,
 		})
-		vim.cmd.colorscheme("catppuccin")
 	end,
 }
 

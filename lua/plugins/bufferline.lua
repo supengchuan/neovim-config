@@ -25,7 +25,7 @@ local M = {
 				},
 				indicator = {
 					icon = "  ",
-					style = "icon",
+					style = "underline", --'icon' | 'underline' | 'none',
 				},
 				modified_icon = "●",
 				-- 使用 nvim 内置lsp

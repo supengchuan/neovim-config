@@ -44,6 +44,11 @@ local M = {
 				buffers = {
 					ignore_current_buffer = false,
 					sort_lastused = true,
+					sort_mru = true,
+				},
+				find_files = {
+					theme = "ivy",
+					initial_mode = "insert",
 				},
 			},
 			extensions = {

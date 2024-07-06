@@ -24,7 +24,7 @@ function Toggle_wrap()
 end
 
 function Toggle_inlay_hints()
-	if vim.lsp.inlay_hint.is_enabled() then
+	if vim.lsp.inlay_hint.is_enabled({}) then
 		vim.lsp.inlay_hint.enable(false)
 		print("Disable inlay hints")
 	else
@@ -35,7 +35,7 @@ end
 
 wk.register({
 	["ff"] = {
-		"<cmd>lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width=0.75}, initial_mode = 'insert'})<CR>",
+		"<cmd>lua require('telescope.builtin').find_files()<CR>",
 		"Find File",
 	},
 	j = { "5j", "move cursor down five lines" },
@@ -53,7 +53,7 @@ wk.register({
 	["dd"] = { "<cmd>Telescope diagnostics<CR>", "list diagnostics via telescope" },
 	["rn"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "rename token" },
 	e = {
-		"<cmd>lua require('telescope.builtin').buffers({layout_strategy='vertical',layout_config={width=0.75}})<CR>",
+		"<cmd>lua require('telescope.builtin').buffers()<CR>",
 		"list open buffers",
 	},
 	["lg"] = {

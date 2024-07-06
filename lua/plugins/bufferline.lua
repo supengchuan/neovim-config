@@ -1,5 +1,3 @@
-local myBufferlineHighlight = {}
-
 local M = {
 	"akinsho/bufferline.nvim",
 	version = "*",
@@ -25,7 +23,7 @@ local M = {
 				},
 				indicator = {
 					icon = "  ",
-					style = "underline", --'icon' | 'underline' | 'none',
+					style = "icon", --'icon' | 'underline' | 'none',
 				},
 				modified_icon = "●",
 				-- 使用 nvim 内置lsp
@@ -35,14 +33,7 @@ local M = {
 					if context.buffer:current() then
 						return ""
 					end
-					local s = " "
-					-- e=level,n=count
-					for e, n in pairs(diagnostics_dict) do
-						-- sym  symbol的缩写
-						local sym = e == "error" and " " or (e == "warning" and " " or " ")
-						s = s .. n .. sym
-					end
-					return s
+					return ""
 				end,
 				-- 左侧让出 nvim-tree 的位置
 
@@ -65,9 +56,9 @@ local M = {
 				left_trunc_marker = "",
 				right_trunc_marker = "",
 				-- slant padded_slant slope padded_slope thick thin
-				separator_style = "thin",
+				separator_style = "slant",
 				show_buffer_close_icon = true,
-				show_close_icon = true,
+				show_close_icon = false,
 				auto_toggle_bufferline = true,
 				show_tab_indicators = true,
 				right_mouse_command = "vertical sbuffer %d",

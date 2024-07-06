@@ -47,7 +47,6 @@ local M = {
 					sort_mru = true,
 				},
 				find_files = {
-					theme = "ivy",
 					initial_mode = "insert",
 				},
 			},

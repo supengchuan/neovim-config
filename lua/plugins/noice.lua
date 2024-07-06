@@ -48,7 +48,7 @@ return {
 				},
 			},
 			messages = {
-				view = "notify",
+				view = "mini",
 			},
 		})
 		require("notify").setup({

@@ -1,6 +1,5 @@
 local M = {
 	"akinsho/toggleterm.nvim",
-	version = "*",
 	dependencies = {
 		"folke/which-key.nvim",
 	},

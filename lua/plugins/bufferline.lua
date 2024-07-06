@@ -1,6 +1,5 @@
 local M = {
 	"akinsho/bufferline.nvim",
-	version = "*",
 	dependencies = "nvim-tree/nvim-web-devicons",
 	config = function()
 		local bufferline = require("bufferline")
@@ -50,7 +49,7 @@ local M = {
 						text_align = "right",
 					},
 				},
-				color_icons = true,
+				color_icons = false,
 				buffer_close_icon = "",
 				close_icon = "",
 				left_trunc_marker = "",

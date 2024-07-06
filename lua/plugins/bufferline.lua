@@ -1,17 +1,21 @@
+local myBufferlineHighlight = {}
+
 local M = {
 	"akinsho/bufferline.nvim",
 	version = "*",
 	dependencies = "nvim-tree/nvim-web-devicons",
 	config = function()
-		require("bufferline").setup({
+		local bufferline = require("bufferline")
+		bufferline.setup({
 			options = {
+				mode = "buffers",
+				themable = false,
 				middle_mouse_command = function()
 					require("bufferline").sort_by(function(buf_a, buf_b)
 						return buf_a.id < buf_b.id
 					end)
 				end,
-				show_buffer_icons = false,
-				mode = "buffers",
+				show_buffer_icons = true,
 				numbers = "none",
 				tab_size = 10,
 				hover = {
@@ -55,13 +59,17 @@ local M = {
 						text_align = "right",
 					},
 				},
+				color_icons = true,
 				buffer_close_icon = "",
 				close_icon = "",
 				left_trunc_marker = "",
 				right_trunc_marker = "",
+				-- slant padded_slant slope padded_slope thick thin
 				separator_style = "thin",
 				show_buffer_close_icon = true,
-				show_close_icon = false,
+				show_close_icon = true,
+				auto_toggle_bufferline = true,
+				show_tab_indicators = true,
 				right_mouse_command = "vertical sbuffer %d",
 			},
 		})

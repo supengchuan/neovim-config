@@ -13,6 +13,8 @@ local M = {
 		"nvim-telescope/telescope-dap.nvim",
 		-- goimpl in telescope
 		"edolphin-ydf/goimpl.nvim",
+		-- make live grep support args
+		"nvim-telescope/telescope-live-grep-args.nvim",
 	},
 	config = function()
 		local status, telescope = pcall(require, "telescope")
@@ -61,6 +63,7 @@ local M = {
 			},
 		})
 
+		telescope.load_extension("live_grep_args")
 		-- To get fzf loaded and working with telescope, you need to call
 		-- load_extension, somewhere after setup function:
 		pcall(telescope.load_extension, "fzf")

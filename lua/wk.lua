@@ -57,7 +57,7 @@ wk.register({
 		"list open buffers",
 	},
 	["lg"] = {
-		"<cmd>lua require('telescope.builtin').live_grep({initial_mode = 'insert'})<cr>",
+		"<cmd>lua  require('telescope').extensions.live_grep_args.live_grep_args({initial_mode = 'insert'})<cr>",
 		"live grep string",
 	},
 	["s"] = {

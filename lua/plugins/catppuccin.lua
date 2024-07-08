@@ -40,7 +40,7 @@ local M = {
 					enabled = true,
 					indentscope_color = "",
 				},
-				leap = true, -- only set bg transparent can make this enabled
+				leap = false, -- only set bg transparent can make this enabled
 				aerial = true,
 			},
 			-- disable overide color for comments

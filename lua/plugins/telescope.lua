@@ -45,7 +45,6 @@ local M = {
 			pickers = {
 				buffers = {
 					ignore_current_buffer = false,
-					sort_lastused = true,
 					sort_mru = true,
 				},
 				find_files = {

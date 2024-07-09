@@ -27,13 +27,14 @@ return {
 						winhighlight = {
 							Normal = "Normal",
 						},
-						winblend = 0,
+						winblend = 100,
 					},
 				},
 			},
 			cmdline = {
-				view = "cmdline_popup",
+				view = "cmdline",
 				format = {
+					cmdline = { pattern = "^:", icon = "👻 󰁕", lang = "vim" },
 					search_down = {
 						view = "cmdline",
 					},

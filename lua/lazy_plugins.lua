@@ -23,6 +23,7 @@ local plugins = {
 	-- color theme
 	require("plugins.tokyonight"),
 	require("plugins.catppuccin"),
+	require("plugins.monokai"),
 
 	-- nvim tree
 	require("plugins.nvim-tree"),

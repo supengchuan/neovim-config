@@ -81,6 +81,7 @@ wk.register({
 	["<CR>"] = { "<cmd>lua Toggle_wrap()<CR>", "set file wrap or no wrap" },
 	["h"] = { "<cmd>lua Toggle_inlay_hints()<CR>", "set a buffer enable inlay hints or not" },
 	["z"] = { "<cmd>lua require('zen-mode').toggle({window = {width = 0.85}})<cr>", "toggle zen mode" },
+	["-"] = { "<cmd>lua require('oil').toggle_float()<cr>", "open parent dir with oil" },
 }, { prefix = "<leader>" })
 
 wk.register({

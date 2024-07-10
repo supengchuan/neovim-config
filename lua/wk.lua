@@ -1,5 +1,16 @@
 local wk = require("which-key")
 
+local function get_visual()
+	local _, ls, cs = unpack(vim.fn.getpos("v"))
+	local _, le, ce = unpack(vim.fn.getpos("."))
+
+	-- nvim_buf_get_text requires start and end args be in correct order
+	ls, le = math.min(ls, le), math.max(ls, le)
+	cs, ce = math.min(cs, ce), math.max(cs, ce)
+
+	return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+end
+
 -- Default options for opts
 --{
 --  mode = "n", -- NORMAL mode
@@ -64,6 +75,18 @@ wk.register({
 		"<cmd>lua require('telescope.builtin').grep_string({initial_mode = 'insert'})<cr>",
 		"grep string",
 	},
+	["cs"] = {
+		function(opts)
+			opts = opts or {}
+			local current_path = vim.fn.expand("%")
+			opts["search_dirs"] = { current_path }
+			local word_under_cursor = vim.fn.expand("<cword>")
+			opts["default_text"] = word_under_cursor
+
+			require("telescope").extensions.live_grep_args.live_grep_args(opts)
+		end,
+		"search the word under cursor in current buffer",
+	},
 	["im"] = {
 		"<cmd>lua require('telescope').extensions.goimpl.goimpl{initial_mode='insert'}<CR>",
 		"use goimpl to implement a interface fro struct",
@@ -78,8 +101,8 @@ wk.register({
 	["gr"] = { "<cmd>Gitsigns reset_hunk<CR>", "reset hunk" },
 	["gs"] = { "<cmd>Gitsigns stage_hunk<CR>", "stage hunk" },
 	["gb"] = { "<cmd>Gitsigns blame_line<CR>", "blame line" },
-	["<CR>"] = { "<cmd>lua Toggle_wrap()<CR>", "set file wrap or no wrap" },
-	["h"] = { "<cmd>lua Toggle_inlay_hints()<CR>", "set a buffer enable inlay hints or not" },
+	["<CR>"] = { Toggle_wrap, "set file wrap or no wrap" },
+	["h"] = { Toggle_inlay_hints, "set a buffer enable inlay hints or not" },
 	["z"] = { "<cmd>lua require('zen-mode').toggle({window = {width = 0.85}})<cr>", "toggle zen mode" },
 	["-"] = { "<cmd>lua require('oil').toggle_float()<cr>", "open parent dir with oil" },
 }, { prefix = "<leader>" })
@@ -89,9 +112,30 @@ wk.register({
 }, { mode = "i" })
 
 wk.register({
+	["cs"] = {
+		function(opts)
+			opts = opts or {}
+			local current_path = vim.fn.expand("%")
+			opts["search_dirs"] = { current_path }
+			local visual = get_visual()
+			local text = visual[1] or ""
+			opts["default_text"] = text
+
+			require("telescope").extensions.live_grep_args.live_grep_args(opts)
+		end,
+		"search a string in visual block in current buffer",
+	},
+
 	["s"] = {
-		"y<cmd>lua require('telescope.builtin').grep_string({search=vim.fn.getreg('\"')})<cr>",
-		"grep a string in visual block",
+		function(opts)
+			opts = opts or {}
+			local visual = get_visual()
+			local text = visual[1] or ""
+			opts["default_text"] = text
+
+			require("telescope").extensions.live_grep_args.live_grep_args(opts)
+		end,
+		"search a string in visual block ",
 	},
 }, { mode = "x", prefix = "<leader>" })
 

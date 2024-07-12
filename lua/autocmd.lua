@@ -73,6 +73,16 @@ autocmd("BufEnter", {
 	end,
 })
 
+-- set rust file space chars
+autocmd("BufEnter", {
+	group = myAutoGroup,
+	pattern = "*.rs",
+	callback = function()
+		-- only for current buffer
+		vim.wo.listchars = "eol:\\u21b5,leadmultispace: ,space:.,tab:>-,trail:-"
+	end,
+})
+
 -- reopen file in the same position
 autocmd("BufReadPost", {
 	callback = function()

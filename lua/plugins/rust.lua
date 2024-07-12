@@ -11,8 +11,13 @@ local M = {
 			},
 			server = {
 				settings = {
-					-- rust-analyzer language server configuration
-					["rust-analyzer"] = {},
+					["rust-analyzer"] = {
+						completion = {
+							fullFunctionSignatures = {
+								enable = true,
+							},
+						},
+					},
 				},
 			},
 		}

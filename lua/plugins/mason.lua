@@ -22,7 +22,6 @@ local M = {
 			--"gopls",
 			"lua-language-server",
 			"nginx-language-server",
-			"rust-analyzer",
 			"buf-language-server",
 
 			-- formatter

@@ -4,46 +4,32 @@ if not status then
 	return
 end
 
---local ls
---status, ls = pcall(require, "luasnip")
---if not status then
---	vim.notify("没有找到 luasnip")
---	return
---end
-
---require("cmp-config.luasnip")
-
---local unlinkgrp = vim.api.nvim_create_augroup("UnlinkSnippetOnModeChange", { clear = true })
---vim.api.nvim_create_autocmd("ModeChanged", {
---	group = unlinkgrp,
---	pattern = { "s:n", "i:*" },
---	desc = "Forget the current snippet when leaving the insert mode",
---	callback = function(evt)
---		if ls.session and ls.session.current_nodes[evt.buf] and not ls.session.jump_active then
---			ls.unlink_current()
---		end
---	end,
---})
-
-
 -- UI
 local kind_icons = require("icons")
 -- Setup nvim-cmp.
 cmp.setup({
+	view = {
+		docs = { auto_open = false },
+	},
 	formatting = {
 		format = function(entry, vim_item)
-			-- Kind icons
-			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-			-- Source
-			vim_item.menu = ({
-				buffer = "[Buffer]",
-				nvim_lsp = "[LSP]",
-				nvim_lua = "[API]",
-				luasnip = "[LuaSnip]",
-				path = "[Path]",
-				dap = "[DAP]",
-			})[entry.source.name]
-			return vim_item
+			local lspkind_ok, lspkind = pcall(require, "lspkind")
+			if not lspkind_ok then
+				-- From kind_icons array
+				vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
+				-- Source
+				vim_item.menu = ({
+					buffer = "[Buffer]",
+					nvim_lsp = "[LSP]",
+					luasnip = "[LuaSnip]",
+					nvim_lua = "[Lua]",
+					latex_symbols = "[LaTeX]",
+				})[entry.source.name]
+				return vim_item
+			else
+				-- From lspkind
+				return lspkind.cmp_format()(entry, vim_item)
+			end
 		end,
 	},
 	-- do not enable auto-completion in comments
@@ -179,3 +165,16 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline" },
 	}),
 })
+
+-- If you want insert `(` after select function or method item
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+-- create a command to toggle auto open documentation for cmp
+vim.api.nvim_create_user_command("CmpToggleDoc", function()
+	if cmp.visible_docs() then
+		cmp.close_docs()
+	else
+		cmp.open_docs()
+	end
+end, {})

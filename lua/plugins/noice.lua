@@ -50,6 +50,8 @@ return {
 			},
 			messages = {
 				view = "mini",
+				view_error = "mini",
+				view_warn = "mini",
 			},
 		})
 		require("notify").setup({

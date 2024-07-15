@@ -153,8 +153,6 @@ local plugins = {
 	--"ggandor/leap.nvim",
 	require("plugins.leap"),
 
-	-- float input
-	{ "liangxianzhe/floating-input.nvim" },
 	-- cmake tools
 	require("plugins.cmake_tools"),
 	require("plugins.nvim-tmux-navigation"),

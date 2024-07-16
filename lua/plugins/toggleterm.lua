@@ -75,12 +75,12 @@ local M = {
 		end
 		-- register hot key
 		local wk = require("which-key")
-		wk.register({
-			t = { toggle, "toggleterm" },
-			["gg"] = { lazygit_toggle, "lazygit toggle using terminal" },
-		}, { prefix = "<leader>" })
 
-		wk.register({ ["<C-t>"] = { toggle, "toggleterm" } }, { mode = "t" })
+		wk.add({
+			{ "<C-t>", toggle, desc = "toggleterm", mode = "t" },
+			{ "<leader>gg", lazygit_toggle, desc = "lazygit toggle using terminal" },
+			{ "<leader>t", toggle, desc = "toggleterm" },
+		})
 	end,
 }
 

@@ -94,7 +94,7 @@ wk.add({
 
 	{ "<leader>+", "<cmd>vertical resize -10<CR>", desc = "current buffer narrower" },
 	{ "<leader>-", "<cmd>lua require('oil').toggle_float()<cr>", desc = "open parent dir with oil" },
-	{ "<leader><CR>", Toggle_wrap(), desc = "set file wrap or no wrap" },
+	{ "<leader><CR>", Toggle_wrap, desc = "set file wrap or no wrap" },
 	{ "<leader>=", "<cmd>vertical resize +10<CR>", desc = "current buffer wider" },
 	{ "<leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "set a breakpoint" },
 	{
@@ -118,7 +118,7 @@ wk.add({
 	{ "<leader>gb", "<cmd>Gitsigns blame_line<CR>", desc = "blame line" },
 	{ "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", desc = "reset hunk" },
 	{ "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", desc = "stage hunk" },
-	{ "<leader>h", Toggle_inlay_hints(), desc = "set a buffer enable inlay hints or not" },
+	{ "<leader>h", Toggle_inlay_hints, desc = "set a buffer enable inlay hints or not" },
 	{ "<leader>i", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "open diagnostic as float window" },
 	{
 		"<leader>im",

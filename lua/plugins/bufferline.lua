@@ -38,12 +38,6 @@ local M = {
 
 				offsets = {
 					{
-						filetype = "NvimTree",
-						text = "File Explorer",
-						highlight = "Directory",
-						text_align = "left",
-					},
-					{
 						filetype = "lspsagaoutline",
 						text = "👾outline",
 						text_align = "right",

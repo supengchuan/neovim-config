@@ -5,12 +5,24 @@ local M = {
 	config = function()
 		vim.g.rustaceanvim = {
 			tools = {
-				hover_actions = {
+				float_win_config = {
 					auto_focus = true,
+					border = {
+						{ "╭", "FloatBorder" },
+						{ "─", "FloatBorder" },
+						{ "╮", "FloatBorder" },
+						{ "│", "FloatBorder" },
+						{ "╯", "FloatBorder" },
+						{ "─", "FloatBorder" },
+						{ "╰", "FloatBorder" },
+						{ "│", "FloatBorder" },
+					},
 				},
 			},
+
 			server = {
-				settings = {
+				standalone = false,
+				default_settings = {
 					["rust-analyzer"] = {
 						completion = {
 							fullFunctionSignatures = {

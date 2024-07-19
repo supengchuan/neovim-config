@@ -15,6 +15,8 @@ local M = {
 		"edolphin-ydf/goimpl.nvim",
 		-- make live grep support args
 		"nvim-telescope/telescope-live-grep-args.nvim",
+		-- quick diff two file
+		"jemag/telescope-diff.nvim",
 	},
 	config = function()
 		local status, telescope = pcall(require, "telescope")
@@ -74,6 +76,8 @@ local M = {
 		pcall(telescope.load_extension, "dap")
 		-- extension goimpl
 		pcall(telescope.load_extension, "goimpl")
+		-- diff
+		telescope.load_extension("diff")
 	end,
 }
 

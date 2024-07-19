@@ -160,6 +160,7 @@ local plugins = {
 	require("plugins.oil"),
 	require("plugins.noice"),
 	require("plugins.zen"),
+	require("plugins.diffview"),
 }
 
 local opts = {

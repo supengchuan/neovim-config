@@ -127,3 +127,11 @@ autocmd("BufEnter", {
 		end
 	end,
 })
+
+vim.api.nvim_create_user_command("CompareWith", function()
+	require("telescope").extensions.diff.diff_current({ hidden = true })
+end, {})
+
+vim.api.nvim_create_user_command("Compare", function()
+	require("telescope").extensions.diff.diff_files({ hidden = true })
+end, {})

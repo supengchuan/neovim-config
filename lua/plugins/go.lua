@@ -13,14 +13,7 @@ local M = {
 			lsp_cfg = {
 				capabilities = lsp_common.capabilities,
 				-- other setups
-
 				handlers = lsp_common.handlers,
-				on_attach = function(client, bufnr)
-					lsp_common.keyAttach(bufnr)
-					--	if client.server_capabilities.inlayHintProvider then
-					--		vim.lsp.inlay_hint.enable(true)
-					--	end
-				end,
 			},
 			lsp_codelens = false,
 			lsp_inlay_hints = {

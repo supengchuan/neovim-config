@@ -9,6 +9,9 @@ return {
 			-- Padding around the floating window
 			padding = 5,
 		},
+		keymaps = {
+			["<2-LeftMouse>"] = "actions.select",
+		},
 	},
 
 	-- Optional dependencies

@@ -1,21 +1,9 @@
-local function root_dir()
-	local root_path = vim.fn.stdpath("data") .. "/mason"
-
-	local name = vim.loop.os_uname().sysname
-	if name == "Linux" then
-		root_path = "/mason-data/mason"
-	end
-
-	return root_path
-end
-
 local M = {
 	"williamboman/mason.nvim",
 	--	dependencies = { "williamboman/mason-lspconfig.nvim" },
 	event = "VimEnter",
 	config = function()
 		require("mason").setup({
-			install_root_dir = root_dir(),
 			ui = {
 				border = "single",
 				icons = {

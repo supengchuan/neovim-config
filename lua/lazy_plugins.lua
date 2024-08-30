@@ -72,8 +72,6 @@ local plugins = {
 
 	-- rust  To enable more of the features of rust-analyzer, such as inlay hints and more!
 	require("plugins.rust"),
-	-- format
-	"mhartington/formatter.nvim",
 	-- outline
 	require("plugins.aerial"),
 
@@ -82,16 +80,6 @@ local plugins = {
 
 	-- telescope
 	require("plugins.telescope"),
-	{
-		"nvimdev/dashboard-nvim",
-		event = "VimEnter",
-		config = function()
-			require("dashboard").setup({
-				-- config
-			})
-		end,
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
 
 	-- color
 	require("plugins.nvim-colorizer"),

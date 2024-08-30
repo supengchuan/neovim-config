@@ -20,18 +20,20 @@ local M = {
 				toml = { "taplo" },
 				nginx = { "ngx" },
 				proto = { "buf" },
-				cpp = { "clang-fomat" },
-				c = { "clang-fomat" },
+				cpp = { "clang-format" },
+				c = { "clang-format" },
 			},
 
 			formatters = {
 				ngx = {
+					-- download from: https://github.com/slomkowski/nginx-config-formatter
+					-- rename nginxfmt.py -> nginxfmt to exec path
 					command = "nginxfmt",
 					args = { "--pipe" },
 				},
 			},
 		})
-		vim.api.nvim_create_user_command("CFormat", function(args)
+		vim.api.nvim_create_user_command("Format", function(args)
 			local range = nil
 			if args.count ~= -1 then
 				local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]

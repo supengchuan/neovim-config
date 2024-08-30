@@ -31,6 +31,9 @@ local M = {
 			"taplo",
 			"prettier",
 			"sql-formatter",
+			"jq",
+			"yapf",
+			"buf",
 
 			-- linter
 			"shellcheck",

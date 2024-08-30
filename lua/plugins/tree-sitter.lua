@@ -23,6 +23,7 @@ local M = {
 				"proto",
 				"css",
 				"markdown",
+				"json",
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)

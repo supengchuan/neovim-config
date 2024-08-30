@@ -161,6 +161,7 @@ local plugins = {
 	require("plugins.noice"),
 	require("plugins.zen"),
 	require("plugins.diffview"),
+	require("plugins.conform"),
 }
 
 local opts = {

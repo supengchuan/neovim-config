@@ -16,13 +16,13 @@ require("tex")
 
 -- set colorscheme at last
 local function getColorshemeFromENV()
-	local scheme = "tokyonight"
-	local fromENV = os.getenv("NVIM_COLOR")
-	if fromENV ~= nil then
-		scheme = fromENV
-	end
+  local scheme = "tokyonight"
+  local fromENV = os.getenv("NVIM_COLOR")
+  if fromENV ~= nil then
+    scheme = fromENV
+  end
 
-	return scheme
+  return scheme
 end
 
 vim.cmd.colorscheme(getColorshemeFromENV())

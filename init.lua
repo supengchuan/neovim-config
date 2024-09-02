@@ -3,11 +3,6 @@ require("lazy_plugins")
 
 require("wk")
 
---cmp
-require("cmp-config")
---lsp
---require("lsp-config")
-
 require("diagnostics")
 
 -- debug
@@ -18,9 +13,6 @@ require("autocmd")
 
 --latex
 require("tex")
-
--- set bg transparent
---require("highlight")
 
 -- set colorscheme at last
 local function getColorshemeFromENV()

@@ -1,14 +1,17 @@
 local function ensure_lazy()
 	local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-	if not vim.loop.fs_stat(lazypath) then
-		vim.fn.system({
-			"git",
-			"clone",
-			"--filter=blob:none",
-			"https://github.com/folke/lazy.nvim.git",
-			"--branch=stable", -- latest stable release
-			lazypath,
-		})
+	if not (vim.uv or vim.loop).fs_stat(lazypath) then
+		local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+		local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+		if vim.v.shell_error ~= 0 then
+			vim.api.nvim_echo({
+				{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+				{ out, "WarningMsg" },
+				{ "\nPress any key to exit..." },
+			}, true, {})
+			vim.fn.getchar()
+			os.exit(1)
+		end
 	end
 	vim.opt.rtp:prepend(lazypath)
 end
@@ -19,146 +22,10 @@ vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappin
 
 local lazy = require("lazy")
 
-local plugins = {
-	-- color theme
-	require("plugins.tokyonight"),
-	require("plugins.catppuccin"),
-	require("plugins.monokai"),
-
-	-- nvim tree
-	require("plugins.nvim-tree"),
-	require("plugins.tree-sitter"),
-	-- Collection of configurations for the built-in LSP client
-	require("plugins.lspconfig"),
-	-- nvim-cmp
-	{
-		"hrsh7th/nvim-cmp",
-		lazy = false,
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp", --nvim-cmp source for neovim's built-in language server client.
-			"hrsh7th/cmp-nvim-lua", -- nvim-cmp source for neovim Lua API.
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
-		},
-	},
-
-	require("plugins.luaSnip"),
-	-- bufferline
-	require("plugins.bufferline"),
-
-	-- no usage
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		opts = {}, -- this is equalent to setup({}) function
-	},
-	{
-		"kylechui/nvim-surround",
-		version = "*", -- Use for stability; omit to use `main` branch for the latest features
-		event = "VeryLazy",
-		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
-		end,
-	},
-	require("plugins.lualine"),
-
-	-- for git
-	"tpope/vim-fugitive",
-	require("plugins.gitsigns"),
-
-	-- rust  To enable more of the features of rust-analyzer, such as inlay hints and more!
-	require("plugins.rust"),
-	-- outline
-	require("plugins.aerial"),
-
-	-- float termnial
-	require("plugins.toggleterm"),
-
-	-- telescope
-	require("plugins.telescope"),
-
-	-- color
-	require("plugins.nvim-colorizer"),
-
-	--debug
-	"mfussenegger/nvim-dap",
-	"leoluz/nvim-dap-go",
-	"theHamsta/nvim-dap-virtual-text",
-	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-	},
-
-	-- golang tool
-	require("plugins.go"),
-
-	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-	},
-	-- markdown
-	-- install without yarn or npm
-	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-	},
-	-- key map
-	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-		end,
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-	},
-	-- indent
-	require("plugins.indent_blankline"),
-	-- package manager
-	require("plugins.mason"),
-
-	-- latex
-	{ "lervag/vimtex", event = "VeryLazy" },
-
-	-- jump
-	--"ggandor/leap.nvim",
-	require("plugins.leap"),
-
-	-- cmake tools
-	require("plugins.cmake_tools"),
-	require("plugins.nvim-tmux-navigation"),
-	require("plugins.llm"),
-	require("plugins.oil"),
-	require("plugins.noice"),
-	require("plugins.zen"),
-	require("plugins.diffview"),
-	require("plugins.conform"),
-}
-
 local opts = {
-	defaults = {
-		lazy = false,
-	},
 	ui = {
 		border = "single",
 	},
 }
 
-lazy.setup(plugins, opts)
+lazy.setup("plugins", opts)

@@ -65,6 +65,7 @@ wk.add({
     desc = "search a string in visual block ",
     mode = "x",
   },
+  { "ff", "<cmd>Format<CR>", desc = "range file format", mode = "x" },
 })
 -- normal mode
 wk.add({

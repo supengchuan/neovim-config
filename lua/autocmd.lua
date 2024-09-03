@@ -117,6 +117,16 @@ autocmd("BufEnter", {
 --	end,
 --})
 
+-- set tab as 2 space for lua file
+autocmd("BufEnter", {
+  pattern = { "*.lua" },
+  group = myAutoGroup,
+  callback = function()
+    vim.o.shiftwidth = 2
+    vim.o.expandtab = true
+  end,
+})
+
 -- Turn off syntax highlighting for large files
 autocmd("BufEnter", {
   group = myAutoGroup,

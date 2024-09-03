@@ -84,7 +84,15 @@ wk.add({
 })
 -- normal mode
 wk.add({
-  { "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "go to definition" },
+  {
+    "<C-]>",
+    function(opts)
+      opts = opts or {}
+      opts["jump_type"] = "tab"
+      require("telescope.builtin").lsp_definitions(opts)
+    end,
+    desc = "go to definition",
+  },
   { "<C-h>", "<cmd>NvimTmuxNavigateLeft<CR>", desc = "move cursor to left window" },
   { "<C-j>", "<cmd>NvimTmuxNavigateDown<CR>", desc = "move cursor to blow window" },
   { "<C-k>", "<cmd>NvimTmuxNavigateUp<CR>", desc = "move cursor to up window" },

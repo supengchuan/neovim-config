@@ -17,9 +17,8 @@ local M = {
       },
       lsp_codelens = false,
       lsp_inlay_hints = {
-        enable = false,
+        enable = true,
       },
-
       lsp_keymaps = false,
       comment_placeholder = "  ",
     })

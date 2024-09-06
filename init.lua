@@ -11,9 +11,6 @@ require("dap-config")
 -- autocmd
 require("autocmd")
 
---latex
-require("tex")
-
 -- set colorscheme at last
 local function getColorshemeFromENV()
   local scheme = "tokyonight"

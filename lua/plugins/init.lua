@@ -41,16 +41,7 @@ return {
       -- refer to the configuration section below
     },
   },
-  -- markdown
-  -- install without yarn or npm
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-  },
+
   -- key map
   {
     "folke/which-key.nvim",
@@ -65,6 +56,4 @@ return {
       -- refer to the configuration section below
     },
   },
-  -- latex
-  { "lervag/vimtex", event = "VeryLazy" },
 }

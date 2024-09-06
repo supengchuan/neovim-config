@@ -14,10 +14,17 @@ local M = {
         capabilities = lsp_common.capabilities,
         -- other setups
         handlers = lsp_common.handlers,
+        settings = {
+          gopls = {
+            hints = {
+              parameterNames = true,
+            },
+          },
+        },
       },
       lsp_codelens = false,
       lsp_inlay_hints = {
-        enable = true,
+        enable = false,
       },
       lsp_keymaps = false,
       comment_placeholder = "  ",

@@ -24,6 +24,12 @@ local M = {
       },
 
       formatters = {
+        sql_formatter = {
+          args = {
+            "-c",
+            '{"language": "mysql", "dialect":"mysql", "tabWidth":4, "keywordCase":"upper", "useTabs":true, "dataTypeCase":"upper"}',
+          },
+        },
         ngx = {
           -- download from: https://github.com/slomkowski/nginx-config-formatter
           -- rename nginxfmt.py -> nginxfmt to exec path

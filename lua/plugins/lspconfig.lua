@@ -98,16 +98,6 @@ servers.pyright = function()
   }
 end
 
-servers.sqlls = function()
-  local opts = {}
-
-  return {
-    on_setup = function(server)
-      server.setup(opts)
-    end,
-  }
-end
-
 servers.bashls = function()
   local opts = {}
 

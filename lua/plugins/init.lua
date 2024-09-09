@@ -20,9 +20,6 @@ return {
     end,
   },
 
-  -- for git
-  "tpope/vim-fugitive",
-
   --debug
   "mfussenegger/nvim-dap",
   "leoluz/nvim-dap-go",

@@ -27,7 +27,8 @@ local M = {
         modified_icon = "●",
         -- 使用 nvim 内置lsp
         diagnostics = "nvim_lsp",
-        diagnostics_indicator = function(count, level, diagnostics_dict, context)
+        --diagnostics_indicator = function(count, level, diagnostics_dict, context)
+        diagnostics_indicator = function(_, _, _, context)
           -- current buffer don't show LSP indicators
           if context.buffer:current() then
             return ""

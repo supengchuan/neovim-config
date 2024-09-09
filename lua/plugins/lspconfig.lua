@@ -6,7 +6,7 @@ servers.clangd = function()
   local opts = {
     filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
     capabilities = capabilities,
-    on_attach = function(client, bufnr)
+    on_attach = function(_, bufnr)
       local lspComm = require("lsp-config.common")
       lspComm.keyAttach(bufnr)
       lspComm.shwLinDiaAtom(bufnr)
@@ -26,7 +26,7 @@ servers.nginx_language_server = function()
   capabilities.offsetEncoding = { "utf-16" }
   local opts = {
     capabilities = capabilities,
-    on_attach = function(client, bufnr)
+    on_attach = function(_, bufnr)
       local lspComm = require("lsp-config.common")
       lspComm.keyAttach(bufnr)
       lspComm.shwLinDiaAtom(bufnr)
@@ -82,7 +82,7 @@ end
 servers.pyright = function()
   local opts = {
     capabilities = require("lsp-config.common").capabilities,
-    on_attach = function(client, bufnr)
+    on_attach = function(_, bufnr)
       local lspComm = require("lsp-config.common")
       lspComm.keyAttach(bufnr)
       lspComm.shwLinDiaAtom(bufnr)
@@ -111,7 +111,7 @@ end
 servers.bufls = function()
   local opts = {
     capabilities = require("lsp-config.common").capabilities,
-    on_attach = function(client, bufnr)
+    on_attach = function(_, bufnr)
       local lspComm = require("lsp-config.common")
       lspComm.keyAttach(bufnr)
       lspComm.shwLinDiaAtom(bufnr)

@@ -3,7 +3,6 @@ local M = {
   lazy = false,
   dependencies = {
     "hrsh7th/cmp-nvim-lsp", --nvim-cmp source for neovim's built-in language server client.
-    "hrsh7th/cmp-nvim-lua", -- nvim-cmp source for neovim Lua API.
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
@@ -20,6 +19,8 @@ local M = {
         docs = { auto_open = true },
       },
       formatting = {
+        expandable_indicator = true,
+        fields = { "abbr", "kind", "menu" },
         format = function(entry, vim_item)
           local lspkind_ok, lspkind = pcall(require, "lspkind")
           if not lspkind_ok then
@@ -78,7 +79,7 @@ local M = {
       }),
 
       sources = cmp.config.sources({
-        { name = "nvim_lua" },
+        { name = "lazydev", group_index = 0 },
         { name = "nvim_lsp", group_index = 1 },
         { name = "luasnip", group_index = 1 }, -- For luasnip users.
         { name = "nvim_lsp_signature_help", group_index = 1 },
@@ -117,7 +118,7 @@ local M = {
       }),
     })
 
-    cmp.setup.cmdline("/", {
+    cmp.setup.cmdline({ "/", "?" }, {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
         {

@@ -88,7 +88,6 @@ wk.add({
     "<C-]>",
     function(opts)
       opts = opts or {}
-      opts["jump_type"] = "tab"
       require("telescope.builtin").lsp_definitions(opts)
     end,
     desc = "go to definition",

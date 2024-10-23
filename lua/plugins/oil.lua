@@ -1,6 +1,9 @@
 return {
   "stevearc/oil.nvim",
   opts = {
+    columns = {
+      "icon",
+    },
     win_options = {
       signcolumn = "yes:2",
     },
@@ -11,6 +14,9 @@ return {
     float = {
       -- Padding around the floating window
       padding = 5,
+      win_options = {
+        winblend = 5,
+      },
     },
     keymaps = {
       ["<2-LeftMouse>"] = "actions.select",

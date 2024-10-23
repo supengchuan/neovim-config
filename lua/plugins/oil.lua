@@ -1,6 +1,9 @@
 return {
   "stevearc/oil.nvim",
   opts = {
+    win_options = {
+      signcolumn = "yes:2",
+    },
     view_options = {
       show_hidden = true,
     },
@@ -12,6 +15,7 @@ return {
     keymaps = {
       ["<2-LeftMouse>"] = "actions.select",
     },
+    skip_confirm_for_simple_edits = true,
   },
 
   -- Optional dependencies

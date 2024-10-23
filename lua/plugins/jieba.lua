@@ -1,1 +1,5 @@
-return { "noearc/jieba.nvim", dependencies = { "noearc/jieba-lua" } }
+return {
+  "noearc/jieba.nvim",
+  dependencies = { "noearc/jieba-lua" },
+  event = "VeryLazy",
+}

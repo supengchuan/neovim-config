@@ -13,9 +13,10 @@ return {
     -- Configuration for the floating window in oil.open_float
     float = {
       -- Padding around the floating window
+      border = "double",
       padding = 5,
       win_options = {
-        winblend = 5,
+        winblend = 0,
       },
     },
     keymaps = {

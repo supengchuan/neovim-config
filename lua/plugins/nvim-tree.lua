@@ -21,6 +21,7 @@
 local M = {
   "nvim-tree/nvim-tree.lua",
   version = "*",
+  cond = false,
   lazy = false,
   dependencies = "nvim-tree/nvim-web-devicons",
   opts = {

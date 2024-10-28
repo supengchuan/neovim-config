@@ -96,7 +96,7 @@ wk.add({
   { "<C-j>", "<cmd>NvimTmuxNavigateDown<CR>", desc = "move cursor to blow window" },
   { "<C-k>", "<cmd>NvimTmuxNavigateUp<CR>", desc = "move cursor to up window" },
   { "<C-l>", "<cmd>NvimTmuxNavigateRight<CR>", desc = "move cursor to right window" },
-  { "<C-n>", "<cmd>NvimTreeToggle<CR>", desc = "toggle folder tree on left" },
+  { "<C-n>", "<cmd>Neotree toggle<CR>", desc = "toggle folder tree on left" },
   { "F10", "<cmd>lua require'dap'.step_over()<CR>", desc = "debug step over" },
   { "F11", "<cmd>lua require'dap'.step_into()<CR>", desc = "debug step into" },
   { "F12", "<cmd>lua require'dap'.step_out()<CR>", desc = "debug step out" },

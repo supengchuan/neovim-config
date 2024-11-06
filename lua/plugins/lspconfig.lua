@@ -108,7 +108,7 @@ servers.bashls = function()
   }
 end
 
-servers.bufls = function()
+servers.buf_ls = function()
   local opts = {
     capabilities = require("lsp-config.common").capabilities,
     on_attach = function(_, bufnr)

@@ -22,7 +22,6 @@ local M = {
       --"gopls",
       "lua-language-server",
       "nginx-language-server",
-      "buf-language-server",
 
       -- formatter
       "stylua",
@@ -33,7 +32,7 @@ local M = {
       "sql-formatter",
       "jq",
       "yapf",
-      "buf",
+      "buf", -- this also is lsp
 
       -- linter
       "shellcheck",

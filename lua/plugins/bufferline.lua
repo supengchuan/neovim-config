@@ -1,6 +1,7 @@
 local M = {
   "akinsho/bufferline.nvim",
   dependencies = "nvim-tree/nvim-web-devicons",
+  event = "VeryLazy",
   config = function()
     local bufferline = require("bufferline")
     bufferline.setup({
@@ -35,13 +36,13 @@ local M = {
           end
           return ""
         end,
-        -- 左侧让出 nvim-tree 的位置
-
+        -- 左侧让出 neo-tree 的位置
         offsets = {
           {
-            filetype = "lspsagaoutline",
-            text = "👾outline",
-            text_align = "right",
+            filetype = "neo-tree",
+            text = "Neo-Tree",
+            highlight = "Directory",
+            text_align = "left",
           },
         },
         color_icons = false,

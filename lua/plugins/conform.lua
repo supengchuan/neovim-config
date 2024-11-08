@@ -22,7 +22,6 @@ local M = {
         c = { "clang-format" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
       },
-
       formatters = {
         sql_formatter = {
           args = {

@@ -54,7 +54,8 @@ local M = {
       icons_enabled = true,
       --theme = "dracula-nvim",
       --theme = "everforest",
-      theme = customTheme(),
+      --theme = customTheme(),
+      theme = vim.g.colors_name,
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
       disabled_filetypes = {

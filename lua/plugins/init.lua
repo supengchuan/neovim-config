@@ -56,4 +56,7 @@ return {
       -- refer to the configuration section below
     },
   },
+  {
+    "ellisonleao/gruvbox.nvim",
+  },
 }

@@ -26,10 +26,10 @@ return {
         format = {
           cmdline = { pattern = "^:", icon = "👻 󰁕", lang = "vim" },
           search_down = {
-            view = "cmdline",
+            view = "cmdline_popup",
           },
           search_up = {
-            view = "cmdline",
+            view = "cmdline_popup",
           },
         },
       },

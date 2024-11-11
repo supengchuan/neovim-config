@@ -12,16 +12,6 @@ return {
   config = function()
     require("noice").setup({
       views = {
-        cmdline_popup = {
-          border = {
-            style = "double",
-            padding = { 1, 3 },
-          },
-          filter_options = {},
-          win_options = {
-            winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-          },
-        },
         mini = {
           win_options = {
             winhighlight = {
@@ -31,18 +21,18 @@ return {
           },
         },
       },
-      cmdline = {
-        view = "cmdline",
-        format = {
-          cmdline = { pattern = "^:", icon = "👻 󰁕", lang = "vim" },
-          search_down = {
-            view = "cmdline",
-          },
-          search_up = {
-            view = "cmdline",
-          },
-        },
-      },
+      --cmdline = {
+      --  view = "cmdline",
+      --  format = {
+      --    cmdline = { pattern = "^:", icon = "👻 󰁕", lang = "vim" },
+      --    search_down = {
+      --      view = "cmdline",
+      --    },
+      --    search_up = {
+      --      view = "cmdline",
+      --    },
+      --  },
+      --},
       lsp = {
         signature = {
           enabled = true,

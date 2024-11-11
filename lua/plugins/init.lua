@@ -1,8 +1,8 @@
 return {
   -- color theme
-  require("plugins.tokyonight"),
-  require("plugins.catppuccin"),
-  require("plugins.monokai"),
+  --require("plugins.tokyonight"),
+  --require("plugins.catppuccin"),
+  --require("plugins.monokai"),
 
   {
     "windwp/nvim-autopairs",

@@ -20,19 +20,12 @@ return {
           Constant = {},
         },
         transparent = false,
-        on_colors = function(colors, color)
-          ---@type dracula.palette
-          return {
-            -- override or create new colors
-            mycolor = "#ffffff",
-            -- mycolor = 0xffffff,
-          }
-        end,
         on_highlights = function(colors, color)
           ---@type dracula.highlights
           return {
             ---@type vim.api.keyset.highlight
-            Normal = { fg = colors.mycolor },
+            Visual = { bg = "#2d3f76" },
+            Search = { fg = colors.base0, bg = "#3e68d7" },
           }
         end,
         plugins = {

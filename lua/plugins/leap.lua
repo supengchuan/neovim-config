@@ -7,7 +7,7 @@ local M = {
       return
     end
 
-    leap.add_default_mappings()
+    leap.create_default_mappings()
     leap.opts.case_sensitive = false
     leap.opts.highlight_unlabeled_phase_one_targets = true
 

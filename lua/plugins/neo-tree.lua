@@ -22,6 +22,9 @@ return {
           enabled = true, -- This will find and focus the file in the active buffer every time
         },
         use_libuv_file_watcher = true,
+        filtered_items = {
+          visible = true,
+        },
       },
       window = {
         mappings = {

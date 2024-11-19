@@ -4,7 +4,7 @@ local M = {
   "iamcco/markdown-preview.nvim",
   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
   ft = { "markdown" },
-  build = "cd app && yarn install",
+  build = "npm install && rm package-lock.json && git restore .",
   config = function()
     vim.g.mkdp_open_to_the_world = 1
 

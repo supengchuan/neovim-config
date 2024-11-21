@@ -1,1 +1,0 @@
-return { "sindrets/winshift.nvim" }

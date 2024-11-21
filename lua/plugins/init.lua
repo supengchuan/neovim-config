@@ -1,9 +1,4 @@
 return {
-  -- color theme
-  --require("plugins.tokyonight"),
-  --require("plugins.catppuccin"),
-  --require("plugins.monokai"),
-
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -57,6 +52,20 @@ return {
     },
   },
   {
-    "ellisonleao/gruvbox.nvim",
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
+    end,
+  },
+  {
+    "sindrets/winshift.nvim",
+  },
+  {
+    "sindrets/diffview.nvim",
+  },
+  {
+    "noearc/jieba.nvim",
+    dependencies = { "noearc/jieba-lua" },
+    event = "VeryLazy",
   },
 }

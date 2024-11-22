@@ -117,6 +117,7 @@ wk.add({ -- normal mode key map
 
   { "<leader>+", "<cmd>vertical resize -10<CR>", desc = "current buffer narrower" },
   { "<leader>-", "<cmd>lua require('oil').toggle_float()<cr>", desc = "open parent dir with oil" },
+  { "<leader>a", "<cmd>lua require('oil').toggle_float()<cr>", desc = "open oil float window" },
   { "<leader><CR>", Toggle_wrap, desc = "set file wrap or no wrap" },
   { "<leader>=", "<cmd>vertical resize +10<CR>", desc = "current buffer wider" },
   { "<leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "set a breakpoint" },

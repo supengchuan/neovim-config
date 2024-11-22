@@ -32,11 +32,11 @@ function Toggle_inlay_hints()
 end
 
 --insert mode
-wk.add({
+wk.add({ -- insert mode key map
   { "jj", "<ESC>", desc = "double j to normal mode", mode = "i" },
 })
 -- visual mode
-wk.add({
+wk.add({ -- visual mode key map
   {
     "<leader>cs",
     function(opts)
@@ -83,7 +83,7 @@ wk.add({
   },
 })
 -- normal mode
-wk.add({
+wk.add({ -- normal mode key map
   {
     "<C-]>",
     function(opts)
@@ -167,4 +167,11 @@ wk.add({
   },
   { "<leader>w", "<cmd>w<CR>", desc = "save current buffer" },
   { "<leader>z", "<cmd>lua require('zen-mode').toggle({window = {width = 0.85}})<cr>", desc = "toggle zen mode" },
+  {
+    "[c",
+    function()
+      require("treesitter-context").go_to_context(vim.v.count1)
+    end,
+    desc = "jump to context(upwards)",
+  },
 })

@@ -174,4 +174,9 @@ wk.add({ -- normal mode key map
     end,
     desc = "jump to context(upwards)",
   },
+  {
+    "<leader>m",
+    "<cmd>WinShift<cr>",
+    desc = "move window",
+  },
 })

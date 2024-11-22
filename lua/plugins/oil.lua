@@ -1,3 +1,13 @@
+local local_border = {
+  { "🭽", "FloatBorder" },
+  { "▔", "FloatBorder" },
+  { "🭾", "FloatBorder" },
+  { "▕", "FloatBorder" },
+  { "🭿", "FloatBorder" },
+  { "▁", "FloatBorder" },
+  { "🭼", "FloatBorder" },
+  { "▏", "FloatBorder" },
+}
 local M = {
   {
     "stevearc/oil.nvim",
@@ -13,11 +23,12 @@ local M = {
       },
       -- Configuration for the floating window in oil.open_float
       float = {
+        max_width = 0,
         -- Padding around the floating window
-        border = "double",
-        padding = 5,
+        border = local_border,
+        padding = 1,
         win_options = {
-          winblend = 0,
+          winblend = 5,
         },
       },
       keymaps = {

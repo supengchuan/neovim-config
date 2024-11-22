@@ -11,6 +11,9 @@ return {
   event = "VeryLazy",
   config = function()
     require("noice").setup({
+      presets = {
+        lsp_doc_border = true,
+      },
       views = {
         mini = {
           win_options = {

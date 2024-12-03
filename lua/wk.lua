@@ -142,6 +142,8 @@ wk.add({ -- normal mode key map
   { "<leader>gb", "<cmd>Gitsigns blame_line<CR>", desc = "blame line" },
   { "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", desc = "reset hunk" },
   { "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", desc = "stage hunk" },
+  { "[[", "<cmd>Gitsigns prev_hunk<CR>", desc = "previous git hunk" },
+  { "]]", "<cmd>Gitsigns next_hunk<CR>", desc = "next git hunk" },
   { "<leader>h", Toggle_inlay_hints, desc = "set a buffer enable inlay hints or not" },
   { "<leader>i", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "open diagnostic as float window" },
   {

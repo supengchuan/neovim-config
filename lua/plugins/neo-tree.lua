@@ -17,6 +17,10 @@ return {
       open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
       close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       filesystem = {
+        hijack_netrw_behavior = "disabled",
+        -- open_default
+        -- "open_current",
+        -- "disabled",
         bind_to_cwd = false,
         follow_current_file = {
           enabled = true, -- This will find and focus the file in the active buffer every time

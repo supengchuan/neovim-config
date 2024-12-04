@@ -26,9 +26,9 @@ local M = {
         max_width = 0,
         -- Padding around the floating window
         border = local_border,
-        padding = 1,
+        padding = 2,
         win_options = {
-          winblend = 5,
+          winblend = 0,
         },
       },
       keymaps = {
@@ -41,11 +41,71 @@ local M = {
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
-    "refractalize/oil-git-status.nvim",
+    "SirZenith/oil-vcs-status",
     dependencies = {
       "stevearc/oil.nvim",
     },
-    config = true,
+    config = function()
+      local status_const = require("oil-vcs-status.constant.status")
+
+      local StatusType = status_const.StatusType
+
+      require("oil-vcs-status").setup({
+        -- Highlight group name used by each status type.
+        ---@type table<oil-vcs-status.StatusType, string | false>
+        status_hl_group = {
+          [StatusType.Added] = "diffAdded",
+          [StatusType.Copied] = "diffAdded",
+          [StatusType.Deleted] = "diffRemoved",
+          [StatusType.Ignored] = "Comment",
+          [StatusType.Modified] = "CursorLineNr",
+          [StatusType.Renamed] = "diffChanged",
+          [StatusType.TypeChanged] = "diffChanged",
+          [StatusType.Unmodified] = "Normal",
+          [StatusType.Unmerged] = "diffRemoved",
+          [StatusType.Untracked] = "diffNewFile",
+          [StatusType.External] = "Normal",
+
+          [StatusType.UpstreamAdded] = "diffAdded",
+          [StatusType.UpstreamCopied] = "diffAdded",
+          [StatusType.UpstreamDeleted] = "diffRemoved",
+          [StatusType.UpstreamIgnored] = "Comment",
+          [StatusType.UpstreamModified] = "diffChanged",
+          [StatusType.UpstreamRenamed] = "diffChanged",
+          [StatusType.UpstreamTypeChanged] = "diffChanged",
+          [StatusType.UpstreamUnmodified] = "Normal",
+          [StatusType.UpstreamUnmerged] = "diffRemoved",
+          [StatusType.UpstreamUntracked] = "diffNewFile",
+          [StatusType.UpstreamExternal] = "Normal",
+        },
+
+        status_symbol = {
+          [StatusType.Added] = "",
+          [StatusType.Copied] = "󰆏",
+          [StatusType.Deleted] = "󰮘",
+          [StatusType.Ignored] = "",
+          [StatusType.Modified] = "󰴓",
+          [StatusType.Renamed] = "",
+          [StatusType.TypeChanged] = "󰉺",
+          [StatusType.Unmodified] = " ",
+          [StatusType.Unmerged] = "󰊢",
+          [StatusType.Untracked] = "",
+          [StatusType.External] = "",
+
+          [StatusType.UpstreamAdded] = "󰈞",
+          [StatusType.UpstreamCopied] = "󰈢",
+          [StatusType.UpstreamDeleted] = "",
+          [StatusType.UpstreamIgnored] = " ",
+          [StatusType.UpstreamModified] = "󰏫",
+          [StatusType.UpstreamRenamed] = "",
+          [StatusType.UpstreamTypeChanged] = "󱧶",
+          [StatusType.UpstreamUnmodified] = " ",
+          [StatusType.UpstreamUnmerged] = "",
+          [StatusType.UpstreamUntracked] = " ",
+          [StatusType.UpstreamExternal] = "",
+        },
+      })
+    end,
     event = "VeryLazy",
   },
 }

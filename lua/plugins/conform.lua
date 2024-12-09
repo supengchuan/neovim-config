@@ -23,6 +23,14 @@ local M = {
         ["*"] = { "trim_whitespace", "trim_newlines" },
       },
       formatters = {
+        shfmt = {
+          args = {
+            "-i",
+            "4",
+            "-d",
+            "-sr",
+          },
+        },
         sql_formatter = {
           args = {
             "-c",

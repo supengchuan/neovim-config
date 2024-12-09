@@ -36,7 +36,7 @@ return {
       },
       window = {
         mappings = {
-          ["l"] = "open",
+          --["l"] = "open",
           ["h"] = "close_node",
           ["<space>"] = "none",
           ["Y"] = {

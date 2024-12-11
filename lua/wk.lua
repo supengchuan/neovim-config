@@ -72,7 +72,6 @@ wk.add({ -- visual mode key map
         if not err then
           local mode = vim.api.nvim_get_mode().mode
           if vim.startswith(string.lower(mode), "v") then
-            print("range format and exit visual mode")
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
           end
         end

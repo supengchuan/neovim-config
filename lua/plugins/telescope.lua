@@ -34,7 +34,7 @@ local M = {
         layout_strategy = "vertical",
         layout_config = {
           height = 0.95,
-          width = 0.75,
+          width = 0.95,
         },
 
         mappings = {
@@ -46,7 +46,7 @@ local M = {
       },
       pickers = {
         buffers = {
-          ignore_current_buffer = false,
+          ignore_current_buffer = true,
           sort_mru = true,
         },
         find_files = {

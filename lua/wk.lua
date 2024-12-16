@@ -120,19 +120,6 @@ wk.add({ -- normal mode key map
   { "<leader><CR>", Toggle_wrap, desc = "set file wrap or no wrap" },
   { "<leader>=", "<cmd>vertical resize +10<CR>", desc = "current buffer wider" },
   { "<leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "set a breakpoint" },
-  {
-    "<leader>cs",
-    function(opts)
-      opts = opts or {}
-      local current_path = vim.fn.expand("%")
-      opts["search_dirs"] = { current_path }
-      local word_under_cursor = vim.fn.expand("<cword>")
-      opts["default_text"] = word_under_cursor
-
-      require("telescope").extensions.live_grep_args.live_grep_args(opts)
-    end,
-    desc = "search the word under cursor in current buffer",
-  },
   { "<leader>d[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "go to previous diagnostic" },
   { "<leader>d]", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "go to next diagnostic" },
   { "<leader>dd", "<cmd>Telescope diagnostics<CR>", desc = "list diagnostics via telescope" },
@@ -152,19 +139,29 @@ wk.add({ -- normal mode key map
   },
   { "<leader>j", "5j", desc = "move cursor down five lines" },
   { "<leader>k", "5k", desc = "move cursor up five lines" },
-  {
-    "<leader>lg",
-    "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({initial_mode = 'insert'})<cr>",
-    desc = "live grep string",
-  },
   { "<leader>nl", "<cmd>nohlsearch<CR>", desc = "cancel highlight for search" },
   { "<leader>o", "<cmd>AerialToggle<CR>", desc = "list current buffer outlines" },
   { "<leader>p", "<cmd>MarkdownPreviewToggle<CR>", desc = "preview markdown" },
   { "<leader>q", "<cmd>q<CR>", desc = "quit from current buffer" },
   { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "rename token" },
   {
+    "<leader>cs",
+    function(opts)
+      opts = opts or {}
+      local current_path = vim.fn.expand("%")
+      opts["search_dirs"] = { current_path }
+      local word_under_cursor = vim.fn.expand("<cword>")
+      opts["default_text"] = word_under_cursor
+
+      require("telescope").extensions.live_grep_args.live_grep_args(opts)
+    end,
+    desc = "search the word under cursor in current buffer",
+  },
+  {
     "<leader>s",
-    "<cmd>lua require('telescope.builtin').grep_string({initial_mode = 'insert'})<cr>",
+    function()
+      require("telescope").extensions.live_grep_args.live_grep_args({ initial_mode = "insert" })
+    end,
     desc = "grep string",
   },
   { "<leader>w", "<cmd>w<CR>", desc = "save current buffer" },

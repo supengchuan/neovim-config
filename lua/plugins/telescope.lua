@@ -4,7 +4,10 @@ local M = {
   dependencies = {
     "nvim-lua/plenary.nvim",
     -- improve telescope performance
-    "nvim-telescope/telescope-fzf-native.nvim",
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+    },
     -- look environment variables with telescope
     "LinArcX/telescope-env.nvim",
     -- Project need
@@ -24,6 +27,8 @@ local M = {
       vim.notify("没有找到 telescope")
       return
     end
+
+    local lga_actions = require("telescope-live-grep-args.actions")
 
     telescope.setup({
       defaults = {
@@ -61,21 +66,30 @@ local M = {
           case_mode = "smart_case", -- or "ignore_case" or "respect_case"
           -- the default case_mode is "smart_case"
         },
+        live_grep_args = {
+          auto_quoting = true, -- enable/disable auto-quoting
+          mappings = { -- extend mappings
+            i = {
+              ["<C-k>"] = lga_actions.quote_prompt(),
+              ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+            },
+          },
+        },
       },
     })
 
     telescope.load_extension("live_grep_args")
     -- To get fzf loaded and working with telescope, you need to call
     -- load_extension, somewhere after setup function:
-    pcall(telescope.load_extension, "fzf")
+    telescope.load_extension("fzf")
     -- extension telescope-env.nvim
-    pcall(telescope.load_extension, "env")
+    telescope.load_extension("env")
     -- extension telescope-project
-    pcall(telescope.load_extension, "projects")
+    telescope.load_extension("project")
     -- extension telescope-dap
-    pcall(telescope.load_extension, "dap")
+    telescope.load_extension("dap")
     -- extension goimpl
-    pcall(telescope.load_extension, "goimpl")
+    telescope.load_extension("goimpl")
     -- diff
     telescope.load_extension("diff")
   end,

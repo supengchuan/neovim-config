@@ -143,6 +143,7 @@ wk.add({ -- normal mode key map
   { "<leader>o", "<cmd>AerialToggle<CR>", desc = "list current buffer outlines" },
   { "<leader>p", "<cmd>MarkdownPreviewToggle<CR>", desc = "preview markdown" },
   { "<leader>q", "<cmd>q<CR>", desc = "quit from current buffer" },
+  { "<leader>Q", "<cmd>qa!<CR>", desc = "force quit all" },
   { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "rename token" },
   {
     "<leader>cs",

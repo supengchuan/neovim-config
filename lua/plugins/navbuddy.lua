@@ -7,9 +7,13 @@ local M = {
   opts = {
     lsp = { auto_attach = true },
     window = {
+      position = {
+        row = "100%",
+        col = "100%",
+      },
       size = {
-        height = "80%",
-        width = "80%",
+        height = "100%",
+        width = "90%",
       },
     },
   },

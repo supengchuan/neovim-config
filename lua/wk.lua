@@ -151,9 +151,9 @@ wk.add({ -- normal mode key map
       opts = opts or {}
       local current_path = vim.fn.expand("%")
       opts["search_dirs"] = { current_path }
-      local word_under_cursor = vim.fn.expand("<cword>")
-      opts["default_text"] = word_under_cursor
-
+      --      local word_under_cursor = vim.fn.expand("<cword>")
+      --      opts["default_text"] = word_under_cursor
+      --
       require("telescope").extensions.live_grep_args.live_grep_args(opts)
     end,
     desc = "search the word under cursor in current buffer",

@@ -6,7 +6,7 @@ local M = {
     -- improve telescope performance
     {
       "nvim-telescope/telescope-fzf-native.nvim",
-      build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+      build = "make",
     },
     -- look environment variables with telescope
     "LinArcX/telescope-env.nvim",

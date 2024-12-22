@@ -14,7 +14,7 @@ local M = {
         sql = { "sql_formatter" },
         go = { "goimports" },
         -- Conform will run the first available formatter
-        sh = { "beautysh", "shfmt", lsp_format = "fallback" },
+        sh = { "beautysh", "shfmt", stop_after_first = true, lsp_format = "fallback" },
         toml = { "taplo" },
         nginx = { "ngx" },
         proto = { "buf" },
@@ -28,8 +28,7 @@ local M = {
         shfmt = {
           args = {
             "-i",
-            "4",
-            "-d",
+            "2",
             "-sr",
           },
         },

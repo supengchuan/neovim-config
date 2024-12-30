@@ -1,6 +1,5 @@
 local M = {
   "hrsh7th/nvim-cmp",
-  lazy = false,
   dependencies = {
     "hrsh7th/cmp-nvim-lsp", --nvim-cmp source for neovim's built-in language server client.
     "hrsh7th/cmp-buffer",

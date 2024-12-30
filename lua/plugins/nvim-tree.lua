@@ -22,7 +22,7 @@ local M = {
   "nvim-tree/nvim-tree.lua",
   version = "*",
   cond = false,
-  lazy = false,
+  event = "VeryLazy",
   dependencies = "nvim-tree/nvim-web-devicons",
   opts = {
     filters = {

@@ -1,8 +1,6 @@
 require("basic")
 require("lazy_plugins")
 
-require("wk")
-
 require("diagnostics")
 
 -- debug

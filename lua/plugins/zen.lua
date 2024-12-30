@@ -14,4 +14,7 @@ return {
       gitsigns = { enabled = true },
     },
   },
+  keys = {
+    { "<leader>z", "<cmd>lua require('zen-mode').toggle({window = {width = 0.85}})<cr>", desc = "toggle zen mode" },
+  },
 }

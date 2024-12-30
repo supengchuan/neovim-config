@@ -11,6 +11,8 @@ local local_border = {
 local M = {
   {
     "stevearc/oil.nvim",
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       columns = {
         "icon",
@@ -36,9 +38,9 @@ local M = {
       },
       skip_confirm_for_simple_edits = true,
     },
-
-    -- Optional dependencies
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "<leader>a", "<cmd>lua require('oil').toggle_float()<cr>", desc = "open oil float window" },
+    },
   },
   {
     "SirZenith/oil-vcs-status",

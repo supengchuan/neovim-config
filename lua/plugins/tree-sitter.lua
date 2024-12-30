@@ -86,6 +86,15 @@ local M = {
         on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
       })
     end,
+    keys = {
+      {
+        "[c",
+        function()
+          require("treesitter-context").go_to_context(vim.v.count1)
+        end,
+        desc = "jump to context(upwards)",
+      },
+    },
   },
 }
 

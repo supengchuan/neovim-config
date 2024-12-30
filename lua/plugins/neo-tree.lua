@@ -74,4 +74,7 @@ return {
     })
     vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { link = "QuickFixLine" })
   end,
+  keys = {
+    { "<C-n>", "<cmd>Neotree toggle<CR>", desc = "toggle folder tree on left" },
+  },
 }

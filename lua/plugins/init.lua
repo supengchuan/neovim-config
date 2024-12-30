@@ -15,15 +15,6 @@ return {
     end,
   },
 
-  --debug
-  { "mfussenegger/nvim-dap", event = "VeryLazy" },
-  { "leoluz/nvim-dap-go", event = "VeryLazy" },
-  { "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
-  {
-    "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
-    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-  },
 
   {
     "folke/trouble.nvim",
@@ -47,6 +38,13 @@ return {
   {
     "sindrets/winshift.nvim",
     event = "VeryLazy",
+    keys = {
+      {
+        "<leader>m",
+        "<cmd>WinShift<cr>",
+        desc = "move window",
+      },
+    },
   },
   {
     "sindrets/diffview.nvim",

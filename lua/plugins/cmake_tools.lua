@@ -4,6 +4,7 @@ local M = {
   config = function()
     require("cmake-tools").setup({})
   end,
+  event = "VeryLazy",
 }
 
 return M

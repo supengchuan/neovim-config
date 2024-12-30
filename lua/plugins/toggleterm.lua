@@ -3,6 +3,7 @@ local M = {
   dependencies = {
     "folke/which-key.nvim",
   },
+  event = "VeryLazy",
   config = function()
     local st_floattus, toggleterm = pcall(require, "toggleterm")
     if not st_floattus then

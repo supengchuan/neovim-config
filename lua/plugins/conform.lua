@@ -1,5 +1,6 @@
 local M = {
   "stevearc/conform.nvim",
+  event = "VeryLazy",
   config = function()
     require("conform").setup({
       log_level = vim.log.levels.DEBUG,

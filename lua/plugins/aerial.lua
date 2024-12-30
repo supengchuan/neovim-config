@@ -7,6 +7,7 @@ M = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-web-devicons",
   },
+  event = "VeryLazy",
   opts = {
     -- Priority list of preferred backends for aerial.
     -- This can be a filetype map (see :help aerial-filetype-map)
@@ -233,6 +234,15 @@ M = {
     markdown = {
       -- How long to wait (in ms) after a buffer change before updating
       update_delay = 300,
+    },
+  },
+  keys = {
+    {
+      "<leader>o",
+      function()
+        require("aerial").toggle()
+      end,
+      desc = "toggle aerial, list current buffer outlines",
     },
   },
 }

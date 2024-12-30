@@ -5,6 +5,7 @@ local M = {
     "neovim/nvim-lspconfig",
     "nvim-treesitter/nvim-treesitter",
   },
+  event = "VeryLazy",
   config = function()
     -- set config
     local lsp_common = require("lsp-config.common")

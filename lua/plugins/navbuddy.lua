@@ -4,6 +4,8 @@ local M = {
     "SmiteshP/nvim-navic",
     "MunifTanjim/nui.nvim",
   },
+  lazy = true,
+  event = "VeryLazy",
   opts = {
     lsp = { auto_attach = true },
     window = {

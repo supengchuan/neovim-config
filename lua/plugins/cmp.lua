@@ -8,6 +8,7 @@ local M = {
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-nvim-lsp-signature-help",
   },
+  event = "VeryLazy",
   config = function()
     local cmp = require("cmp")
     -- UI

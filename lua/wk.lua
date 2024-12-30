@@ -140,7 +140,6 @@ wk.add({ -- normal mode key map
   { "<leader>j", "5j", desc = "move cursor down five lines" },
   { "<leader>k", "5k", desc = "move cursor up five lines" },
   { "<leader>nl", "<cmd>nohlsearch<CR>", desc = "cancel highlight for search" },
-  { "<leader>o", "<cmd>AerialToggle<CR>", desc = "list current buffer outlines" },
   { "<leader>p", "<cmd>MarkdownPreviewToggle<CR>", desc = "preview markdown" },
   { "<leader>q", "<cmd>q<CR>", desc = "quit from current buffer" },
   { "<leader>Q", "<cmd>qa!<CR>", desc = "force quit all" },

@@ -16,16 +16,18 @@ return {
   },
 
   --debug
-  "mfussenegger/nvim-dap",
-  "leoluz/nvim-dap-go",
-  "theHamsta/nvim-dap-virtual-text",
+  { "mfussenegger/nvim-dap", event = "VeryLazy" },
+  { "leoluz/nvim-dap-go", event = "VeryLazy" },
+  { "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
   {
     "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
   },
 
   {
     "folke/trouble.nvim",
+    event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       -- your configuration comes here
@@ -60,15 +62,18 @@ return {
   },
   {
     "norcalli/nvim-colorizer.lua",
+    event = "VeryLazy",
     config = function()
       require("colorizer").setup()
     end,
   },
   {
     "sindrets/winshift.nvim",
+    event = "VeryLazy",
   },
   {
     "sindrets/diffview.nvim",
+    event = "VeryLazy",
   },
   {
     "noearc/jieba.nvim",

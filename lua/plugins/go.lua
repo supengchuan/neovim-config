@@ -29,7 +29,10 @@ local M = {
       lsp_keymaps = false,
       comment_placeholder = "  ",
     })
+    -- auto load .env file in project dir
+    require("go.env").load_env()
   end,
+
   --event = { "CmdlineEnter" },
   ft = { "go", "gomod" },
   build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries

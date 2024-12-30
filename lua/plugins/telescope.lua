@@ -52,7 +52,7 @@ local M = {
       },
       pickers = {
         buffers = {
-          ignore_current_buffer = true,
+          ignore_current_buffer = false,
           sort_mru = true,
         },
         find_files = {
@@ -94,97 +94,97 @@ local M = {
     -- diff
     telescope.load_extension("diff")
   end,
-  keys = {
-    {
-      "<leader>cs",
-      function(opts)
-        opts = opts or {}
-        local current_path = vim.fn.expand("%")
-        opts["search_dirs"] = { current_path }
-        local visual = require("utils").Get_visual()
-        local text = visual[1] or ""
-        opts["default_text"] = text
-
-        require("telescope").extensions.live_grep_args.live_grep_args(opts)
-      end,
-      desc = "search a string in visual block in current buffer",
-      mode = "x",
-    },
-    {
-      "<leader>s",
-      function(opts)
-        opts = opts or {}
-        local visual = require("utils").Get_visual()
-        local text = visual[1] or ""
-        opts["default_text"] = text
-
-        require("telescope").extensions.live_grep_args.live_grep_args(opts)
-      end,
-      desc = "search a string in visual block ",
-      mode = "x",
-    },
-    {
-      "<C-]>",
-      function(opts)
-        opts = opts or {}
-        require("telescope.builtin").lsp_definitions(opts)
-      end,
-      desc = "go to definition",
-    },
-    {
-      "gi",
-      function()
-        require("telescope.builtin").lsp_implementations({
-          layout_strategy = "vertical",
-          include_declaration = false,
-          show_line = false,
-        })
-      end,
-      desc = "go to implementations",
-    },
-    {
-      "gr",
-      function()
-        require("telescope.builtin").lsp_references({
-          layout_strategy = "vertical",
-          include_declaration = false,
-          show_line = false,
-        })
-      end,
-      desc = "go to references",
-    },
-    { "<leader>dd", "<cmd>Telescope diagnostics<CR>", desc = "list diagnostics via telescope" },
-    {
-      "<leader>im",
-      function()
-        require("telescope").extensions.goimpl.goimpl({ initial_mode = "insert" })
-      end,
-      desc = "use goimpl to implement a interface fro struct",
-    },
-
-    {
-      "<leader>cs",
-      function(opts)
-        opts = opts or {}
-        local current_path = vim.fn.expand("%")
-        opts["search_dirs"] = { current_path }
-        --      local word_under_cursor = vim.fn.expand("<cword>")
-        --      opts["default_text"] = word_under_cursor
-        --
-        require("telescope").extensions.live_grep_args.live_grep_args(opts)
-      end,
-      desc = "search the word under cursor in current buffer",
-    },
-    {
-      "<leader>s",
-      function()
-        require("telescope").extensions.live_grep_args.live_grep_args({ initial_mode = "insert" })
-      end,
-      desc = "grep string",
-    },
-    { "<leader>e", "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "list open buffers" },
-    { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", desc = "Find File" },
-  },
 }
 
+M.keys = {
+  {
+    "<leader>cs",
+    function(opts)
+      opts = opts or {}
+      local current_path = vim.fn.expand("%")
+      opts["search_dirs"] = { current_path }
+      local visual = require("utils").Get_visual()
+      local text = visual[1] or ""
+      opts["default_text"] = text
+
+      require("telescope").extensions.live_grep_args.live_grep_args(opts)
+    end,
+    desc = "search a string in visual block in current buffer",
+    mode = "x",
+  },
+  {
+    "<leader>s",
+    function(opts)
+      opts = opts or {}
+      local visual = require("utils").Get_visual()
+      local text = visual[1] or ""
+      opts["default_text"] = text
+
+      require("telescope").extensions.live_grep_args.live_grep_args(opts)
+    end,
+    desc = "search a string in visual block ",
+    mode = "x",
+  },
+  {
+    "<C-]>",
+    function(opts)
+      opts = opts or {}
+      require("telescope.builtin").lsp_definitions(opts)
+    end,
+    desc = "go to definition",
+  },
+  {
+    "gi",
+    function()
+      require("telescope.builtin").lsp_implementations({
+        layout_strategy = "vertical",
+        include_declaration = false,
+        show_line = false,
+      })
+    end,
+    desc = "go to implementations",
+  },
+  {
+    "gr",
+    function()
+      require("telescope.builtin").lsp_references({
+        layout_strategy = "vertical",
+        include_declaration = false,
+        show_line = false,
+      })
+    end,
+    desc = "go to references",
+  },
+  { "<leader>dd", "<cmd>Telescope diagnostics<CR>", desc = "list diagnostics via telescope" },
+  {
+    "<leader>im",
+    function()
+      require("telescope").extensions.goimpl.goimpl({ initial_mode = "insert" })
+    end,
+    desc = "use goimpl to implement a interface fro struct",
+  },
+
+  {
+    "<leader>cs",
+    function(opts)
+      opts = opts or {}
+      local current_path = vim.fn.expand("%")
+      opts["search_dirs"] = { current_path }
+      --      local word_under_cursor = vim.fn.expand("<cword>")
+      --      opts["default_text"] = word_under_cursor
+      --
+      require("telescope").extensions.live_grep_args.live_grep_args(opts)
+    end,
+    desc = "search the word under cursor in current buffer",
+  },
+  {
+    "<leader>s",
+    function()
+      require("telescope").extensions.live_grep_args.live_grep_args({ initial_mode = "insert" })
+    end,
+    desc = "grep string",
+  },
+  { "<leader>e", "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "list open buffers" },
+  { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", desc = "Find File" },
+}
 return M

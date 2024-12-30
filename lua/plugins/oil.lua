@@ -108,7 +108,6 @@ local M = {
         },
       })
     end,
-    event = "VeryLazy",
   },
 }
 

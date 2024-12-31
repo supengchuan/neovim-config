@@ -1,6 +1,11 @@
 local function setEnvFromFile()
   -- auto load .env file in project dir
+  -- if cannot find .env file, donot call load_env()
   local sep = require("utils").Sep()
+  local rootDir = vim.fs.root(0, "go.mod")
+  if rootDir == nil then
+    return
+  end
   local envFile = vim.fs.root(0, "go.mod") .. sep .. ".env"
   if vim.fn.filereadable(envFile) ~= 0 then
     require("go.env").load_env(envFile, true)

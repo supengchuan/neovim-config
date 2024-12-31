@@ -71,7 +71,6 @@ local M = {
             },
             lang_to_formatters = {
               json = { "jq" },
-              sh = { "shellcheck" },
             },
           },
         },

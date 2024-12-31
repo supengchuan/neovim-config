@@ -2,8 +2,11 @@ local M = {
   {
 
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
     build = ":TSUpdate",
-    event = { "VeryLazy" },
+    event = "VeryLazy",
     lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
     init = function(plugin)
       -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
@@ -14,9 +17,6 @@ local M = {
       require("lazy.core.loader").add_to_rtp(plugin)
       require("nvim-treesitter.query_predicates")
     end,
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
     config = function()
       require("nvim-treesitter.install").compilers = { "gcc" }
 
@@ -69,6 +69,7 @@ local M = {
 
   {
     "nvim-treesitter/nvim-treesitter-context",
+    event = "VeryLazy",
     config = function()
       require("treesitter-context").setup({
         enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)

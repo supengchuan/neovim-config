@@ -1,4 +1,4 @@
-local colorscheme = require("utils").getColorshemeFromENV()
+local colorscheme = require("utils").GetColorshemeFromENV()
 return {
   {
     "folke/tokyonight.nvim",

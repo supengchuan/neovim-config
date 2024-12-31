@@ -103,7 +103,7 @@ M.keys = {
       opts = opts or {}
       local current_path = vim.fn.expand("%")
       opts["search_dirs"] = { current_path }
-      local visual = require("utils").Get_visual()
+      local visual = require("utils").GetVisual()
       local text = visual[1] or ""
       opts["default_text"] = text
 
@@ -116,7 +116,7 @@ M.keys = {
     "<leader>s",
     function(opts)
       opts = opts or {}
-      local visual = require("utils").Get_visual()
+      local visual = require("utils").GetVisual()
       local text = visual[1] or ""
       opts["default_text"] = text
 

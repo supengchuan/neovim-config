@@ -1,3 +1,12 @@
+local function setEnvFromFile()
+  -- auto load .env file in project dir
+  local sep = require("utils").Sep()
+  local envFile = vim.fs.root(0, "go.mod") .. sep .. ".env"
+  if vim.fn.filereadable(envFile) ~= 0 then
+    require("go.env").load_env(envFile, true)
+  end
+end
+
 local M = {
   "ray-x/go.nvim",
   dependencies = { -- optional packages
@@ -30,7 +39,7 @@ local M = {
       comment_placeholder = "  ",
     })
     -- auto load .env file in project dir
-    require("go.env").load_env()
+    setEnvFromFile()
   end,
 
   --event = { "CmdlineEnter" },

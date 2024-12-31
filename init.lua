@@ -3,9 +3,6 @@ require("lazy_plugins")
 
 require("diagnostics")
 
--- debug
-require("dap-config")
-
 -- autocmd
 require("autocmd")
 

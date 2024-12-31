@@ -1,7 +1,7 @@
 local M = {
   "folke/which-key.nvim",
   dependencies = {
-    "echasnovski/mini.icons",
+    { "echasnovski/mini.icons", event = "VeryLazy" },
   },
   event = "VeryLazy",
   init = function()

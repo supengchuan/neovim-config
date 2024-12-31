@@ -30,4 +30,14 @@ function M.Toggle_inlay_hints()
   end
 end
 
+function M.getColorshemeFromENV()
+  local scheme = "tokyonight"
+  local fromENV = os.getenv("NVIM_COLOR")
+  if fromENV ~= nil then
+    scheme = fromENV
+  end
+
+  return scheme
+end
+
 return M

@@ -36,6 +36,13 @@ local M = {
             },
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
             show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+            before = function(_, item)
+              local m = item.menu and item.menu or ""
+              if #m > 30 then
+                item.menu = string.sub(m, 1, 35) .. "..." .. string.sub(m, -12)
+              end
+              return item
+            end,
           })(entry, vim_item)
         end,
       },

@@ -6,53 +6,39 @@ local M = {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-nvim-lsp-signature-help",
+    "onsails/lspkind-nvim",
   },
   event = "VeryLazy",
   config = function()
     local cmp = require("cmp")
-    -- UI
-    local kind_icons = require("icons")
 
     -- Setup nvim-cmp.
     cmp.setup({
       view = {
-        docs = { auto_open = true },
+        docs = {
+          auto_open = true,
+        },
       },
       formatting = {
         expandable_indicator = true,
-        fields = { "abbr", "kind", "menu" },
+        fields = { "abbr", "kind", "menu" }, -- this is default
         format = function(entry, vim_item)
-          local lspkind_ok, lspkind = pcall(require, "lspkind")
-          if not lspkind_ok then
-            -- From kind_icons array
-            vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
-            -- Source
-            vim_item.menu = ({
-              buffer = "[Buffer]",
-              nvim_lsp = "[LSP]",
-              luasnip = "[LuaSnip]",
-              nvim_lua = "[Lua]",
-              latex_symbols = "[LaTeX]",
-            })[entry.source.name]
-            return vim_item
-          else
-            -- From lspkind
-            return lspkind.cmp_format()(entry, vim_item)
-          end
+          local lspkind = require("lspkind")
+          -- From lspkind
+          return lspkind.cmp_format({
+            mode = "symbol_text",
+            maxwidth = {
+              -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+              -- can also be a function to dynamically calculate max width such as
+              -- menu = function() return math.floor(0.45 * vim.o.columns) end,
+              menu = 50, -- leading text (labelDetails)
+              abbr = 50, --actual suggestion item
+            },
+            ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+          })(entry, vim_item)
         end,
       },
-      -- do not enable auto-completion in comments
-      --enabled = function()
-      --	-- disable completion in comments
-      --	local context = require("cmp.config.context")
-      --	-- keep command mode completion enabled when cursor is in a comment
-      --	if vim.api.nvim_get_mode().mode == "c" then
-      --		return true
-      --	else
-      --		return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
-      --		-- return not context.in_syntax_group("Comment")
-      --	end
-      --end,
 
       snippet = {
         -- REQUIRED - you must specify a snippet engine
@@ -101,9 +87,6 @@ local M = {
       }),
 
       experimental = {
-        -- I like the new menu better! Nice work hrsh7th
-        native_menu = false,
-
         -- Let's play with this for a day or two
         ghost_text = false,
       },

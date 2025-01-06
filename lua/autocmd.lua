@@ -145,3 +145,8 @@ end, {})
 vim.api.nvim_create_user_command("Compare", function()
   require("telescope").extensions.diff.diff_files({ hidden = true })
 end, {})
+
+vim.api.nvim_create_user_command("CWD", function()
+  local current_buffer_dir = vim.fn.expand("%:p:h")
+  vim.api.nvim_set_current_dir(current_buffer_dir)
+end, {})

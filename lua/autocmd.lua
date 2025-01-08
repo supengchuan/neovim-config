@@ -150,3 +150,12 @@ vim.api.nvim_create_user_command("CWD", function()
   local current_buffer_dir = vim.fn.expand("%:p:h")
   vim.api.nvim_set_current_dir(current_buffer_dir)
 end, {})
+
+-- set <C-]> to jump to tag in nvim help document
+-- because I mapped lsp_definition to <C-]>, it cannot jump to tag in nvim help documents
+autocmd({ "FileType" }, {
+  pattern = { "help" },
+  callback = function(opts)
+    vim.keymap.set("n", "<C-]>", "<C-]>", { silent = true, buffer = opts.buf })
+  end,
+})

@@ -47,6 +47,14 @@ local M = {
           n = {
             ["q"] = "close",
             ["<c-d>"] = require("telescope.actions").delete_buffer,
+            ["J"] = function(bufnr)
+              require("telescope.state").get_status(bufnr).picker.layout_config.scroll_speed = 1
+              require("telescope.actions").preview_scrolling_down(bufnr)
+            end,
+            ["K"] = function(bufnr)
+              require("telescope.state").get_status(bufnr).picker.layout_config.scroll_speed = 1
+              require("telescope.actions").preview_scrolling_up(bufnr)
+            end,
           },
         },
       },

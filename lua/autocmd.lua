@@ -159,3 +159,11 @@ autocmd({ "FileType" }, {
     vim.keymap.set("n", "<C-]>", "<C-]>", { silent = true, buffer = opts.buf })
   end,
 })
+
+-- add line number for telescope preview
+autocmd("User", {
+  pattern = "TelescopePreviewerLoaded",
+  callback = function()
+    vim.cmd([[setlocal number]])
+  end,
+})

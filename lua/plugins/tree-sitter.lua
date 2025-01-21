@@ -2,6 +2,7 @@ local M = {
   {
 
     "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },

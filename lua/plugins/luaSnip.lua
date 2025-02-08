@@ -3,7 +3,6 @@ local M = {
 
   dependencies = {
     "rafamadriz/friendly-snippets",
-    "saadparwaiz1/cmp_luasnip",
   },
   -- install jsregexp (optional!).
   build = "make install_jsregexp",

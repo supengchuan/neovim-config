@@ -1,6 +1,6 @@
 local M = {}
 
-local SSH_ICONS = {
+M.ssh_icons = {
   Text = "",
   Method = "",
   Function = "f",
@@ -28,7 +28,7 @@ local SSH_ICONS = {
   TypeParameter = "",
 }
 
-local LOCAL_ICONS = {
+M.local_icons = {
   Text = "",
   Method = "󰆧",
   Function = "󰊕",
@@ -56,5 +56,4 @@ local LOCAL_ICONS = {
   TypeParameter = "󰅲",
 }
 
-M = SSH_ICONS
 return M

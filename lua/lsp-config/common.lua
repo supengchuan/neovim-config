@@ -67,8 +67,7 @@ M.hlSymUdrCursor = function(client, bufnr)
   end
 end
 
---  plugin cmp need this
-M.capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+M.capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- lsp keybinding
 M.keyAttach = function(bufnr)

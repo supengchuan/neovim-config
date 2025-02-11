@@ -35,11 +35,28 @@ return {
           },
         },
       },
+      default_component_configs = {
+        git_status = {
+          symbols = {
+            modified = "󰏫",
+            ignored = "",
+            unstaged = "",
+          },
+        },
+        diagnostics = {
+          symbols = {
+            hint = " ",
+            info = " ",
+            warn = "󰈸",
+            error = " ",
+          },
+        },
+      },
       window = {
         mappings = {
           --["l"] = "open",
           ["h"] = "close_node",
-          ["<CR>"] = "open_with_window_picker",
+          ["<CR>"] = "open",
           ["<space>"] = "none",
           ["Y"] = {
             function(state)

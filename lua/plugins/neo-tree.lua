@@ -17,6 +17,7 @@ return {
       sources = { "filesystem", "buffers", "git_status" },
       open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
       close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
+      enable_diagnostics = false,
       filesystem = {
         hijack_netrw_behavior = "disabled",
         -- open_default

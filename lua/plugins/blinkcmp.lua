@@ -22,22 +22,22 @@ local M = {
           if cmp.snippet_active() then
             return cmp.accept()
           else
-            return cmp.select_next()
+            return cmp.select_and_accept()
           end
         end,
         "snippet_forward",
         "fallback",
       },
-      ["<S-Tab>"] = {
-        function(cmp)
-          if cmp.snippet_active() then
-            return cmp.snippet_backward()
-          else
-            return cmp.select_prev()
-          end
-        end,
-        "fallback",
-      },
+      --["<S-Tab>"] = {
+      --  function(cmp)
+      --    if cmp.snippet_active() then
+      --      return cmp.snippet_backward()
+      --    else
+      --      return cmp.select_prev()
+      --    end
+      --  end,
+      --  "fallback",
+      --},
     },
 
     completion = {

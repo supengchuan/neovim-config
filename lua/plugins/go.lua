@@ -24,6 +24,7 @@ local M = {
     local lsp_common = require("lsp-config.common")
     require("go").setup({
       tag_transform = "camelcase",
+      icons = false,
       lsp_cfg = {
         capabilities = lsp_common.capabilities,
         -- other setups

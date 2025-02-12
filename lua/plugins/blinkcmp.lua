@@ -38,9 +38,6 @@ local M = {
       --  end,
       --  "fallback",
       --},
-      cmdline = {
-        preset = "super-tab",
-      },
     },
 
     completion = {

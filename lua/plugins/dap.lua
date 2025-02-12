@@ -10,12 +10,13 @@ local M = {
         opts = {},
       },
     },
+    -- stylua: ignore
     keys = {
-      { "<F10>", "<cmd>lua require'dap'.step_over()<CR>", desc = "debug step over" },
-      { "<F11>", "<cmd>lua require'dap'.step_into()<CR>", desc = "debug step into" },
-      { "<F12>", "<cmd>lua require'dap'.step_out()<CR>", desc = "debug step out" },
-      { "<F5>", "<cmd>lua require'dap'.continue()<CR>", desc = "debug continue" },
-      { "<leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "set a breakpoint" },
+      { "<F5>", function() require("dap").continue() end, desc = "debug continue, go to next breakpoint" },
+      { "<F10>", function() require("dap").step_over() end, desc = "dap debug step over" },
+      { "<F11>", function() require("dap").step_into() end, desc = "dap debug step into" },
+      { "<F12>", function() require("dap").step_out() end, desc = "dap debug step out" },
+      { "<leader>b", function() require("dap").toggle_breakpoint() end, desc = "set a breakpoint" },
     },
     config = function()
       vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })

@@ -64,6 +64,15 @@ local M = {
           -- Instead of true it can also be a list of languages
           additional_vim_regex_highlighting = false,
         },
+        textobjects = {
+          move = {
+            enable = true,
+            goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+            goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+            goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+            goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+          },
+        },
       })
     end,
   },
@@ -89,13 +98,13 @@ local M = {
       })
     end,
     keys = {
-      {
-        "[c",
-        function()
-          require("treesitter-context").go_to_context(vim.v.count1)
-        end,
-        desc = "jump to context(upwards)",
-      },
+      --{
+      --  "[c",
+      --  function()
+      --    require("treesitter-context").go_to_context(vim.v.count1)
+      --  end,
+      --  desc = "jump to context(upwards)",
+      --},
     },
   },
 }

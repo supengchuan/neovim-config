@@ -1,6 +1,7 @@
 local M = {
   "ggandor/leap.nvim",
   event = "VeryLazy",
+  cond = false,
   config = function()
     local status, leap = pcall(require, "leap")
     if not status then

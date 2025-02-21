@@ -107,6 +107,14 @@ local M = {
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = { "lsp", "snippets", "buffer", "path" },
+      providers = {
+        lsp = {
+          fallbacks = {}, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
+        },
+        path = {
+          fallbacks = {}, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
+        },
+      },
     },
   },
   opts_extend = { "sources.default" },

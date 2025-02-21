@@ -91,7 +91,17 @@ local M = {
         },
       },
       lualine_b = { "branch", "diff" },
-      lualine_x = { "lsp_progress", "encoding", "fileformat", "filetype" },
+      lualine_x = {
+        "lsp_progress",
+        "encoding",
+        "fileformat",
+        "filetype",
+        {
+          require("noice").api.status.mode.get,
+          cond = require("noice").api.status.mode.has,
+          color = { fg = "#ff9e64" },
+        },
+      },
       lualine_y = { "progress" },
       lualine_z = { "location" },
     },

@@ -154,7 +154,7 @@ local M = {
   end,
   keys = {
     { "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "show lsp hint" },
-    { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "rename token" },
+    { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "rename code" },
   },
 }
 return M

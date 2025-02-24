@@ -10,6 +10,14 @@ local M = {
   end,
   opts = {
     preset = "modern",
+    expand = 1, -- expand groups when <= n mappings
+    icons = {
+      rules = {
+        { plugin = "nvim-dap", cat = "filetype", name = "dap", icon = "󰃤" },
+        { pattern = "move", icon = "󱕒" },
+        { pattern = "preview", icon = "" },
+      },
+    },
   },
   -- stylua: ignore
   keys = {

@@ -242,7 +242,7 @@ M = {
       function()
         require("aerial").toggle()
       end,
-      desc = "toggle aerial, list current buffer outlines",
+      desc = "toggle buffer outlines",
     },
   },
 }

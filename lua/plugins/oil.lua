@@ -53,7 +53,7 @@ local M = {
             l_oil.open_float(nil, { preview = {} })
           end
         end,
-        desc = "open oil float window with preview",
+        desc = "open oil with preview",
       },
     },
   },

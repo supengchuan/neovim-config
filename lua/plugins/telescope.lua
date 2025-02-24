@@ -169,7 +169,7 @@ M.keys = {
     function()
       require("telescope").extensions.goimpl.goimpl({ initial_mode = "insert" })
     end,
-    desc = "use goimpl to implement a interface fro struct",
+    desc = "use goimpl",
   },
 
   {
@@ -183,14 +183,14 @@ M.keys = {
       --
       require("telescope").extensions.live_grep_args.live_grep_args(opts)
     end,
-    desc = "search the word under cursor in current buffer",
+    desc = "search in current buffer",
   },
   {
     "<leader>s",
     function()
       require("telescope").extensions.live_grep_args.live_grep_args({ initial_mode = "insert" })
     end,
-    desc = "grep string",
+    desc = "search by live grep",
   },
   { "<leader>e", "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "list open buffers" },
   { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", desc = "Find File" },

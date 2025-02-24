@@ -35,11 +35,26 @@ local M = {
       },
       keymaps = {
         ["<2-LeftMouse>"] = "actions.select",
+        ["J"] = "actions.preview_scroll_down",
+        ["K"] = "actions.preview_scroll_up",
+        ["q"] = "actions.close",
       },
       skip_confirm_for_simple_edits = true,
     },
     keys = {
-      { "<leader>a", "<cmd>lua require('oil').toggle_float()<cr>", desc = "open oil float window" },
+      {
+        -- toggle oil with preview mode
+        "<leader>a",
+        function()
+          local l_oil = require("oil")
+          if vim.w.is_oil_win then
+            l_oil.close()
+          else
+            l_oil.open_float(nil, { preview = {} })
+          end
+        end,
+        desc = "open oil float window with preview",
+      },
     },
   },
 }

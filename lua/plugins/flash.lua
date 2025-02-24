@@ -5,7 +5,7 @@ local M = {
   opts = {
     modes = {
       search = {
-        enabled = true,
+        enabled = false,
         highlight = { backdrop = true },
       },
       char = {

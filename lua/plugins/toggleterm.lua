@@ -55,7 +55,7 @@ local M = {
     })
 
     local lazygit = Terminal:new({
-      direction = "float",
+      direction = "tab",
       cmd = "lazygit",
       hidden = true,
     })

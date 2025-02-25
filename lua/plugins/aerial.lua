@@ -40,6 +40,9 @@ local M = {
 
     -- Show box drawing characters for the tree hierarchy
     show_guides = true,
+
+    -- When true, aerial will automatically close after jumping to a symbol
+    close_on_select = true,
   },
   keys = {
     {

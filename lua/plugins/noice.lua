@@ -27,7 +27,7 @@ return {
       cmdline = {
         view = "cmdline_popup",
         format = {
-          cmdline = { pattern = "^:", icon = "👻 󰁕", lang = "vim" },
+          cmdline = { pattern = "^:", icon = " 󰁕", lang = "vim" },
           search_down = {
             view = "cmdline_popup",
           },

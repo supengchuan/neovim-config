@@ -28,7 +28,9 @@ local M = {
       float = {
         max_width = 0,
         -- Padding around the floating window
-        border = local_border,
+        --border = local_border,
+        border = "single",
+
         padding = 2,
         win_options = {
           winblend = 0,

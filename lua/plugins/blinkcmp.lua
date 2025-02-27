@@ -28,16 +28,26 @@ local M = {
         "snippet_forward",
         "fallback",
       },
-      --["<S-Tab>"] = {
-      --  function(cmp)
-      --    if cmp.snippet_active() then
-      --      return cmp.snippet_backward()
-      --    else
-      --      return cmp.select_prev()
-      --    end
-      --  end,
-      --  "fallback",
-      --},
+    },
+    cmdline = {
+      enabled = true,
+      keymap = {
+        preset = "cmdline",
+        ["<Tab>"] = {
+          function(cmp)
+            if cmp.is_ghost_text_visible() then
+              return cmp.accept()
+            end
+          end,
+          "select_next",
+          "fallback",
+        },
+      },
+      completion = {
+        menu = {
+          auto_show = true,
+        },
+      },
     },
 
     completion = {

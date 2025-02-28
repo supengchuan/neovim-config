@@ -104,6 +104,7 @@ autocmd("BufEnter", {
   group = myAutoGroup,
   callback = function()
     vim.wo.colorcolumn = ""
+    vim.wo.wrap = true
     local map = vim.keymap.set
     map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
     map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })

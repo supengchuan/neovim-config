@@ -150,15 +150,6 @@ return {
     cond = colorscheme == "gruvbox",
   },
   {
-    "loctvl842/monokai-pro.nvim",
-    cond = colorscheme == "monokai",
-    config = function()
-      require("monokai-pro").setup({
-        filter = "pro", -- classic | octagon | pro | machine | ristretto | spectrum
-      })
-    end,
-  },
-  {
     "neanias/everforest-nvim",
     version = false,
     lazy = false,

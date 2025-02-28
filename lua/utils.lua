@@ -20,8 +20,19 @@ function utils.ToggleWrap()
 
   if vim.wo[id].wrap == true then
     vim.wo[id].wrap = false
+    if vim.fn.mapcheck("j", "n") ~= "" then
+      vim.api.nvim_del_keymap("n", "j")
+      vim.api.nvim_del_keymap("n", "k")
+      vim.api.nvim_echo({ { "norwap, and j, k mode" } }, false, {})
+    end
   else
     vim.wo[id].wrap = true
+    if vim.fn.mapcheck("j", "n") == "" then
+      local map = vim.keymap.set
+      map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+      map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+      vim.api.nvim_echo({ { "set wrap, gj, gk mode" } }, false, {})
+    end
   end
 end
 

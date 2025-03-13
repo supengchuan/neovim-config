@@ -51,6 +51,7 @@ local M = {
     },
 
     completion = {
+      keyword = { range = "full" },
       menu = {
         border = "rounded",
         scrollbar = false,

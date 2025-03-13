@@ -44,43 +44,25 @@ local M = {
 
     local Terminal = require("toggleterm.terminal").Terminal
 
-    local t_float = Terminal:new({
-      -- direction = 'vertical' | 'horizontal' | 'tab' | 'float',
-      direction = "float",
-      float_opts = {
-        -- border = 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
-        border = "curved",
-      },
-      close_on_exit = true,
-    })
-
     local lazygit = Terminal:new({
       direction = "tab",
       cmd = "lazygit",
       hidden = true,
     })
 
-    local toggle = function(cmd)
-      if t_float:is_open() then
-        t_float:close()
-        return
-      end
-      t_float:open()
-      if cmd ~= nil then
-        t_float:send(cmd)
-      end
-    end
-
-    local lazygit_toggle = function(cmd)
-      lazygit:toggle()
-    end
     -- register hot key
     local wk = require("which-key")
 
+    --stylua: ignore
     wk.add({
-      { "<C-t>", toggle, desc = "toggleterm", mode = "t" },
-      { "<leader>gg", lazygit_toggle, desc = "lazygit toggle using terminal" },
-      { "<leader>t", toggle, desc = "toggleterm" },
+      { "<C-t>", [[<cmd>ToggleTerm<cr>]], desc = "toggleterm", mode = "t" },
+      { "<leader>gg", function() lazygit:toggle() end, desc = "lazygit toggle using terminal" },
+      { "<leader>t", [[<cmd>ToggleTerm direction=horizontal<cr>]], desc = "toggleterm" },
+--      { "<esc>", [[<C-\><C-n>]], desc = "esc from terminal", mode = "t" },
+      { "<C-j>", [[<cmd>wincmd j<cr>]], desc = "move cursor to blow window", mode = "t" },
+      { "<C-k>", [[<cmd>wincmd k<cr>]], desc = "move cursor to up window", mode = "t" },
+      { "<C-l>", [[<cmd>wincmd l<cr>]], desc = "move cursor to rigth window", mode = "t" },
+      { "<C-h>", [[<cmd>wincmd h<cr>]], desc = "move cursor to left window", mode = "t" },
     })
   end,
 }

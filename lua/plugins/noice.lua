@@ -23,6 +23,11 @@ return {
             winblend = 100,
           },
         },
+        hover = {
+          size = {
+            max_width = math.floor(vim.o.columns * 0.8) > 120 and 120 or math.floor(vim.o.columns * 0.8),
+          },
+        },
       },
       cmdline = {
         view = "cmdline_popup",
@@ -37,6 +42,9 @@ return {
         },
       },
       lsp = {
+        hover = {
+          view = "hover",
+        },
         signature = {
           enabled = true,
         },

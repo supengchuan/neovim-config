@@ -15,6 +15,7 @@ local border = {
 }
 
 M.handlers = {
+  -- hover style setting will not work if use noice, you should set that in noice config
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "double" }),
 }

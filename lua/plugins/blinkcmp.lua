@@ -51,7 +51,6 @@ local M = {
     },
 
     completion = {
-      keyword = { range = "full" },
       menu = {
         border = "rounded",
         scrollbar = false,
@@ -125,6 +124,13 @@ local M = {
         path = {
           fallbacks = {}, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
         },
+      },
+    },
+    fuzzy = {
+      sorts = {
+        "exact",
+        "score",
+        "sort_text",
       },
     },
   },

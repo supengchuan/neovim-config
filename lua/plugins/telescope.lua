@@ -192,7 +192,7 @@ M.keys = {
     end,
     desc = "search by live grep",
   },
-  { "<leader>e", "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "list open buffers" },
-  { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", desc = "Find File" },
+  --{ "<leader>e", "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "list open buffers" },
+  --{ "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", desc = "Find File" },
 }
 return M

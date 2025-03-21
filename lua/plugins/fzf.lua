@@ -21,6 +21,11 @@ local M = {
     config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
     return {}
   end,
+  keys = {
+    { "<leader>e", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Switch Buffer" },
+    { "<leader>f", "<cmd>FzfLua files<cr>", desc = "Find files" },
+    { "<leader>/", "<cmd>FzfLua live_grep<cr>", desc = "search by live grep" },
+  },
 }
 
 return M

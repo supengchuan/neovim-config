@@ -58,7 +58,7 @@ local M = {
       { "<C-t>", [[<cmd>ToggleTerm<cr>]], desc = "toggleterm", mode = "t" },
       { "<leader>gg", function() lazygit:toggle() end, desc = "lazygit toggle using terminal" },
       { "<leader>t", [[<cmd>ToggleTerm direction=horizontal<cr>]], desc = "toggleterm" },
---      { "<esc>", [[<C-\><C-n>]], desc = "esc from terminal", mode = "t" },
+      { "<esc><esc>", [[<C-\><C-n>]], desc = "esc from terminal", mode = "t" },
       { "<C-j>", [[<cmd>wincmd j<cr>]], desc = "move cursor to blow window", mode = "t" },
       { "<C-k>", [[<cmd>wincmd k<cr>]], desc = "move cursor to up window", mode = "t" },
       { "<C-l>", [[<cmd>wincmd l<cr>]], desc = "move cursor to rigth window", mode = "t" },

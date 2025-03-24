@@ -24,7 +24,31 @@ local M = {
   keys = {
     { "<leader>e", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Switch Buffer" },
     { "<leader>f", "<cmd>FzfLua files<cr>", desc = "Find files" },
-    { "<leader>/", "<cmd>FzfLua live_grep<cr>", desc = "search by live grep" },
+    { "<leader>s", "<cmd>FzfLua live_grep<cr>", desc = "Search by live grep" },
+    { "<leader>s", [[<cmd>FzfLua grep_visual<cr>]], mode = "x", desc = "Search visual words" },
+    {
+      "<C-]>",
+      function()
+        require("fzf-lua").lsp_definitions({ jump1 = true })
+      end,
+      desc = "Go to definition",
+    },
+    {
+      "gr",
+      function()
+        require("fzf-lua").lsp_references({ jump1 = true, include_declaration = false })
+      end,
+      desc = "Go to references",
+    },
+    {
+      "gi",
+      function()
+        require("fzf-lua").lsp_implementations()
+      end,
+      desc = "Go to implementations",
+    },
+    { "<leader>dd", [[fzf-lua diagnostics_document]], desc = "list document diagnostics" },
+    { "<leader>dw", [[fzf-lua diagnostics_workspace]], desc = "list workspace diagnostics" },
   },
 }
 

@@ -3,10 +3,6 @@ return {
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     "MunifTanjim/nui.nvim",
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
-    "rcarriga/nvim-notify",
   },
   event = "VeryLazy",
   config = function()
@@ -51,16 +47,9 @@ return {
       },
       messages = {
         view = "mini",
-        view_error = "mini",
-        view_warn = "mini",
+        view_error = "notify",
+        view_warn = "notify",
       },
-    })
-    require("notify").setup({
-      background_colour = "#000000",
-      timeout = 5000,
-      stages = "static",
-      top_down = true,
-      render = "wrapped-compact",
     })
   end,
 }

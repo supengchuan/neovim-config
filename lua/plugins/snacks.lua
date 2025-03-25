@@ -9,10 +9,14 @@ local M = {
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
-    statuscolumn = { enabled = true },
     words = { enabled = true },
     debug = { enabled = true },
     notifier = { enabled = true }, -- noice may be use this
+  },
+  --stylua: ignore
+  keys = {
+    { "<leader>t", function() Snacks.terminal() end, desc = "toggle terminal" },
+    { "<leader>gg", function() Snacks.lazygit() end, desc = "lazygit toggle" },
   },
 }
 

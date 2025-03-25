@@ -31,17 +31,19 @@ local M = {
     { "<leader>f", "<cmd>FzfLua files<cr>", desc = "Find files" },
     { "<leader>s", "<cmd>FzfLua live_grep<cr>", desc = "Search by live grep" },
     { "<leader>s", [[<cmd>FzfLua grep_visual<cr>]], mode = "x", desc = "Search visual words" },
+    { "<leader>dd", [[fzf-lua diagnostics_document]], desc = "list document diagnostics" },
+    { "<leader>dw", [[fzf-lua diagnostics_workspace]], desc = "list workspace diagnostics" },
     {
       "<C-]>",
       function()
-        require("fzf-lua").lsp_definitions({ jump1 = true })
+        require("fzf-lua").lsp_definitions({ jump1 = true, ignore_current_line = true })
       end,
       desc = "Go to definition",
     },
     {
       "gr",
       function()
-        require("fzf-lua").lsp_references({ jump1 = true, include_declaration = false })
+        require("fzf-lua").lsp_references({ jump1 = true, includeDeclaration = false })
       end,
       desc = "Go to references",
     },
@@ -52,8 +54,6 @@ local M = {
       end,
       desc = "Go to implementations",
     },
-    { "<leader>dd", [[fzf-lua diagnostics_document]], desc = "list document diagnostics" },
-    { "<leader>dw", [[fzf-lua diagnostics_workspace]], desc = "list workspace diagnostics" },
   },
 }
 

@@ -5,25 +5,7 @@ local M = {
   },
   event = "VeryLazy",
   config = function()
-    local st_floattus, toggleterm = pcall(require, "toggleterm")
-    if not st_floattus then
-      vim.notify("没有找到 toggleterm")
-      return
-    end
-
-    local on_windows = vim.uv.os_uname().sysname:match("Windows")
-    if on_windows then
-      -- use pwsh on windows
-      vim.opt.shell = vim.fn.executable("pwsh") and "pwsh" or "powershell"
-      vim.opt.shellcmdflag =
-        "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-      vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-      vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-      vim.opt.shellquote = ""
-      vim.opt.shellxquote = ""
-    end
-
-    toggleterm.setup({
+    require("toggleterm").setup({
       -- size can be a number or function which is passed the current terminal
       size = function(term)
         if term.direction == "horizontal" then
@@ -33,13 +15,7 @@ local M = {
         end
       end,
       start_in_insert = true,
-      shell = function()
-        if on_windows then
-          return "pwsh"
-        else
-          return vim.o.shell
-        end
-      end,
+      shell = vim.o.shell,
     })
 
     local Terminal = require("toggleterm.terminal").Terminal

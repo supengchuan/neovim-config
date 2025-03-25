@@ -59,10 +59,11 @@ local M = {
       { "<leader>gg", function() lazygit:toggle() end, desc = "lazygit toggle using terminal" },
       { "<leader>t", [[<cmd>ToggleTerm direction=horizontal<cr>]], desc = "toggleterm" },
       { "<esc><esc>", [[<C-\><C-n>]], desc = "esc from terminal", mode = "t" },
-      { "<C-j>", [[<cmd>wincmd j<cr>]], desc = "move cursor to blow window", mode = "t" },
-      { "<C-k>", [[<cmd>wincmd k<cr>]], desc = "move cursor to up window", mode = "t" },
-      { "<C-l>", [[<cmd>wincmd l<cr>]], desc = "move cursor to rigth window", mode = "t" },
-      { "<C-h>", [[<cmd>wincmd h<cr>]], desc = "move cursor to left window", mode = "t" },
+      -- conflict with fzf-lua
+      --{ "<C-j>", [[<cmd>wincmd j<cr>]], desc = "move cursor to blow window", mode = "t" },
+      --{ "<C-k>", [[<cmd>wincmd k<cr>]], desc = "move cursor to up window", mode = "t" },
+      --{ "<C-l>", [[<cmd>wincmd l<cr>]], desc = "move cursor to rigth window", mode = "t" },
+      --{ "<C-h>", [[<cmd>wincmd h<cr>]], desc = "move cursor to left window", mode = "t" },
     })
   end,
 }

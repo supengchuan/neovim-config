@@ -21,7 +21,7 @@ local M = {
     config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
     return {
       winopts = {
-        -- hide the falag h in title
+        -- hide the falg h in title
         title_flags = false,
       },
     }
@@ -31,8 +31,13 @@ local M = {
     { "<leader>f", "<cmd>FzfLua files<cr>", desc = "Find files" },
     { "<leader>s", "<cmd>FzfLua live_grep<cr>", desc = "Search by live grep" },
     { "<leader>s", [[<cmd>FzfLua grep_visual<cr>]], mode = "x", desc = "Search visual words" },
-    { "<leader>dd", [[fzf-lua diagnostics_document]], desc = "list document diagnostics" },
-    { "<leader>dw", [[fzf-lua diagnostics_workspace]], desc = "list workspace diagnostics" },
+    {
+      "<leader>d",
+      function()
+        require("fzf-lua").diagnostics_workspace()
+      end,
+      desc = "list workspace diagnostics",
+    },
     {
       "<C-]>",
       function()

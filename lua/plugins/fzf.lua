@@ -19,7 +19,12 @@ local M = {
     config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
     config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
     config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
-    return {}
+    return {
+      winopts = {
+        -- hide the falag h in title
+        title_flags = false,
+      },
+    }
   end,
   keys = {
     { "<leader>e", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Switch Buffer" },

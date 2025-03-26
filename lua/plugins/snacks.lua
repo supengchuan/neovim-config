@@ -12,11 +12,28 @@ local M = {
     words = { enabled = true },
     debug = { enabled = true },
     notifier = { enabled = true }, -- noice may be use this
+    lazygit = {
+      win = {
+        width = 0,
+        height = 0,
+      },
+    },
   },
-  --stylua: ignore
   keys = {
-    { "<leader>t", function() Snacks.terminal() end, desc = "toggle terminal" },
-    { "<leader>gg", function() Snacks.lazygit() end, desc = "lazygit toggle" },
+    {
+      "<leader>t",
+      function()
+        Snacks.terminal()
+      end,
+      desc = "toggle terminal",
+    },
+    {
+      "<leader>gg",
+      function()
+        Snacks.lazygit()
+      end,
+      desc = "lazygit toggle",
+    },
   },
 }
 

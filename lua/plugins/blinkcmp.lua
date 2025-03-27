@@ -25,7 +25,7 @@ local M = {
             return cmp.select_and_accept()
           end
         end,
-        "snippet_forward",
+        --        "snippet_forward",  -- use <ctrl-k> for snippet_forward instead of <tab>
         "fallback",
       },
     },

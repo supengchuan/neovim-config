@@ -27,6 +27,7 @@ local M = {
       -- Configuration for the floating window in oil.open_float
       float = {
         max_width = 0,
+        max_height = 0,
         -- Padding around the floating window
         --border = local_border,
         border = "single",
@@ -35,6 +36,7 @@ local M = {
         win_options = {
           winblend = 0,
         },
+        preview_split = "below",
       },
       keymaps = {
         ["<2-LeftMouse>"] = "actions.select",

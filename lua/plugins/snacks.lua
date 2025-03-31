@@ -18,6 +18,15 @@ local M = {
         height = 0,
       },
     },
+    statuscolumn = {
+      -- 它是 number column 左右的column
+      -- left 表示的是 number column 的左边
+      enabled = true,
+      folds = {
+        open = true,
+        git_hl = true,
+      },
+    },
   },
   keys = {
     {

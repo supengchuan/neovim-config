@@ -21,13 +21,10 @@ return {
       -- refer to the configuration section below
     },
   },
-
-  -- key map
   {
-    "norcalli/nvim-colorizer.lua",
-    event = "VeryLazy",
+    "brenoprata10/nvim-highlight-colors",
     config = function()
-      require("colorizer").setup()
+      require("nvim-highlight-colors").setup({})
     end,
   },
   {

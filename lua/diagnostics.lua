@@ -14,7 +14,6 @@ vim.diagnostic.config({
   severity_sort = true,
   float = {
     source = true, -- Or "if_many"
-    border = "double",
+    border = "single",
   },
 })
-require("lspconfig.ui.windows").default_options.border = "double"

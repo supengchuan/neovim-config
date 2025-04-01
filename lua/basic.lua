@@ -51,3 +51,9 @@ if require("utils").IsWindows() then
   vim.opt.shellquote = ""
   vim.opt.shellxquote = ""
 end
+
+vim.filetype.add({
+  extension = {
+    rasi = "rasi",
+  },
+})

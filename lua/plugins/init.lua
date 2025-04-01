@@ -27,6 +27,17 @@ return {
       require("nvim-highlight-colors").setup({})
     end,
   },
+  --{
+  --  "catgoose/nvim-colorizer.lua",
+  --  event = "BufReadPre",
+  --  opts = {
+  --    buftypes = { "*" },
+  --    user_default_options = {
+  --      RRGGBBAA = true, -- #RRGGBBAA hex codes
+  --      AARRGGBB = true, -- 0xAARRGGBB hex codes
+  --    },
+  --  },
+  --},
   {
     "sindrets/winshift.nvim",
     event = "VeryLazy",

@@ -27,6 +27,13 @@ local M = {
   {
     "OXY2DEV/markview.nvim",
     ft = { "markdown" },
+    opts = {
+      markdown = {
+        code_blocks = {
+          style = "simple",
+        },
+      },
+    },
   },
 }
 

@@ -30,7 +30,10 @@ local M = {
     opts = {
       markdown = {
         code_blocks = {
+          enable = true,
           style = "simple",
+          label_direction = "left",
+          min_width = math.floor(vim.o.columns * 0.8) > 120 and 120 or math.floor(vim.o.columns * 0.8),
         },
       },
     },

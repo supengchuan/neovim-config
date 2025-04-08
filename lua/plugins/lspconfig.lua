@@ -133,7 +133,7 @@ local M = {
     -- lspkind adds vscode-like pictograms to neovim built-in lsp
     "onsails/lspkind-nvim",
   },
-  event = "VeryLazy",
+  lazy = false,
   config = function()
     -- Setup lspconfig.
     local status, lspconfig = pcall(require, "lspconfig")
@@ -152,9 +152,5 @@ local M = {
       end
     end
   end,
-  keys = {
-    { "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "show lsp hint" },
-    { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "rename code" },
-  },
 }
 return M

@@ -20,6 +20,8 @@ local M = {
     },
     spec = {
       { "<leader>g", group = "+git" },
+      { "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "show lsp hint" },
+      { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "rename code" },
     },
   },
   -- stylua: ignore

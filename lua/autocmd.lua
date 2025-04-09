@@ -103,8 +103,8 @@ autocmd("BufEnter", {
   pattern = { "*.md", "*.tex" },
   group = myAutoGroup,
   callback = function()
-    vim.wo.colorcolumn = ""
-    vim.wo.wrap = true
+    vim.opt_local.colorcolumn = ""
+    vim.opt_local.wrap = true
     local map = vim.keymap.set
     map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
     map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
@@ -161,5 +161,19 @@ autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
   callback = function()
     vim.cmd([[setlocal number]])
+  end,
+})
+
+-- 这个配置的关键作用是将 dashboard的list设置为关闭
+-- 而普通文件则开启
+autocmd("FileType", {
+  pattern = { "snacks_dashboard" },
+  callback = function()
+    vim.opt_local.list = true
+  end,
+})
+autocmd({ "BufRead", "BufNewFile" }, {
+  callback = function()
+    vim.opt_local.list = true
   end,
 })

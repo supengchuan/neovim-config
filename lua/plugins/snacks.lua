@@ -11,6 +11,7 @@ local M = {
     scroll = { enabled = true },
     words = { enabled = true },
     debug = { enabled = true },
+    dashboard = { enabled = true },
     notifier = { enabled = true }, -- noice may be use this
     lazygit = {
       win = {

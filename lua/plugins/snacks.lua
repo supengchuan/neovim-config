@@ -11,7 +11,24 @@ local M = {
     scroll = { enabled = true },
     words = { enabled = true },
     debug = { enabled = true },
-    dashboard = { enabled = true },
+    dashboard = {
+      enabled = true,
+      formats = {
+        key = function(item)
+          return { { "[", hl = "special" }, { item.key, hl = "key" }, { "]", hl = "special" } }
+        end,
+      },
+      sections = {
+        { section = "header" },
+        { section = "startup", padding = 1 },
+        { title = "Files", padding = 1 },
+        { section = "recent_files", padding = 1 },
+        { title = "Projects", padding = 1 },
+        { section = "projects", padding = 1 },
+        { title = "Bookmarks", padding = 1 },
+        { icon = " ", section = "keys" },
+      },
+    },
     notifier = { enabled = true }, -- noice may be use this
     lazygit = {
       win = {

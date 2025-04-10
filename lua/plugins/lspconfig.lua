@@ -136,11 +136,7 @@ local M = {
   lazy = false,
   config = function()
     -- Setup lspconfig.
-    local status, lspconfig = pcall(require, "lspconfig")
-    if not status then
-      vim.notify("没有找到 lspconfig")
-      return
-    end
+    local lspconfig = require("lspconfig")
 
     for name, config in pairs(servers) do
       if config ~= nil and type(config) == "function" then

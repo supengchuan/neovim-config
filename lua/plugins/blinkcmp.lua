@@ -42,6 +42,8 @@ local M = {
           "select_next",
           "fallback",
         },
+        ["<Left>"] = {},
+        ["<Right>"] = {},
       },
       completion = {
         menu = {

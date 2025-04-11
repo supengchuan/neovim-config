@@ -51,7 +51,9 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    event = "VeryLazy",
+    --event = "VeryLazy",
+    lazy = true,
+    cmd = { "DiffviewOpen", "DiffviewClose" },
   },
   {
     "noearc/jieba.nvim",

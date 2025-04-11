@@ -1,152 +1,108 @@
-local servers = {}
+local servers = {
+  bashls = {},
+  buf_ls = {},
+  pyright = {},
+  nginx_language_server = {
+    capabilities = {
+      offsetEncoding = { "utf-16" },
+    },
+  },
+  clangd = {},
+  lua_ls = {
+    on_init = function(client)
+      local path = client.workspace_folders[1].name
+      if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
+        return
+      end
 
-servers.clangd = function()
-  local capabilities = require("lsp-config.common").capabilities
-  capabilities.offsetEncoding = { "utf-16" }
-  local opts = {
-    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-    capabilities = capabilities,
-    on_attach = function(_, bufnr)
-      local lspComm = require("lsp-config.common")
-      lspComm.keyAttach(bufnr)
-      lspComm.shwLinDiaAtom(bufnr)
-      -- lspComm.hlSymUdrCursor(client, bufnr)
-    end,
-    handlers = require("lsp-config.common").handlers,
-  }
-  return {
-    on_setup = function(server)
-      server.setup(opts)
-    end,
-  }
-end
-
-servers.nginx_language_server = function()
-  local capabilities = require("lsp-config.common").capabilities
-  capabilities.offsetEncoding = { "utf-16" }
-  local opts = {
-    capabilities = capabilities,
-    on_attach = function(_, bufnr)
-      local lspComm = require("lsp-config.common")
-      lspComm.keyAttach(bufnr)
-      lspComm.shwLinDiaAtom(bufnr)
-      -- lspComm.hlSymUdrCursor(client, bufnr)
-    end,
-    handlers = require("lsp-config.common").handlers,
-  }
-  return {
-    on_setup = function(server)
-      server.setup(opts)
-    end,
-  }
-end
-
-servers.lua_ls = function()
-  return {
-    on_setup = function(server)
-      server.setup({
-        on_init = function(client)
-          local path = client.workspace_folders[1].name
-          if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
-            return
-          end
-
-          client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-            runtime = {
-              -- Tell the language server which version of Lua you're using
-              -- (most likely LuaJIT in the case of Neovim)
-              version = "LuaJIT",
-            },
-            -- Make the server aware of Neovim runtime files
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                -- Depending on the usage, you might want to add additional paths here.
-                -- "${3rd}/luv/library"
-                -- "${3rd}/busted/library",
-              },
-              -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-              -- library = vim.api.nvim_get_runtime_file("", true)
-            },
-          })
-        end,
-        settings = {
-          Lua = {},
+      client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+        runtime = {
+          -- Tell the language server which version of Lua you're using
+          -- (most likely LuaJIT in the case of Neovim)
+          version = "LuaJIT",
+        },
+        -- Make the server aware of Neovim runtime files
+        workspace = {
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME,
+            -- Depending on the usage, you might want to add additional paths here.
+            -- "${3rd}/luv/library"
+            -- "${3rd}/busted/library",
+          },
+          -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+          -- library = vim.api.nvim_get_runtime_file("", true)
         },
       })
     end,
-  }
-end
+    settings = {
+      Lua = {},
+    },
+  },
+}
 
-servers.pyright = function()
-  local opts = {
-    capabilities = require("lsp-config.common").capabilities,
-    on_attach = function(_, bufnr)
-      local lspComm = require("lsp-config.common")
-      lspComm.keyAttach(bufnr)
-      lspComm.shwLinDiaAtom(bufnr)
-      -- lspComm.hlSymUdrCursor(client, bufnr)
-    end,
-    handlers = require("lsp-config.common").handlers,
-  }
-
-  return {
-    on_setup = function(server)
-      server.setup(opts)
-    end,
-  }
-end
-
-servers.bashls = function()
-  local opts = {}
-
-  return {
-    on_setup = function(server)
-      server.setup(opts)
-    end,
-  }
-end
-
-servers.buf_ls = function()
-  local opts = {
-    capabilities = require("lsp-config.common").capabilities,
-    on_attach = function(_, bufnr)
-      local lspComm = require("lsp-config.common")
-      lspComm.keyAttach(bufnr)
-      lspComm.shwLinDiaAtom(bufnr)
-      -- lspComm.hlSymUdrCursor(client, bufnr)
-    end,
-    handlers = require("lsp-config.common").handlers,
-  }
-
-  return {
-    on_setup = function(server)
-      server.setup(opts)
-    end,
-  }
-end
+local mason_extra_tools = {
+  -- formatter
+  "stylua",
+  "goimports",
+  "shfmt",
+  "taplo",
+  "prettier",
+  "sql-formatter",
+  "jq",
+  "yapf",
+  -- linter
+  "shellcheck",
+}
 
 local M = {
   "neovim/nvim-lspconfig",
   dependencies = {
     -- lspkind adds vscode-like pictograms to neovim built-in lsp
     "onsails/lspkind-nvim",
+    {
+      "williamboman/mason.nvim",
+      opts = {
+        ui = {
+          border = "single",
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗",
+          },
+        },
+      },
+    },
+    "williamboman/mason-lspconfig.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+
+    -- for code completion
+    "saghen/blink.cmp",
   },
+
   lazy = false,
   config = function()
-    -- Setup lspconfig.
-    local lspconfig = require("lspconfig")
+    local ensure_installed = vim.tbl_keys(servers or {})
+    vim.list_extend(ensure_installed, mason_extra_tools)
+    require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-    for name, config in pairs(servers) do
-      if config ~= nil and type(config) == "function" then
-        -- 自定义初始化配置文件必须实现on_setup 方法
-        config().on_setup(lspconfig[name])
-      else
-        -- 使用默认参数
-        lspconfig[name].setup({})
-      end
-    end
+    local capabilities = require("blink-cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+    require("mason-lspconfig").setup({
+      ensure_installed = {},
+      automatic_installation = false,
+      handlers = {
+        function(server_name)
+          local server = servers[server_name] or {}
+          -- This handles overriding only values explicitly passed
+          -- by the server configuration above. Useful when disabling
+          -- certain features of an LSP (for example, turning off formatting for ts_ls)
+          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+          require("lspconfig")[server_name].setup(server)
+        end,
+      },
+    })
   end,
 }
 return M

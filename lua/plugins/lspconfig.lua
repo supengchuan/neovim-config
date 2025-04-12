@@ -51,8 +51,13 @@ local mason_extra_tools = {
   "sql-formatter",
   "jq",
   "yapf",
+
   -- linter
   "shellcheck",
+
+  -- lsp
+  "rust-analyzer",
+  "gopls",
 }
 
 local M = {
@@ -101,6 +106,9 @@ local M = {
           server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
           require("lspconfig")[server_name].setup(server)
         end,
+
+        -- use rustaceanvim, need set this to avoid conflict
+        ["rust_analyzer"] = function() end,
       },
     })
   end,

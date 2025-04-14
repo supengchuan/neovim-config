@@ -109,6 +109,7 @@ local M = {
 
         -- use rustaceanvim, need set this to avoid conflict
         ["rust_analyzer"] = function() end,
+        gopls = function() end,
       },
     })
   end,

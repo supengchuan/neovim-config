@@ -7,7 +7,9 @@ local servers = {
       offsetEncoding = { "utf-16" },
     },
   },
-  clangd = {},
+  clangd = {
+    filetypes = { "c", "cpp" },
+  },
   lua_ls = {
     on_init = function(client)
       local path = client.workspace_folders[1].name

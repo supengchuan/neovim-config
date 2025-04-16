@@ -73,6 +73,17 @@ local M = {
       dap.listeners.before.disconnect["dapui_config"] = function()
         debug_close()
       end
+
+      dap.listeners.after.event_initialized["prevent-insert-mode"] = function()
+        vim.defer_fn(function()
+          local ft = vim.bo.filetype
+          local mode = vim.fn.mode()
+          -- Only force <Esc> in normal code files, not terminals or DAP REPLs
+          if mode == "i" and ft ~= "dap-repl" and ft ~= "terminal" then
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+          end
+        end, 100)
+      end
     end,
   },
   { "leoluz/nvim-dap-go", ft = { "go", "gomod" }, opts = {} },

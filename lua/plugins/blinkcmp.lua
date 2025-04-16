@@ -33,15 +33,16 @@ local M = {
       enabled = true,
       keymap = {
         preset = "cmdline",
-        ["<Tab>"] = {
-          function(cmp)
-            if cmp.is_ghost_text_visible() then
-              return cmp.accept()
-            end
-          end,
-          "select_next",
-          "fallback",
-        },
+        --["<Tab>"] = {
+        --  function(cmp)
+        --    if cmp.is_ghost_text_visible() then
+        --      return cmp.accept()
+        --    end
+        --  end,
+        --  "select_next",
+        --  "fallback",
+        --},
+        ["<Tab>"] = { "select_and_accept" },
         ["<Left>"] = {},
         ["<Right>"] = {},
       },

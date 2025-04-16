@@ -20,9 +20,6 @@ local M = {
       vim.g.mkdp_port = "9414"
       vim.g.mkdp_echo_preview_url = 1
     end,
-    keys = {
-      { "<leader>p", "<cmd>MarkdownPreviewToggle<CR>", desc = "preview markdown" },
-    },
   },
 }
 

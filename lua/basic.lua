@@ -57,3 +57,5 @@ vim.filetype.add({
     rasi = "rasi",
   },
 })
+
+vim.o.exrc = true

@@ -20,7 +20,7 @@ local M = {
     },
     config = function()
       vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-      local dap = {
+      local dapSigns = {
         Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
         Breakpoint = " ",
         BreakpointCondition = " ",
@@ -28,13 +28,17 @@ local M = {
         LogPoint = ".>",
       }
 
-      for name, sign in pairs(dap) do
+      for name, sign in pairs(dapSigns) do
         sign = type(sign) == "table" and sign or { sign }
         vim.fn.sign_define(
           "Dap" .. name,
           { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
         )
       end
+      require("dap").adapters.codelldb = {
+        type = "executable",
+        command = "codelldb",
+      }
     end,
   },
   {
@@ -71,7 +75,7 @@ local M = {
       end
     end,
   },
-  { "leoluz/nvim-dap-go", event = "VeryLazy", opts = {} },
+  { "leoluz/nvim-dap-go", ft = { "go", "gomod" }, opts = {} },
 }
 
 return M

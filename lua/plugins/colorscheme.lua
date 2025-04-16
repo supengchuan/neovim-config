@@ -8,7 +8,7 @@ return {
     cond = colorscheme == "tokyonight",
     config = function()
       require("tokyonight").setup({
-        style = "moon",
+        style = "storm",
         transparent = false, -- Enable this to disable setting the background colors
         styles = {
           -- Style to be applied to different syntax groups

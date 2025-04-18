@@ -59,3 +59,7 @@ vim.filetype.add({
 })
 
 vim.o.exrc = true
+
+vim.opt.foldmethod = "indent"
+vim.opt.foldlevel = 99
+vim.opt.foldenable = true

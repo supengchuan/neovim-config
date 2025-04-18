@@ -1,11 +1,9 @@
-local colorscheme = require("utils").GetColorshemeFromENV()
 return {
   {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
     opts = {},
-    cond = colorscheme == "tokyonight",
     config = function()
       require("tokyonight").setup({
         style = "storm",
@@ -37,7 +35,6 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
-    cond = colorscheme == "catppuccin",
     config = function()
       require("catppuccin").setup({
         flavour = "macchiato", -- latte, frappe, macchiato, mocha
@@ -92,7 +89,6 @@ return {
     "maxmx03/dracula.nvim",
     lazy = false,
     priority = 1000,
-    cond = colorscheme == "dracula",
     config = function()
       ---@type dracula
       local dracula = require("dracula")
@@ -146,13 +142,11 @@ return {
   },
   {
     "ellisonleao/gruvbox.nvim",
-    cond = colorscheme == "gruvbox",
   },
   {
     "neanias/everforest-nvim",
     version = false,
     lazy = false,
-    cond = colorscheme == "everforest",
     priority = 1000, -- make sure to load this before all the other start plugins
     -- Optional; default configuration will be used if setup isn't called.
     config = function()

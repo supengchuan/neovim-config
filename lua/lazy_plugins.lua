@@ -28,4 +28,18 @@ local opts = {
   },
 }
 
-lazy.setup("plugins", opts)
+local spec = {
+  {
+    import = "plugins",
+  },
+}
+
+--- for debug
+--- @type string
+local custom_plugin_path = vim.uv.os_homedir() .. "/code/neovim/vscode-high-contrast.nvim"
+if vim.uv.fs_stat(custom_plugin_path) then
+  spec = vim.list_extend(spec, { { dir = custom_plugin_path } })
+end
+--- end for debug
+
+lazy.setup(spec, opts)

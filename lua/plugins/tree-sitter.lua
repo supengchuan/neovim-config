@@ -5,6 +5,7 @@ local M = {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/playground",
     },
     build = ":TSUpdate",
     event = "VeryLazy",

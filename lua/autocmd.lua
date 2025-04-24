@@ -164,16 +164,9 @@ autocmd("User", {
   end,
 })
 
--- 这个配置的关键作用是将 dashboard的list设置为关闭
--- 而普通文件则开启
-autocmd("FileType", {
-  pattern = { "snacks_dashboard" },
-  callback = function()
-    vim.opt_local.list = true
-  end,
-})
-autocmd({ "BufRead", "BufNewFile" }, {
-  callback = function()
-    vim.opt_local.list = true
-  end,
-})
+-- cancel all list chars when start, so commnet codes blow
+--autocmd({ "BufRead", "BufNewFile" }, {
+--  callback = function()
+--    vim.opt_local.list = true
+--  end,
+--})

@@ -1,8 +1,8 @@
-local myAutoGroup = vim.api.nvim_create_augroup("myAutoGroup", {
+local myAutoGroup = vim.api.nvim_create_augroup("LocalGroup", {
   clear = true,
 })
 
-local autocmd = vim.api.nvim_create_autocmd
+local cmd = vim.api.nvim_create_autocmd
 
 -- nvim-tree 自动关闭
 --autocmd("BufEnter", {
@@ -16,27 +16,27 @@ local autocmd = vim.api.nvim_create_autocmd
 --})
 
 -- 进入Terminal 自动进入插入模式
-autocmd("TermOpen", {
+cmd("TermOpen", {
   group = myAutoGroup,
   command = "startinsert",
 })
 
 -- 自动保存
-autocmd({ "InsertLeave", "TextChanged" }, {
+cmd({ "InsertLeave", "TextChanged" }, {
   group = myAutoGroup,
   pattern = { "*" },
   command = "silent! wall",
 })
 
 -- 保存时自动格式化
-autocmd("BufWritePre", {
+cmd("BufWritePre", {
   group = myAutoGroup,
   pattern = { "*.lua", "*.py", "*.go", "*.rs", "*.md" },
   --	callback = vim.lsp.buf.formatting_sync,
   command = "Format",
 })
 
-autocmd("BufWritePre", {
+cmd("BufWritePre", {
   group = myAutoGroup,
   pattern = { "*" },
   callback = function()
@@ -63,7 +63,7 @@ autocmd("BufWritePre", {
 --})
 
 -- 用o换行不要延续注释
-autocmd("BufEnter", {
+cmd("BufEnter", {
   group = myAutoGroup,
   pattern = "*",
   callback = function()
@@ -74,7 +74,7 @@ autocmd("BufEnter", {
 })
 
 -- set rust file space chars
-autocmd("BufEnter", {
+cmd("BufEnter", {
   group = myAutoGroup,
   pattern = "*.rs",
   callback = function()
@@ -84,7 +84,7 @@ autocmd("BufEnter", {
 })
 
 -- reopen file in the same position
-autocmd("BufReadPost", {
+cmd("BufReadPost", {
   callback = function()
     local row, col = unpack(vim.api.nvim_buf_get_mark(0, '"'))
     if { row, col } ~= { 0, 0 } then
@@ -99,7 +99,7 @@ autocmd("BufReadPost", {
 })
 
 -- wrap file according filetype
-autocmd("BufEnter", {
+cmd("BufEnter", {
   pattern = { "*.md", "*.tex" },
   group = myAutoGroup,
   callback = function()
@@ -122,7 +122,7 @@ autocmd("BufEnter", {
 --})
 
 -- set tab as 2 space for lua file
-autocmd("BufEnter", {
+cmd("BufEnter", {
   pattern = { "*.lua" },
   group = myAutoGroup,
   callback = function()
@@ -132,7 +132,7 @@ autocmd("BufEnter", {
 })
 
 -- Turn off syntax highlighting for large files
-autocmd("BufEnter", {
+cmd("BufEnter", {
   group = myAutoGroup,
   pattern = "*",
   callback = function()
@@ -142,14 +142,9 @@ autocmd("BufEnter", {
   end,
 })
 
-vim.api.nvim_create_user_command("CWD", function()
-  local current_buffer_dir = vim.fn.expand("%:p:h")
-  vim.api.nvim_set_current_dir(current_buffer_dir)
-end, {})
-
 -- set <C-]> to jump to tag in nvim help document
 -- because I mapped lsp_definition to <C-]>, it cannot jump to tag in nvim help documents
-autocmd({ "FileType" }, {
+cmd({ "FileType" }, {
   pattern = { "help" },
   callback = function(opts)
     vim.keymap.set("n", "<C-]>", "<C-]>", { silent = true, buffer = opts.buf })
@@ -157,7 +152,7 @@ autocmd({ "FileType" }, {
 })
 
 -- add line number for telescope preview
-autocmd("User", {
+cmd("User", {
   pattern = "TelescopePreviewerLoaded",
   callback = function()
     vim.cmd([[setlocal number]])

@@ -16,6 +16,7 @@ local M = {
         { plugin = "nvim-dap", cat = "filetype", name = "dap", icon = "󰃤" },
         { pattern = "move", icon = "󱕒" },
         { pattern = "preview", icon = "" },
+        { pattern = "clear", icon = "󰉥" },
       },
     },
     spec = {
@@ -39,6 +40,7 @@ local M = {
     { "<leader>q", "<cmd>q<CR>", desc = "quit" },
     { "<leader>Q", "<cmd>qa!<CR>", desc = "force quit all" },
     { "<leader>w", "<cmd>w<CR>", desc = "save buffer" },
+    { "<leader>x", function() vim.fn.setreg("+", "") vim.fn.setreg("*", "") end, desc = "clear clipboard register" },
   },
 }
 

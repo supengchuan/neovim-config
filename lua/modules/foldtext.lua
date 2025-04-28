@@ -3,9 +3,15 @@
 ---and: https://github.com/Wansmer/nvim-config/blob/main/lua/modules/foldtext.lua for file structure
 
 function HighlightedFoldtext()
+  -- resolve unknown filetype buffers
+  local ft = vim.bo.filetype
+  if ft == nil or ft == "" then
+    return vim.fn.foldtext()
+  end
+
   local pos = vim.v.foldstart
   local line = vim.api.nvim_buf_get_lines(0, pos - 1, pos, false)[1]
-  local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+  local lang = vim.treesitter.language.get_lang(ft)
   local parser = vim.treesitter.get_parser(0, lang)
   local query = vim.treesitter.query.get(parser:lang(), "highlights")
 

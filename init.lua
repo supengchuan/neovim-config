@@ -1,4 +1,3 @@
-require("basic")
 require("lazy_plugins")
 
 vim.cmd.colorscheme(require("utils").GetColorshemeFromENV())

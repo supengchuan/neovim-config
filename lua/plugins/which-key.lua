@@ -17,6 +17,7 @@ local M = {
         { pattern = "move", icon = "󱕒" },
         { pattern = "preview", icon = "" },
         { pattern = "clear", icon = "󰉥" },
+        { pattern = "add", icon = "" },
       },
     },
     spec = {

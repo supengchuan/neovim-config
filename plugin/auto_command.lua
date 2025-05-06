@@ -165,3 +165,41 @@ cmd("User", {
 --    vim.opt_local.list = true
 --  end,
 --})
+
+local disallowed_trailing_chars = { ",", "{", "}", ".", "[", "]", "(", ";" }
+
+---@param line string
+---@return boolean
+local function should_add_semicolon(line)
+  local trimmed = vim.trim(line)
+  if trimmed == "" then
+    return false
+  end
+  local last_char = line:sub(-1)
+
+  if vim.tbl_contains(disallowed_trailing_chars, last_char) then
+    return false
+  end
+
+  return true
+end
+
+--- auto add semicolon at the end of line for specific filetypes
+--- if semicolon exist, just create a new line
+--- or add semicolon before creating a new line
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp", "rust" }, -- adjust to your desired filetypes
+  callback = function()
+    vim.keymap.set("n", "o", function()
+      local line = vim.api.nvim_get_current_line()
+
+      -- Add semicolon if not ending in {, (, [, . or already ends with ;
+      if should_add_semicolon(line) then
+        vim.api.nvim_set_current_line(line .. ";")
+      end
+      -- use <CR> in insert mode for keeping indent
+      vim.cmd("startinsert!")
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", false)
+    end, { buffer = true })
+  end,
+})

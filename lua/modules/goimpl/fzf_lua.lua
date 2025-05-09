@@ -63,7 +63,7 @@ local function to_line(item, query)
   local symbol = item.text
   item.text = nil
 
-  print("after:", vim.inspect(item))
+  --print("after:", vim.inspect(item))
   local line = M.make_entry.lcol(item, {})
 
   if line then
@@ -131,8 +131,6 @@ local function fzf_lua_settings(bufnr, gopls)
               return vim.lsp.protocol.SymbolKind[symbol.kind] == "Interface"
             end)
             :totable()
-
-          --print(vim.inspect(interface_symbols))
 
           local offset_encoding = gopls.offset_encoding or "utf-16"
           local items = vim.lsp.util.symbols_to_items(interface_symbols, bufnr, offset_encoding)

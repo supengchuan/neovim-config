@@ -186,7 +186,17 @@ function M.parse_interface(path, line, col)
   if not root_lang_tree then
     return
   end
-  root_lang_tree:parse()
+
+  --local tree = root_lang_tree:parse()[1]
+  --local local_root = tree:root()
+  --for node in local_root:iter_children() do
+  --  if node:type() == "package_clause" then
+  --    local name_node = node:child(1)
+  --    local pkg_name = vim.treesitter.get_node_text(name_node, 0)
+  --    print("[Debug]: real package name: ", pkg_name)
+  --    break
+  --  end
+  --end
 
   local root = ts_utils.get_root_for_position(line, col, root_lang_tree)
   if not root then
@@ -250,9 +260,9 @@ function M.impl(receiver, package, interface_name, lnum)
     command = "impl",
     args = {
       "-dir",
-      vim.fn.fnameescape(vim.fn.expand("%:p:h")),
+      vim.fn.fnameescape(vim.fn.expand("%:p:h")), -- todo: 这里需要修改为interface所在的目录
       receiver,
-      package .. "." .. interface_name,
+      interface_name,
     },
     on_stdout = function(_, data)
       table.insert(lines, data)

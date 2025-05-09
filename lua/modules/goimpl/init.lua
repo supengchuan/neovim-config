@@ -46,7 +46,7 @@ M.open = function()
     fzf_lua.env()
 
     interface_data = fzf_lua.get_interface(co, bufnr, gopls)
-    print(vim.inspect(interface_data))
+    print("[Debug]: interface data from fzf_lua", vim.inspect(interface_data))
 
     for _, key in pairs({ "package", "path", "line", "col" }) do
       if not interface_data or not interface_data[key] then

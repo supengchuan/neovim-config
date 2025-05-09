@@ -19,3 +19,7 @@ create_cmd("FoldEnable", function()
   vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
   vim.opt.foldtext = require("modules.foldtext")
 end, {})
+
+create_cmd("RunLab", function()
+  require("modules.lab")
+end, {})

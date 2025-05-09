@@ -21,6 +21,9 @@ local M = {
     config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
     return {
       winopts = {
+        height = 1,
+        width = 0.98,
+        backdrop = 90,
         -- hide the falg h in title
         title_flags = false,
       },

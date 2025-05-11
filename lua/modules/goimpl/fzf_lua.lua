@@ -1,6 +1,6 @@
 local M = {}
 
-function M.env()
+function M.init()
   if M.env_initiated then
     return
   end

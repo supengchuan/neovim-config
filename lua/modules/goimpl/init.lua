@@ -7,43 +7,31 @@ M.open = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local gopls = helper.get_gopls(bufnr)
   if not gopls then
-    vim.notify("cannot get gopls client go implement", vim.log.levels.WARN)
+    vim.notify("cannot get gopls client for go implement", vim.log.levels.WARN, { title = "goimpl" })
     return
   end
 
-  if not gopls then
-    vim.notify("No gopls client found in the current buffer", vim.log.levels.WARN, { title = "go-impl" })
-    return
-  end
   coroutine.wrap(function()
     local co = coroutine.running()
 
-    local current_struct_name = helper.get_struct_at_cursor()
-    local default_value = current_struct_name and helper.predict_abbreviation(current_struct_name)
+    local struct_name = helper.get_struct_at_cursor()
+    local default_value = struct_name and helper.predict_abbreviation(struct_name)
     ui.get_receiver(default_value, function(receiver)
       coroutine.resume(co, receiver)
     end)
     local receiver = coroutine.yield()
 
-    print("receiver is: ", receiver)
-
-    local lnum = helper.get_lnum(receiver)
-    if not lnum then
+    local line_num = helper.get_lnum(receiver)
+    if not line_num then
       vim.notify("Invalid receiver provided", vim.log.levels.INFO, { title = "goimpl" })
       return
     end
 
-    -- Interface
-    ---@class InterfaceData
-    ---@field package string
-    ---@field path string
-    ---@field line integer
-    ---@field col integer
-
     ---@type InterfaceData?
     local interface_data = nil
     local fzf_lua = require("modules.goimpl.fzf_lua")
-    fzf_lua.env()
+    -- init
+    fzf_lua.init()
 
     interface_data = fzf_lua.get_interface(co, bufnr, gopls)
     print("[Debug]: interface data from fzf_lua", vim.inspect(interface_data))
@@ -94,7 +82,7 @@ M.open = function()
     if #generic_arguments > 0 then
       interface_name = string.format("%s[%s]", interface_base_name, table.concat(generic_arguments, ","))
     end
-    helper.impl(receiver, interface_data.package, interface_name, lnum)
+    helper.impl(receiver, interface_data.package, interface_name, line_num)
   end)()
 end
 

@@ -1,0 +1,6 @@
+-- Interface
+---@class InterfaceData
+---@field package string
+---@field path string
+---@field line integer
+---@field col integer

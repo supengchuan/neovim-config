@@ -34,7 +34,7 @@ M.open = function()
     fzf_lua.init()
 
     interface_data = fzf_lua.get_interface(co, bufnr, gopls)
-    print("[Debug]: interface data from fzf_lua", vim.inspect(interface_data))
+    --print("[Debug]: interface data from fzf_lua", vim.inspect(interface_data))
 
     for _, key in pairs({ "package", "path", "line", "col" }) do
       if not interface_data or not interface_data[key] then
@@ -44,6 +44,7 @@ M.open = function()
     end
 
     -- Generic Arguments
+    --print("[Debug]: ", "path: " .. interface_data.path, "line: " .. interface_data.line, "col: " .. interface_data.col)
     local interface_declaration, interface_base_name, generic_parameter_list, generic_parameters =
       helper.parse_interface(interface_data.path, interface_data.line, interface_data.col)
 
@@ -52,6 +53,7 @@ M.open = function()
       return
     end
 
+    -- todo: solve generic_parameters
     local generic_arguments = {}
     if generic_parameter_list then
       for _, generic_parameter in ipairs(generic_parameters) do
@@ -82,7 +84,7 @@ M.open = function()
     if #generic_arguments > 0 then
       interface_name = string.format("%s[%s]", interface_base_name, table.concat(generic_arguments, ","))
     end
-    helper.impl(receiver, interface_data.package, interface_name, line_num)
+    helper.impl(receiver, vim.fs.dirname(interface_data.path), interface_name, line_num)
   end)()
 end
 

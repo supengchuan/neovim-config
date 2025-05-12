@@ -184,22 +184,15 @@ function M.parse_interface(path, line, col)
 
   local root_lang_tree = parsers.get_parser(buf)
   if not root_lang_tree then
+    vim.notify("cat not parsers for buf", vim.log.levels.DEBUG)
     return
   end
 
-  --local tree = root_lang_tree:parse()[1]
-  --local local_root = tree:root()
-  --for node in local_root:iter_children() do
-  --  if node:type() == "package_clause" then
-  --    local name_node = node:child(1)
-  --    local pkg_name = vim.treesitter.get_node_text(name_node, 0)
-  --    print("[Debug]: real package name: ", pkg_name)
-  --    break
-  --  end
-  --end
+  root_lang_tree:parse()
 
   local root = ts_utils.get_root_for_position(line, col, root_lang_tree)
   if not root then
+    vim.notify("cat not get root", vim.log.levels.DEBUG)
     return
   end
 
@@ -210,6 +203,7 @@ function M.parse_interface(path, line, col)
   end
 
   if not node then
+    vim.notify("cat not get node", vim.log.levels.DEBUG)
     return
   end
 
@@ -243,6 +237,7 @@ function M.parse_interface(path, line, col)
   vim.api.nvim_buf_delete(buf, { force = true })
 
   if not base_interface_name then
+    vim.notify("no base_interface_name", vim.log.levels.DEBUG)
     return
   end
 
@@ -251,16 +246,24 @@ end
 
 ---Run `impl`(https://github.com/josharian/impl) to add implementation for the given interface
 ---@param receiver string The receiver string
----@param package string The package name
+---@param interface_dir string The interface package dir
 ---@param interface_name string The interface name
 ---@param lnum integer The line number to add the implementation
-function M.impl(receiver, package, interface_name, lnum)
+function M.impl(receiver, interface_dir, interface_name, lnum)
   local lines = {}
+
+  --local dir = vim.fn.fnameescape(vim.fn.expand("%:p:h"))
+  --print("[Debug]: receiver is ", receiver)
+  --print("[Debug]: interface_name is: ", interface_name)
+  --print("[Debug]: lnum is", lnum)
+  --print("[Debug]: interface_dir is", interface_dir)
+  --print("[Debug]: dir is : ", vim.inspect(dir))
+
   local job_config = {
     command = "impl",
     args = {
       "-dir",
-      vim.fn.fnameescape(vim.fn.expand("%:p:h")), -- todo: 这里需要修改为interface所在的目录
+      interface_dir,
       receiver,
       interface_name,
     },

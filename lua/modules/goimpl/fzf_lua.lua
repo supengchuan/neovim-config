@@ -30,7 +30,7 @@ local function to_line(item, query)
 
   -- Query highlight
   local sym, text = item.text:match("^(.+%])(.*)$")
-  print("sym:" .. sym, "text:" .. text)
+  --print("sym:" .. sym, "text:" .. text)
   local pattern = "["
     .. M.utils.lua_regex_escape(string.gsub(query, "%a", function(x)
       return string.upper(x) .. string.lower(x)
@@ -43,7 +43,7 @@ local function to_line(item, query)
       return M.utils.ansi_codes["Title"](x)
     end)
 
-  print("item.text:", item.text)
+  --print("item.text:", item.text)
 
   -- Icon, 把 [Interface] 替换成 icon
   local styled = M.utils.ansi_from_hl("Comment", "󰰄 ")
@@ -185,7 +185,7 @@ function M.get_interface(co, bufnr, gopls)
   })
 
   local selected = coroutine.yield()
-  print(vim.inspect(selected))
+  --print("[Debuge]: selected", vim.inspect(selected))
   local file = M.path.entry_to_file(selected and selected[1])
 
   return {

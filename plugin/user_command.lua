@@ -21,5 +21,5 @@ create_cmd("FoldEnable", function()
 end, {})
 
 create_cmd("RunLab", function()
-  require("modules.lab")
+  require("modules.lab").work()
 end, {})

@@ -27,6 +27,9 @@ local M = {
         -- hide the falg h in title
         title_flags = false,
       },
+      fzf_opts = {
+        ["--cycle"] = true,
+      },
     }
   end,
   keys = {
@@ -51,7 +54,7 @@ local M = {
     {
       "gr",
       function()
-        require("fzf-lua").lsp_references({ jump1 = true, includeDeclaration = false })
+        require("fzf-lua").lsp_references({ ignore_current_line = true, jump1 = true, includeDeclaration = false })
       end,
       desc = "Go to references",
     },

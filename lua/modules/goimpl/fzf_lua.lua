@@ -106,7 +106,7 @@ local function fzf_lua_settings(bufnr, gopls)
     ---@param fzf_cb fun(line?: string, cb?: fun())
     return function(fzf_cb)
       -- Cancel the previous request
-      if gopls and running_request_id then
+      if gopls and running_request_id ~= -1 then
         gopls:cancel_request(running_request_id)
       end
 

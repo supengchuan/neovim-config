@@ -23,3 +23,11 @@ end, {})
 create_cmd("RunLab", function()
   require("modules.lab").work()
 end, {})
+
+create_cmd("DefSplit", function()
+  require("fzf-lua").lsp_definitions({
+    sync = true,
+    jump1 = true,
+    jump1_action = require("fzf-lua.actions").file_vsplit,
+  })
+end, {})

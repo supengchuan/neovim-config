@@ -203,3 +203,21 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { buffer = true })
   end,
 })
+
+-- disable buggy anims in completion windows
+-- sanck animate conflict with blink
+cmd("User", {
+  group = myAutoGroup,
+  pattern = "BlinkCmpMenuOpen",
+  callback = function()
+    vim.g.snacks_animate = false
+  end,
+})
+
+cmd("User", {
+  group = myAutoGroup,
+  pattern = "BlinkCmpMenuClose",
+  callback = function()
+    vim.g.snacks_animate = true
+  end,
+})

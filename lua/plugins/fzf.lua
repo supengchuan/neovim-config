@@ -33,8 +33,33 @@ local M = {
     }
   end,
   keys = {
-    { "<leader>e", "<cmd>FzfLua buffers<cr>", desc = "Switch Buffer" },
-    { "<leader>f", "<cmd>FzfLua files<cr>", desc = "Find files" },
+    {
+      "<leader>e",
+      function()
+        require("fzf-lua").buffers({
+          winopts = {
+            height = vim.o.lines > 30 and 0.5 or 0.8,
+            width = vim.o.columns > 90 and 0.65 or 0.85,
+            preview = { hidden = true },
+          },
+        })
+      end,
+      desc = "Switch Buffer",
+    },
+    {
+      "<leader>f",
+      function()
+        require("fzf-lua").files({
+          winopts = {
+            fullscreen = true,
+            preview = {
+              hidden = vim.o.columns < 80 and true or false,
+            },
+          },
+        })
+      end,
+      desc = "Find files",
+    },
     { "<leader>s", "<cmd>FzfLua live_grep<cr>", desc = "Search by live grep" },
     { "<leader>s", [[<cmd>FzfLua grep_visual<cr>]], mode = "x", desc = "Search visual words" },
     {

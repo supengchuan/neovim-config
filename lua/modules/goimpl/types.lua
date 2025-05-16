@@ -1,6 +1,12 @@
 -- Interface
----@class InterfaceData
+---@class InterfaceItem
 ---@field package string
 ---@field path string
 ---@field line integer
 ---@field col integer
+
+---@class InterfaceData
+---@field name string
+---@field declaration string
+---@field real_package_name string
+---@field generic_parameters string

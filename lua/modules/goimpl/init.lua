@@ -3,6 +3,13 @@ local M = {}
 local helper = require("modules.goimpl.helper")
 local ui = require("modules.goimpl.ui")
 
+local function format_type_parameter_name_list(type_parameter_names)
+  if #type_parameter_names == 0 then
+    return ""
+  end
+  return "[" .. table.concat(type_parameter_names, ", ") .. "]"
+end
+
 M.open = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local gopls = helper.get_gopls(bufnr)
@@ -27,17 +34,17 @@ M.open = function()
       return
     end
 
-    ---@type InterfaceData?
-    local interface_data = nil
+    ---@type InterfaceItem?
+    local interface_item = nil
     local fzf_lua = require("modules.goimpl.fzf_lua")
     -- init
     fzf_lua.init()
 
-    interface_data = fzf_lua.get_interface(co, bufnr, gopls)
-    --print("[Debug]: interface data from fzf_lua", vim.inspect(interface_data))
+    interface_item = fzf_lua.get_interface(co, bufnr, gopls)
+    print("[Debug]: interface item from fzf_lua", vim.inspect(interface_item))
 
     for _, key in pairs({ "package", "path", "line", "col" }) do
-      if not interface_data or not interface_data[key] then
+      if not interface_item or not interface_item[key] then
         vim.notify("Failed to get the interface data", vim.log.levels.WARN, { title = "goimpl" })
         return
       end
@@ -46,7 +53,7 @@ M.open = function()
     -- Generic Arguments
     --print("[Debug]: ", "path: " .. interface_data.path, "line: " .. interface_data.line, "col: " .. interface_data.col)
     local interface_declaration, interface_base_name, generic_parameter_list, generic_parameters =
-      helper.parse_interface(interface_data.path, interface_data.line, interface_data.col)
+      helper.parse_interface(interface_item.path, interface_item.line, interface_item.col)
 
     if not interface_declaration or not interface_base_name or not generic_parameters then
       vim.notify("Failed to parse the selected item", vim.log.levels.WARN, { title = "goimpl" })
@@ -57,34 +64,16 @@ M.open = function()
     local generic_arguments = {}
     if generic_parameter_list then
       for _, generic_parameter in ipairs(generic_parameters) do
-        ui.get_generic_argument({
-          name = generic_parameter.name,
-          type = generic_parameter.type,
-          interface_declaration = interface_declaration,
-          interface_base_name = interface_base_name,
-          generic_parameter_list = generic_parameter_list,
-        }, function(arg)
-          coroutine.resume(co, arg)
-        end)
-        local arg = coroutine.yield()
-        if not arg then
-          vim.notify(
-            "Failed to get the generic type: " .. generic_parameter.name,
-            vim.log.levels.ERROR,
-            { title = "go-impl" }
-          )
-          return
-        end
-        table.insert(generic_arguments, arg)
+        generic_arguments[#generic_arguments + 1] = generic_parameter.name
       end
     end
 
     -- Run impl
     local interface_name = interface_base_name
     if #generic_arguments > 0 then
-      interface_name = string.format("%s[%s]", interface_base_name, table.concat(generic_arguments, ","))
+      interface_name = string.format("%s%s", interface_base_name, format_type_parameter_name_list(generic_arguments))
     end
-    helper.impl(receiver, vim.fs.dirname(interface_data.path), interface_name, line_num)
+    helper.impl(receiver, vim.fs.dirname(interface_item.path), interface_name, line_num)
   end)()
 end
 

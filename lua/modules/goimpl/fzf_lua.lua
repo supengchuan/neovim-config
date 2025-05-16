@@ -167,7 +167,7 @@ end
 ---@param co thread
 ---@param bufnr integer current buffer number
 ---@param gopls vim.lsp.Client gopls (go language server)
----@return InterfaceData
+---@return InterfaceItem
 function M.get_interface(co, bufnr, gopls)
   local settings = fzf_lua_settings(bufnr, gopls)
   --local bufname = vim.api.nvim_buf_get_name(bufnr)
@@ -185,7 +185,7 @@ function M.get_interface(co, bufnr, gopls)
   })
 
   local selected = coroutine.yield()
-  --print("[Debuge]: selected", vim.inspect(selected))
+  print("[Debug]: selected", vim.inspect(selected))
   local file = M.path.entry_to_file(selected and selected[1])
 
   return {

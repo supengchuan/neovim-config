@@ -188,7 +188,21 @@ function M.parse_interface(path, line, col)
     return
   end
 
-  root_lang_tree:parse()
+  local ts_trees = root_lang_tree:parse()
+  if not ts_trees then
+    vim.notify("cannot parse the file: " .. path .. "with treesitter", vim.log.levels.DEBUG)
+    return
+  end
+  local rootNode = ts_trees[1]:root()
+  for node in rootNode:iter_children() do
+    if node:type() == "package_clause" then
+      -- child(0) is package , child(1) is package_name
+      local name_node = node:child(1)
+      local real_package_name = vim.treesitter.get_node_text(name_node, buf)
+      print("[Debug] real go package name: ", real_package_name)
+      break
+    end
+  end
 
   local root = ts_utils.get_root_for_position(line, col, root_lang_tree)
   if not root then
@@ -208,6 +222,8 @@ function M.parse_interface(path, line, col)
   end
 
   local interface_declaration = vim.treesitter.get_node_text(node, buf)
+  ---[Debug] interface_declaration  "type Adder[T any] interface {\n\tAdd(a T, b T) T\n}"
+  print("[Debug] interface_declaration ", vim.inspect(interface_declaration))
   local base_interface_name = nil
   local parameter_list = nil
   local generic_parameters = {}
@@ -233,6 +249,16 @@ function M.parse_interface(path, line, col)
       parameter_list = text
     end
   end
+
+  ---[Debug] base_interface_name Adder
+  ---[Debug] parameter_list  "[T any]"
+  ---[Debug] generic_parameters  { {
+  ---    name = "T",
+  ---    type = "any"
+  ---  } }
+  print("[Debug] base_interface_name", base_interface_name)
+  print("[Debug] parameter_list ", vim.inspect(parameter_list))
+  print("[Debug] generic_parameters ", vim.inspect(generic_parameters))
 
   vim.api.nvim_buf_delete(buf, { force = true })
 
@@ -293,6 +319,7 @@ function M.impl(receiver, interface_dir, interface_name, lnum)
       end)
     end,
   }
+  print("[Debug] ", vim.inspect(job_config.args))
 
   job:new(job_config):start()
 end

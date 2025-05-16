@@ -34,12 +34,12 @@ local spec = {
   },
 }
 
---- for debug
---- @type string
-local custom_plugin_path = vim.uv.os_homedir() .. "/code/neovim/vscode-high-contrast.nvim"
-if vim.uv.fs_stat(custom_plugin_path) then
-  spec = vim.list_extend(spec, { { dir = custom_plugin_path } })
+--- NVIM_CUSTOM_PLUGIN is the env of the custom_plugin_path
+local custom_plugin_path = os.getenv("NVIM_CUSTOM_PLUGIN")
+if custom_plugin_path then
+  if vim.uv.fs_stat(custom_plugin_path) then
+    spec = vim.list_extend(spec, { { dir = custom_plugin_path } })
+  end
 end
---- end for debug
 
 lazy.setup(spec, opts)

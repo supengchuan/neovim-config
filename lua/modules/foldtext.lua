@@ -48,9 +48,37 @@ function HighlightedFoldtext()
   return result
 end
 
+---@param hl vim.api.keyset.get_hl_info
+---@return vim.api.keyset.highlight
+local function sanitize_hl(hl)
+  local allowed_keys = {
+    "fg",
+    "bg",
+    "sp",
+    "bold",
+    "italic",
+    "underline",
+    "undercurl",
+    "reverse",
+    "strikethrough",
+    "nocombine",
+    "link",
+    "default",
+    "ctermfg",
+    "ctermbg",
+  }
+  local sanitized = {}
+  for _, key in ipairs(allowed_keys) do
+    if hl[key] ~= nil then
+      sanitized[key] = hl[key]
+    end
+  end
+  return sanitized
+end
+
 local bg = vim.api.nvim_get_hl(0, { name = "StatusLine" }).bg
 local hl = vim.api.nvim_get_hl(0, { name = "Folded" })
 hl.bg = bg
-vim.api.nvim_set_hl(0, "Folded", hl)
+vim.api.nvim_set_hl(0, "Folded", sanitize_hl(hl))
 
 return 'luaeval("HighlightedFoldtext")()'

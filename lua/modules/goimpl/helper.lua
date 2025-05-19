@@ -7,29 +7,35 @@ local M = {}
 local ts_query_struct = vim.treesitter.query.parse(
   "go",
   [[
-        (type_declaration
-            (type_spec
-                name: (type_identifier) @struct_name
-                type: (struct_type)
-            )
-        ) @struct_declaration
-    ]]
+    (type_declaration
+      (type_spec
+        name: (type_identifier) @struct_name
+        type_parameters: (type_parameter_list
+          (type_parameter_declaration
+        	name: (identifier) @generic_name
+            type: (type_constraint) @generic_type
+          )
+        )?
+        type: (struct_type)
+      )
+    ) @struct_declaration
+  ]]
 )
 
 local ts_query_interface = vim.treesitter.query.parse(
   "go",
   [[
-        (type_spec
-            name: (type_identifier) @base_name
-            type_parameters: (type_parameter_list
-                (type_parameter_declaration
-                    name: (identifier) @generic_name
-                    type: (type_constraint) @generic_type
-                )
-            )? @parameter_list
-            type: (interface_type)
+    (type_spec
+      name: (type_identifier) @interface_name
+      type_parameters: (type_parameter_list
+        (type_parameter_declaration
+          name: (identifier) @generic_name
+          type: (type_constraint) @generic_type
         )
-    ]]
+      )? @parameter_list
+      type: (interface_type)
+    )
+  ]]
 )
 
 ---Get the gopls client for the current buffer
@@ -40,61 +46,57 @@ function M.get_gopls(bufnr)
   return clients and clients[1]
 end
 
----Try to get the current struct name under the cursor
----@return string? struct_name The struct name
-function M.get_struct_at_cursor()
-  local node = ts_utils.get_node_at_cursor()
-
-  while node and node:type() ~= "type_declaration" do
-    node = node:parent()
+---@return StructInfo?
+function M.get_cursor_struct_info()
+  local ts_node = ts_utils.get_node_at_cursor()
+  while ts_node and ts_node:type() ~= "type_declaration" do
+    ts_node = ts_node:parent()
   end
 
-  if not node then
-    return
+  if not ts_node then
+    --print("[Debug] ts_node is nil when get_cursor_struct_info")
+    vim.notify("cannot get treesitter node info", vim.log.levels.INFO)
+    return nil
   end
 
-  for child, _ in node:iter_children() do
-    -- Tree-sitter node structure:
-    -- (type_declaration
-    --   (type_spec
-    --   name: (type_identifier)
-    --   type: (struct_type
-    --       (field_declaration_list
-    --       (field_declaration
-    --       ...
+  ---@type StructInfo?
+  local result = {}
 
-    if child:type() == "type_spec" then
-      ---@type table<string, TSNode>
-      local nodes = {}
+  local start_row, _, end_row = ts_node:range(false)
+  result.line_start = start_row
+  result.line_end = end_row
 
-      for grandchild, field in child:iter_children() do
-        nodes[field] = grandchild
-      end
-
-      if not nodes["type"] or not nodes["name"] then
-        return
-      end
-
-      if nodes["type"]:type() ~= "struct_type" then
-        return
-      end
-
-      local node_text = vim.treesitter.get_node_text(nodes["name"], 0)
-      if not node_text then
-        return
-      end
-
-      return node_text
+  ---@type string[]
+  local generic_names = {}
+  for id, capture_node in ts_query_struct:iter_captures(ts_node, 0) do
+    local capture = ts_query_struct.captures[id]
+    if capture == "struct_name" then
+      result.name = vim.treesitter.get_node_text(capture_node, 0)
+    elseif capture == "generic_name" then
+      generic_names[#generic_names + 1] = vim.treesitter.get_node_text(capture_node, 0)
     end
   end
+
+  if #generic_names > 0 then
+    result.generic_name = generic_names
+  end
+
+  --print("[Debug] struct info", vim.inspect(result))
+  return result
 end
 
 ---Predict the abbreviation for the current struct
----@param struct_name? string The Go struct name
+---@param struct_info? StructInfo The Go struct info
 ---@return string abbreviation The predicted abbreviation
-function M.predict_abbreviation(struct_name)
+---@return integer? lnum
+function M.predict_abbreviation(struct_info)
+  if not struct_info then
+    return "", nil
+  end
+
+  local struct_name = struct_info.name
   if not struct_name then
-    return ""
+    return "", nil
   end
 
   local abbreviation = ""
@@ -105,55 +107,8 @@ function M.predict_abbreviation(struct_name)
       abbreviation = abbreviation .. char
     end
   end
-  return string.lower(abbreviation) .. " *" .. struct_name
-end
-
----Check the validity of the go receiver string, and return the last line number of the struct
----@param receiver string? The receiver string
----@return integer? lnum The line number of the struct
-function M.get_lnum(receiver)
-  if not receiver or #receiver == 0 then
-    return
-  end
-
-  local struct_name = string.match(receiver, "^%a+%s%*?(.*)$")
-  if not struct_name then
-    return
-  end
-
-  local root_lang_tree = parsers.get_parser(0)
-  if not root_lang_tree then
-    return
-  end
-
-  root_lang_tree:parse()
-  local trees = root_lang_tree:trees()
-  local root = trees and trees[1] and trees[1]:root()
-  if not root then
-    return
-  end
-
-  ---@type TSNode?
-  local current_struct_node = nil
-  for id, capture_node in ts_query_struct:iter_captures(root, 0) do
-    local capture = ts_query_struct.captures[id]
-    local text = vim.treesitter.get_node_text(capture_node, 0)
-
-    if capture == "struct_declaration" then
-      current_struct_node = capture_node
-    elseif capture == "struct_name" then
-      if struct_name == text and current_struct_node then
-        local start_row, _, end_row = current_struct_node:range(false)
-        local lnum = vim.fn.line("$")
-        --if config.options.insert.position == "after" and end_row then
-        lnum = end_row + 1
-        --elseif config.options.insert.position == "before" and start_row then
-        --  lnum = start_row - 1
-        --end
-        return lnum
-      end
-    end
-  end
+  local generic_parameters = M.format_type_parameter_name_list(struct_info.generic_name)
+  return string.lower(abbreviation) .. " *" .. struct_name .. generic_parameters, struct_info.line_end + 1
 end
 
 ---@class GenericParameter
@@ -164,10 +119,7 @@ end
 ---@param path string The path of the file
 ---@param line integer The line number of the interface symbol
 ---@param col integer The column number of the interface symbol
----@return string? interface_declaration The full interface declaration
----@return string? base_interface_name The name of the interface, e.g. "MyInterface"
----@return string? parameter_list The list of generic types, e.g. "[T any]"
----@return GenericParameter[]? generic_parameters The list of generic types
+---@return InterfaceData? interface_data The full interface declaration
 function M.parse_interface(path, line, col)
   -- Convert to 0-based index for treesitter
   line, col = line - 1, col - 1
@@ -177,97 +129,81 @@ function M.parse_interface(path, line, col)
 
   local lines = vim.fn.readfile(path)
   if not lines or #lines == 0 then
-    return
+    return nil
   end
 
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 
+  ---@type vim.treesitter.LanguageTree?
   local root_lang_tree = parsers.get_parser(buf)
   if not root_lang_tree then
     vim.notify("cat not parsers for buf", vim.log.levels.DEBUG)
-    return
+    return nil
   end
 
+  ---@type table<integer, TSTree>?
   local ts_trees = root_lang_tree:parse()
   if not ts_trees then
     vim.notify("cannot parse the file: " .. path .. "with treesitter", vim.log.levels.DEBUG)
-    return
+    return nil
   end
+
+  ---@type InterfaceData
+  local result = {}
+
+  -- get buffer real package name
+  -- ts_trees[1] means the first ts_trees, in a full buffer parse(), ts_trees[1] is the root ts_trees
   local rootNode = ts_trees[1]:root()
   for node in rootNode:iter_children() do
     if node:type() == "package_clause" then
       -- child(0) is package , child(1) is package_name
       local name_node = node:child(1)
       local real_package_name = vim.treesitter.get_node_text(name_node, buf)
-      print("[Debug] real go package name: ", real_package_name)
+      result.real_package_name = real_package_name
       break
     end
   end
 
+  -- get interface info
   local root = ts_utils.get_root_for_position(line, col, root_lang_tree)
   if not root then
-    vim.notify("cat not get root", vim.log.levels.DEBUG)
-    return
+    return nil
   end
 
   local node = root:named_descendant_for_range(line, col, line, col)
-
   while node and node:type() ~= "type_declaration" do
     node = node:parent()
   end
 
   if not node then
-    vim.notify("cat not get node", vim.log.levels.DEBUG)
-    return
+    return nil
   end
 
   local interface_declaration = vim.treesitter.get_node_text(node, buf)
-  ---[Debug] interface_declaration  "type Adder[T any] interface {\n\tAdd(a T, b T) T\n}"
-  print("[Debug] interface_declaration ", vim.inspect(interface_declaration))
-  local base_interface_name = nil
-  local parameter_list = nil
+  result.declaration = interface_declaration
+
+  ---@type string[]?
   local generic_parameters = {}
 
   for id, capture_node in ts_query_interface:iter_captures(node, buf) do
     local capture = ts_query_interface.captures[id]
     local text = vim.treesitter.get_node_text(capture_node, buf)
 
-    if capture == "base_name" then
-      base_interface_name = text
+    if capture == "interface_name" then
+      result.name = text
     elseif capture == "generic_name" then
-      table.insert(generic_parameters, { name = text, type = nil })
-    elseif capture == "generic_type" then
-      -- For some cases like [T, K any], there is no `generic_type` parsed for `T`
-      -- So we need to find reverse and assign the type to the first `generic_name` without type
-      for i = #generic_parameters, 1, -1 do
-        if not generic_parameters[i].type then
-          generic_parameters[i].type = text
-          break
-        end
-      end
-    elseif capture == "parameter_list" then
-      parameter_list = text
+      generic_parameters[#generic_parameters + 1] = text
     end
   end
 
-  ---[Debug] base_interface_name Adder
-  ---[Debug] parameter_list  "[T any]"
-  ---[Debug] generic_parameters  { {
-  ---    name = "T",
-  ---    type = "any"
-  ---  } }
-  print("[Debug] base_interface_name", base_interface_name)
-  print("[Debug] parameter_list ", vim.inspect(parameter_list))
-  print("[Debug] generic_parameters ", vim.inspect(generic_parameters))
+  if #generic_parameters > 0 then
+    result.generic_parameters = generic_parameters
+  end
 
   vim.api.nvim_buf_delete(buf, { force = true })
 
-  if not base_interface_name then
-    vim.notify("no base_interface_name", vim.log.levels.DEBUG)
-    return
-  end
-
-  return interface_declaration, base_interface_name, parameter_list, generic_parameters
+  print("[Debug] interface data after parser: ", vim.inspect(result))
+  return result
 end
 
 ---Run `impl`(https://github.com/josharian/impl) to add implementation for the given interface
@@ -323,4 +259,13 @@ function M.impl(receiver, interface_dir, interface_name, lnum)
 
   job:new(job_config):start()
 end
+
+---@param type_parameter_names string[]
+function M.format_type_parameter_name_list(type_parameter_names)
+  if not type_parameter_names or #type_parameter_names == 0 then
+    return ""
+  end
+  return "[" .. table.concat(type_parameter_names, ", ") .. "]"
+end
+
 return M

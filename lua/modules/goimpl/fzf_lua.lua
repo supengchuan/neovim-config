@@ -24,7 +24,7 @@ local function to_line(item, query)
   ---   filename = "/home/supc/code/golang/playground/main.go",
   ---   kind = "Interface",
   ---   lnum = 12,
-  ---   package = "playground",
+  ---   containerName = "playground",
   ---   text = "[Interface] main.HHH"
   ---}
 
@@ -52,7 +52,7 @@ local function to_line(item, query)
   end
 
   -- Package
-  local package_info = string.format("(%s)", item.package)
+  local package_info = string.format("(%s)", item.containerName)
   styled = M.utils.ansi_from_hl("Title", package_info)
   if styled then
     package_info = styled
@@ -63,7 +63,6 @@ local function to_line(item, query)
   local symbol = item.text
   item.text = nil
 
-  --print("after:", vim.inspect(item))
   local line = M.make_entry.lcol(item, {})
 
   if line then
@@ -75,11 +74,19 @@ end
 ---@param raw_fzf_entry string?
 ---@return string? package The package name
 local function parse_package(raw_fzf_entry)
+  -- an entry like: "󰰄  Sub (playground/math/sub) /home/supc/code/golang/playground/math/sub/sub.go:3:6:"
   if not raw_fzf_entry then
     return
   end
   local parts = vim.split(raw_fzf_entry, M.utils.nbsp)
   for _, part in ipairs(parts) do
+    -- pattern: "%(([^)]+)%)"
+    -- %(: match literal '('
+    -- ([^)]+):
+    --   - [^)]: match any character except ')'
+    --   - +: one or more of them
+    --   - the whole thing is captured
+    -- %): match literal ')'
     if string.match(part, "%(([^)]+)%)") then
       return string.match(part, "%(([^)]+)%)")
     end
@@ -137,7 +144,7 @@ local function fzf_lua_settings(bufnr, gopls)
 
           -- Add the package name to the items
           for i, item in ipairs(items) do
-            item.package = interface_symbols[i].containerName
+            item.containerName = interface_symbols[i].containerName
           end
 
           coroutine.resume(co, items)
@@ -170,8 +177,6 @@ end
 ---@return InterfaceItem
 function M.get_interface(co, bufnr, gopls)
   local settings = fzf_lua_settings(bufnr, gopls)
-  --local bufname = vim.api.nvim_buf_get_name(bufnr)
-  --print("buf name: ", bufname)
 
   M.core.fzf_live(settings.contents, {
     prompt = " 󰰄  > ",
@@ -188,11 +193,15 @@ function M.get_interface(co, bufnr, gopls)
   print("[Debug]: selected", vim.inspect(selected))
   local file = M.path.entry_to_file(selected and selected[1])
 
-  return {
-    package = selected and parse_package(selected[1]),
+  ---@type InterfaceItem
+  local result = {
+    container_name = selected and parse_package(selected[1]),
     path = file.path,
-    col = file.col,
     line = file.line,
+    col = file.col,
   }
+
+  return result
 end
+
 return M

@@ -190,7 +190,7 @@ function M.get_interface(co, bufnr, gopls)
   })
 
   local selected = coroutine.yield()
-  print("[Debug]: selected", vim.inspect(selected))
+  --print("[Debug]: selected", vim.inspect(selected))
   local file = M.path.entry_to_file(selected and selected[1])
 
   ---@type InterfaceItem

@@ -55,7 +55,7 @@ function M.get_cursor_struct_info()
 
   if not ts_node then
     --print("[Debug] ts_node is nil when get_cursor_struct_info")
-    vim.notify("cannot get treesitter node info", vim.log.levels.INFO)
+    vim.notify("cannot get treesitter node info", vim.log.levels.INFO, { title = "fzf-goimpl" })
     return nil
   end
 
@@ -111,10 +111,6 @@ function M.predict_abbreviation(struct_info)
   return string.lower(abbreviation) .. " *" .. struct_name .. generic_parameters, struct_info.line_end + 1
 end
 
----@class GenericParameter
----@field name string
----@field type string
-
 ---Fetch the generics options for the interface with given path, line and column
 ---@param path string The path of the file
 ---@param line integer The line number of the interface symbol
@@ -137,14 +133,13 @@ function M.parse_interface(path, line, col)
   ---@type vim.treesitter.LanguageTree?
   local root_lang_tree = parsers.get_parser(buf)
   if not root_lang_tree then
-    vim.notify("cat not parsers for buf", vim.log.levels.DEBUG)
     return nil
   end
 
   ---@type table<integer, TSTree>?
   local ts_trees = root_lang_tree:parse()
   if not ts_trees then
-    vim.notify("cannot parse the file: " .. path .. "with treesitter", vim.log.levels.DEBUG)
+    vim.notify("cannot parse the file: " .. path .. "with treesitter", vim.log.levels.WARN, { title = "fzf-goimpl" })
     return nil
   end
 
@@ -152,7 +147,6 @@ function M.parse_interface(path, line, col)
   local result = {}
 
   -- get buffer real package name
-  -- ts_trees[1] means the first ts_trees, in a full buffer parse(), ts_trees[1] is the root ts_trees
   local rootNode = ts_trees[1]:root()
   for node in rootNode:iter_children() do
     if node:type() == "package_clause" then
@@ -202,7 +196,7 @@ function M.parse_interface(path, line, col)
 
   vim.api.nvim_buf_delete(buf, { force = true })
 
-  print("[Debug] interface data after parser: ", vim.inspect(result))
+  --print("[Debug] interface data after parser: ", vim.inspect(result))
   return result
 end
 
@@ -213,13 +207,6 @@ end
 ---@param lnum integer The line number to add the implementation
 function M.impl(receiver, interface_dir, interface_name, lnum)
   local lines = {}
-
-  --local dir = vim.fn.fnameescape(vim.fn.expand("%:p:h"))
-  --print("[Debug]: receiver is ", receiver)
-  --print("[Debug]: interface_name is: ", interface_name)
-  --print("[Debug]: lnum is", lnum)
-  --print("[Debug]: interface_dir is", interface_dir)
-  --print("[Debug]: dir is : ", vim.inspect(dir))
 
   local job_config = {
     command = "impl",
@@ -234,7 +221,7 @@ function M.impl(receiver, interface_dir, interface_name, lnum)
     end,
     on_exit = function(_, code)
       if code ~= 0 then
-        vim.notify("Failed to add the implementation", vim.log.levels.ERROR, { title = "go-impl" })
+        vim.notify("Failed to add the implementation", vim.log.levels.ERROR, { title = "fzf-goimpl" })
         return
       end
 
@@ -255,7 +242,7 @@ function M.impl(receiver, interface_dir, interface_name, lnum)
       end)
     end,
   }
-  print("[Debug] ", vim.inspect(job_config.args))
+  print("[fzf-goimpl run] impl", table.concat(job_config.args, " "))
 
   job:new(job_config):start()
 end

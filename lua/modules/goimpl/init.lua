@@ -7,7 +7,7 @@ M.open = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local gopls = helper.get_gopls(bufnr)
   if not gopls then
-    vim.notify("cannot get gopls client for go implement", vim.log.levels.WARN, { title = "goimpl" })
+    vim.notify("cannot get gopls client for go implement", vim.log.levels.WARN, { title = "fzf-goimpl" })
     return
   end
 
@@ -17,7 +17,7 @@ M.open = function()
     local struct_info = helper.get_cursor_struct_info()
     local default_value, line_num = helper.predict_abbreviation(struct_info)
     if not line_num then
-      vim.notify("Invalid receiver provided", vim.log.levels.INFO, { title = "goimpl" })
+      vim.notify("Invalid receiver provided", vim.log.levels.INFO, { title = "fzf-goimpl" })
       return
     end
     ui.get_receiver(default_value, function(receiver)
@@ -32,11 +32,11 @@ M.open = function()
     fzf_lua.init()
 
     interface_item = fzf_lua.get_interface(co, bufnr, gopls)
-    print("[Debug]: interface item from fzf_lua", vim.inspect(interface_item))
+    --print("[Debug]: interface item from fzf_lua", vim.inspect(interface_item))
 
     for _, key in pairs({ "container_name", "path", "line", "col" }) do
       if not interface_item or not interface_item[key] then
-        vim.notify("Failed to get the interface data", vim.log.levels.WARN, { title = "goimpl" })
+        vim.notify("Failed to get the interface data", vim.log.levels.WARN, { title = "fzf-goimpl" })
         return
       end
     end

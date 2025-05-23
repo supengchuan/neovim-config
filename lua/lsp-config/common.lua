@@ -69,7 +69,7 @@ M.hlSymUdrCursor = function(client, bufnr)
 end
 
 M.capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
--- 这个配置比较重要，不然在补全的时候如果一个函数没有参照，光标也会在括号内
+-- 这个配置比较重要，不然在补全的时候如果一个函数没有参数，光标也会在括号内
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- lsp keybinding

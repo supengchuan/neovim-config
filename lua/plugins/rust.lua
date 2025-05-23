@@ -1,6 +1,5 @@
 local M = {
   "mrcjkb/rustaceanvim",
-  version = "^5", -- Recommended
   ft = { "rust" },
   config = function()
     vim.g.rustaceanvim = {

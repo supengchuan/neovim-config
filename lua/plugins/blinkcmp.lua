@@ -60,8 +60,9 @@ local M = {
         draw = {
           treesitter = { "lsp" },
           columns = {
-            { "label" },
+            { "label", "label_description", gap = 1 },
             { "kind_icon", "kind", gap = 1 },
+            { "source_name" },
           },
           components = {
             label_description = {
@@ -122,7 +123,7 @@ local M = {
       default = { "lsp", "snippets", "buffer", "path" },
       providers = {
         lsp = {
-          fallbacks = {}, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
+          fallbacks = { "buffer" }, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
         },
         path = {
           fallbacks = {}, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer

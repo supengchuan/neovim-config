@@ -106,28 +106,25 @@ local M = {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, mason_extra_tools)
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+    --require("mason-lspconfig").setup({
+    --  --automatic_enable = {
+    --  --  exclude = {
+    --  --    "rust_analyzer",
+    --  --    "gopls",
+    --  --  },
+    --  --},
+    --  automatic_enable = false,
+    --  ensure_installed = {},
+    --})
 
     local capabilities = require("blink-cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-    require("mason-lspconfig").setup({
-      ensure_installed = {},
-      automatic_installation = false,
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for ts_ls)
-          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          require("lspconfig")[server_name].setup(server)
-        end,
-
-        -- use rustaceanvim, need set this to avoid conflict
-        ["rust_analyzer"] = function() end,
-        gopls = function() end,
-      },
-    })
+    for server_name, server in pairs(servers) do
+      server = server or {}
+      server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+      require("lspconfig")[server_name].setup(server)
+    end
   end,
 }
 return M

@@ -29,7 +29,7 @@ vim.o.clipboard = "unnamedplus"
 vim.o.updatetime = 300
 
 vim.wo.colorcolumn = "120"
-vim.o.fileformats = "unix"
+vim.o.fileformats = "unix,dos"
 
 -- 自动补全不自动选中
 vim.g.completeopt = "menu,menuone,noselect,noinsert"

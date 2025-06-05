@@ -1,6 +1,6 @@
 local servers = {
   bashls = {},
-  buf_ls = {},
+  protols = {},
   pyright = {},
   nginx_language_server = {
     capabilities = {

@@ -31,3 +31,34 @@ create_cmd("DefSplit", function()
     jump1_action = require("fzf-lua.actions").file_vsplit,
   })
 end, {})
+
+create_cmd("UnescapeJSON", function()
+  -- Get current line under cursor
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
+
+  -- Extract the quoted string
+  local json_str = line:match('"(.+)"')
+  if not json_str then
+    print("No quoted string found")
+    return
+  end
+
+  -- Use vim.fn.json_decode to decode it
+  local decoded = vim.fn.json_decode('"' .. json_str .. '"') -- Wrap again to decode properly
+
+  -- Replace the line (or modify as needed)
+  vim.api.nvim_buf_set_lines(0, row - 1, row, false, { decoded })
+end, {})
+
+create_cmd("QuoteJSON", function()
+  -- Get current line under cursor
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
+
+  -- json_encode returns a quoted string with escape characters
+  local encoded = vim.fn.json_encode(line)
+
+  -- Replace the line with the quoted string
+  vim.api.nvim_buf_set_lines(0, row - 1, row, false, { encoded })
+end, {})

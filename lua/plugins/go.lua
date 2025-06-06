@@ -20,15 +20,15 @@ local M = {
     "nvim-treesitter/nvim-treesitter",
   },
   config = function()
+    local capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
     -- set config
-    local lsp_common = require("lsp-config.common")
     require("go").setup({
       tag_transform = "camelcase",
       icons = false,
       lsp_cfg = {
-        capabilities = lsp_common.capabilities,
-        -- other setups
-        handlers = lsp_common.handlers,
+        capabilities = capabilities,
         settings = {
           gopls = {
             hints = {

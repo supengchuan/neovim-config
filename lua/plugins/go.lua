@@ -43,6 +43,7 @@ local M = {
       },
       lsp_keymaps = false,
       comment_placeholder = "  ",
+      diagnostic = false, -- set diagnostic to false to disable diagnostic
     })
     -- auto load .env file in project dir
     setEnvFromFile()

@@ -43,6 +43,15 @@ local M = {
         ["J"] = "actions.preview_scroll_down",
         ["K"] = "actions.preview_scroll_up",
         ["q"] = "actions.close",
+        ["yp"] = {
+          desc = "Copy filepath to system clipboard",
+          callback = function()
+            require("oil.actions").copy_entry_path.callback()
+            local filepath = vim.fn.getreg(vim.v.register)
+            vim.fn.setreg("+", filepath)
+            vim.notify("copy path: " .. filepath, vim.log.levels.INFO)
+          end,
+        },
       },
       skip_confirm_for_simple_edits = true,
     },

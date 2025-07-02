@@ -64,7 +64,7 @@ local M = {
           if vim.w.is_oil_win then
             l_oil.close()
           else
-            l_oil.open_float(nil, { preview = {} })
+            l_oil.open_float(nil, {})
           end
         end,
         desc = "open oil with preview",

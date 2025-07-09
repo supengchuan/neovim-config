@@ -1,4 +1,4 @@
-vim.api.nvim_create_user_command("NeoTreeGoRoot", function(opts)
+vim.api.nvim_create_user_command("NeoTreeGoRoot", function()
   local Path = require("plenary.path")
   local current_file = vim.api.nvim_buf_get_name(0)
   local file_dir = vim.fn.fnamemodify(current_file, ":h")
@@ -29,24 +29,14 @@ vim.api.nvim_create_user_command("NeoTreeGoRoot", function(opts)
     return
   end
 
-  local mode = opts.args
-  if mode == nil or mode == "" then
-    mode = "lcd"
-  end
-  if mode ~= "cd" and mode ~= "lcd" then
-    vim.notify("❗Invalid argument: use 'cd' or 'lcd'", vim.log.levels.WARN)
-    return
-  end
-  vim.cmd(mode .. " " .. project_root)
-
-  vim.cmd("Neotree action=show source=filesystem reveal=true reveal_force_cwd=true")
-  vim.notify("Neo-tree root set to: " .. project_root, vim.log.levels.INFO)
+  vim.cmd("Neotree action=show dir=" .. project_root .. " source=filesystem reveal=true")
+  vim.notify("Neo-tree root set to: " .. project_root, vim.log.levels.WARN)
 end, {
-  nargs = "?",
-  complete = function()
-    return { "cd", "lcd" }
-  end,
+  --nargs = "?",
+  --complete = function()
+  --  return { "cd", "lcd" }
+  --end,
   desc = "Set Neo-tree root to Go project root or Git root",
 })
 
-vim.keymap.set("n", "<leader>gp", ":NeoTreeGoRoot lcd<CR>", { desc = "Neo-tree to Go root (lcd)" })
+vim.keymap.set("n", "<leader>gp", ":NeoTreeGoRoot<CR>", { desc = "Neo-tree to Go root (lcd)" })

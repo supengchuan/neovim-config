@@ -8,7 +8,6 @@ local M = {
   opts = function(_, opts)
     local fzf = require("fzf-lua")
     local config = fzf.config
-    local actions = fzf.actions
 
     -- send search result to quickfix list
     config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
@@ -19,6 +18,7 @@ local M = {
     config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
     config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
     config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
+    config.defaults.keymap.builtin["<F12>"] = "toggle-preview"
     return {
       winopts = {
         height = 1,
@@ -29,6 +29,10 @@ local M = {
       },
       fzf_opts = {
         ["--cycle"] = true,
+      },
+      grep = {
+        prompt = "Rg❯ ",
+        input_prompt = "Grep For❯ ",
       },
     }
   end,

@@ -1,3 +1,12 @@
+--vim.opt: behaves like :set
+--vim.opt_global: behaves like :setglobal
+--vim.opt_local: behaves like :setlocal
+
+--vim.o: behaves like :set
+--vim.go: behaves like :setglobal, like let g: in vim script
+--vim.bo: for buffer-scoped options
+--vim.wo: for window-scoped options (can be double indexed)
+
 vim.g.mapleader = " "
 
 vim.cmd([[set mouse-=a]])

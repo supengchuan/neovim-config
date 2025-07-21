@@ -1,3 +1,3 @@
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.list = true
+vim.bo.tabstop = 2
+vim.bo.shiftwidth = 2
+vim.opt_local.list = true

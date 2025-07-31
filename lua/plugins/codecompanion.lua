@@ -7,7 +7,13 @@ local M = {
       "MeanderingProgrammer/render-markdown.nvim",
       ft = { "codecompanion" },
     },
+    "folke/noice.nvim",
   },
+
+  init = function()
+    require("modules.ai.extensions.companion-notification").init()
+  end,
+
   cmd = {
     "CodeCompanion",
     "CodeCompanionActions",

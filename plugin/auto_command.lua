@@ -180,7 +180,7 @@ end
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "cpp", "rust" }, -- adjust to your desired filetypes
   callback = function()
-    vim.keymap.set({ "n" }, ";;", function()
+    vim.keymap.set({ "n", "i" }, ";;", function()
       local line = vim.api.nvim_get_current_line()
 
       -- Add semicolon if not ending in {, (, [, . or already ends with ;

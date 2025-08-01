@@ -180,7 +180,7 @@ end
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "cpp", "rust" }, -- adjust to your desired filetypes
   callback = function()
-    vim.keymap.set("n", "o", function()
+    vim.keymap.set({ "n" }, ";;", function()
       local line = vim.api.nvim_get_current_line()
 
       -- Add semicolon if not ending in {, (, [, . or already ends with ;
@@ -190,7 +190,7 @@ vim.api.nvim_create_autocmd("FileType", {
       -- use <CR> in insert mode for keeping indent
       vim.cmd("startinsert!")
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", false)
-    end, { buffer = true })
+    end, { buffer = true, desc = "Add semicolon if needed and open new line" })
   end,
 })
 

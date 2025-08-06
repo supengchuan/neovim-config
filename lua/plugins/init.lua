@@ -4,6 +4,7 @@ return {
     event = "InsertEnter",
     opts = {}, -- this is equalent to setup({}) function
   },
+  { "windwp/nvim-ts-autotag", opts = {} },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features

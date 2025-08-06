@@ -25,6 +25,7 @@ local M = {
         html = { "prettier" },
         css = { "prettier" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
+        vue = { "prettier" },
       },
       formatters = {
         shfmt = {

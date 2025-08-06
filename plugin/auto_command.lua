@@ -99,8 +99,8 @@ cmd("BufReadPost", {
 })
 
 -- wrap file according filetype
-cmd("BufEnter", {
-  pattern = { "*.md", "*.tex" },
+cmd("FileType", {
+  pattern = { "markdown", "tex", "codecompanion" },
   group = myAutoGroup,
   callback = function()
     vim.opt_local.colorcolumn = ""

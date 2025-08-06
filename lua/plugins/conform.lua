@@ -22,6 +22,7 @@ local M = {
         proto = { "buf" },
         cpp = { "clang-format" },
         c = { "clang-format" },
+        typescript = { "prettier" },
         html = { "prettier" },
         css = { "prettier" },
         ["*"] = { "trim_whitespace", "trim_newlines" },

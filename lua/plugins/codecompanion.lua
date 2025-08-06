@@ -38,6 +38,14 @@ local M = {
         })
       end,
     },
+    display = {
+      chat = {
+        window = {
+          position = "right", -- left|right|top|bottom (nil will default depending on vim.opt.splitright|vim.opt.splitbelow)
+          width = 0.3,
+        },
+      },
+    },
   },
 }
 

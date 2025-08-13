@@ -29,6 +29,7 @@ local M = {
       --	},
       -- treesitter-hl has 100, use something higher (default is 200).
       ext_base_prio = 300,
+      ft_func = require("luasnip.extras.filetype_functions").from_pos_or_filetype,
     })
 
     -- this will expand the current item or jump to the next item within the snippet.
@@ -53,7 +54,7 @@ local M = {
       end
     end)
     -- use friendly snip
-    require("luasnip/loaders/from_vscode").lazy_load()
+    require("luasnip.loaders.from_vscode").lazy_load()
   end,
 }
 

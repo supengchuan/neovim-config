@@ -83,6 +83,10 @@ local M = {
           },
         },
       })
+
+      vim.keymap.set({ "n", "x", "o" }, ",", function()
+        require("nvim-treesitter.textobjects.repeatable_move").repeat_last_move()
+      end)
     end,
   },
 

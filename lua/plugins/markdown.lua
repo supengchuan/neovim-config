@@ -21,13 +21,6 @@ local M = {
       vim.g.mkdp_echo_preview_url = 1
     end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    dependencies = { "OXY2DEV/markview.nvim" },
-    lazy = false,
-
-    -- ... All other options.
-  },
 }
 
 return M

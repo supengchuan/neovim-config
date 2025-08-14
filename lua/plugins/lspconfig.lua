@@ -28,6 +28,7 @@ local servers = {
       client.server_capabilities.documentRangeFormattingProvider = false
     end,
   },
+  vue_ls = {},
   bashls = {},
   protols = {},
   pyright = {},
@@ -153,7 +154,10 @@ local M = {
     for server_name, server in pairs(servers) do
       server = server or {}
       server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-      require("lspconfig")[server_name].setup(server)
+      vim.lsp.config(server_name, server)
+      vim.lsp.enable(server_name)
+      -- nvim 0.11+
+      --require("lspconfig")[server_name].setup(server)
     end
   end,
 }

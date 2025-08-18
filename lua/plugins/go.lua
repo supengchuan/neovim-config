@@ -52,6 +52,7 @@ local M = {
           text = { "🚑", "🔧", "🪛", "🧹" },
         },
       },
+      luasnip = true,
     })
     -- auto load .env file in project dir
     setEnvFromFile()

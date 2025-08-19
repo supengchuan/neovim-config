@@ -40,3 +40,7 @@ end, {
 })
 
 vim.keymap.set("n", "<leader>gp", ":NeoTreeGoRoot<CR>", { desc = "Neo-tree to Go root (lcd)" })
+
+vim.api.nvim_create_user_command("Impl", function()
+  require("modules.goimpl").open()
+end, { desc = "run goimpl" })

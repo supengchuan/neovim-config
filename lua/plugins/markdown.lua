@@ -35,7 +35,6 @@ local M = {
         },
         code = {
           width = "block",
-          min_width = 45,
         },
         pipe_table = {
           preset = "round",

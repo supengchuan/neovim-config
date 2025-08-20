@@ -33,9 +33,6 @@ local M = {
         heading = {
           position = "inline",
         },
-        code = {
-          width = "block",
-        },
         pipe_table = {
           preset = "round",
           border_virtual = false,

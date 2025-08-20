@@ -21,6 +21,29 @@ local M = {
       vim.g.mkdp_echo_preview_url = 1
     end,
   },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    ft = { "markdown" },
+    config = function()
+      require("render-markdown").setup({
+        completions = { blink = { enabled = true } },
+        heading = {
+          position = "inline",
+        },
+        code = {
+          width = "block",
+          min_width = 45,
+        },
+        pipe_table = {
+          preset = "round",
+          border_virtual = false,
+        },
+      })
+    end,
+  },
 }
 
 return M

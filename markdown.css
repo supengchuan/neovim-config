@@ -1,0 +1,135 @@
+/* Darcula-inspired base */
+body {
+  font-family:
+    "LXGW WenKai", "monaspace xenon", "Fira Code"; /* Added monospace fallback */
+  background-color: #2f3542; /* classic Darcula background */
+  color: #a9b7c6; /* light gray text */
+  line-height: 1.6;
+  padding: 3rem; /* Increased padding for more breathing room */
+  text-rendering: optimizeLegibility; /* Enhance text readability */
+  -webkit-font-smoothing: antialiased; /* Smoother font rendering on WebKit browsers */
+  -moz-osx-font-smoothing: grayscale; /* Smoother font rendering on Firefox */
+}
+
+main {
+  background-color: #ecf0f1; /* classic Darcula background */
+  color: black; /* light gray text */
+  line-height: 1.6;
+  padding: 2rem;
+  max-width: 800px; /* Example: set a maximum width */
+  margin: 0 auto; /* Center the main element */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Added a subtle shadow for depth */
+  border-radius: 8px;
+}
+
+header#page-header {
+  background-color: #bd93f9;
+  border-radius: 8px;
+  margin: 2rem auto; /* Centered the header as well */
+  padding: 1rem 2rem; /* Added padding inside the header */
+  max-width: 800px; /* Aligned max-width with main for consistency */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added a subtle shadow */
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #2f3542; /* warm yellow/orange */
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Horizontal rules */
+hr {
+  border: none;
+  height: 1px;
+  background-color: #555555;
+  margin: 2rem 0;
+}
+
+/* Links */
+a {
+  color: #287bde; /* soft blue links */
+  text-decoration: underline;
+}
+
+/* Inline code */
+code {
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid #6897bb; /* soft blue accent */
+  color: #808080;
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  background-color: #2b2b2b;
+  border-radius: 4px;
+}
+
+/* Lists */
+ul,
+ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+li {
+  margin-bottom: 0.3rem;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 8px; /* Add radius to the table */
+  overflow: hidden; /* Ensures rounded corners are visible with border-collapse */
+}
+
+th,
+td {
+  border: 1px solid #555555;
+  padding: 0.5rem 1rem;
+}
+
+th {
+  background-color: #3c3f41;
+  color: #ffc66d;
+}
+
+td {
+  background-color: #2b2b2b;
+  color: #bdc3c7;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin: 1rem auto;
+  display: block;
+}
+
+/* Checkboxes */
+input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 0.5rem;
+}
+
+
+pre.hljs {
+  border-radius: 8px;
+}
+

@@ -19,6 +19,9 @@ local M = {
       vim.g.mkdp_open_ip = local_ip
       vim.g.mkdp_port = "9414"
       vim.g.mkdp_echo_preview_url = 1
+
+      local config_dir = vim.fn.stdpath("config")
+      vim.g.mkdp_markdown_css = config_dir .. "/markdown.css"
     end,
   },
   {

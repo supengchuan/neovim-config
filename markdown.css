@@ -38,7 +38,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #2f3542; /* warm yellow/orange */
+  color: #2f3542;
   font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
@@ -64,7 +64,6 @@ code {
   border-radius: 4px;
   font-size: 0.95em;
 }
-
 
 /* Blockquotes */
 blockquote {
@@ -94,7 +93,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 1rem;
-  border-radius: 8px; /* Add radius to the table */
+  border-radius: 1px; /* Add radius to the table */
   overflow: hidden; /* Ensures rounded corners are visible with border-collapse */
 }
 
@@ -105,13 +104,12 @@ td {
 }
 
 th {
-  background-color: #3c3f41;
+  background-color: #57606f;
   color: #ffc66d;
 }
 
 td {
-  background-color: #2b2b2b;
-  color: #bdc3c7;
+  background-color: white;
 }
 
 /* Images */
@@ -128,8 +126,6 @@ input[type="checkbox"] {
   margin-right: 0.5rem;
 }
 
-
 pre.hljs {
   border-radius: 8px;
 }
-

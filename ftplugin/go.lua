@@ -53,5 +53,10 @@ vim.api.nvim_create_user_command("GoMethodList", function()
     search = pattern,
     -- pattern 中的特殊字符不进行转义
     no_esc = true,
+    winopts = {
+      preview = {
+        hidden = true,
+      },
+    },
   })
 end, { desc = "List methods of struct (fzf-lua regex)" })

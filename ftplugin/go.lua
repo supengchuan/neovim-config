@@ -44,3 +44,14 @@ vim.keymap.set("n", "<leader>gp", ":NeoTreeGoRoot<CR>", { desc = "Neo-tree to Go
 vim.api.nvim_create_user_command("Impl", function()
   require("modules.goimpl").open()
 end, { desc = "run goimpl" })
+
+vim.api.nvim_create_user_command("GoMethodList", function()
+  local struct = vim.fn.expand("<cword>")
+  local pattern = [[^func\s*\(\s*[\w\*]+\s+\*?]] .. struct .. [[\)\s+]]
+
+  require("fzf-lua").grep({
+    search = pattern,
+    -- pattern 中的特殊字符不进行转义
+    no_esc = true,
+  })
+end, { desc = "List methods of struct (fzf-lua regex)" })

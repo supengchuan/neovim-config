@@ -55,6 +55,8 @@ local M = {
     end)
     -- use friendly snip
     require("luasnip.loaders.from_vscode").lazy_load()
+    -- load costom snippets
+    require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets" })
   end,
 }
 

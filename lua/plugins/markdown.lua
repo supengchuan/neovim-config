@@ -32,7 +32,6 @@ local M = {
     ft = { "markdown" },
     config = function()
       require("render-markdown").setup({
-        completions = { blink = { enabled = true } },
         heading = {
           position = "inline",
         },

@@ -82,7 +82,17 @@ local servers = {
       })
     end,
     settings = {
-      Lua = {},
+      Lua = {
+        diagnostics = {
+          globals = {
+            "vim",
+            "s",
+            "c",
+            "t",
+            "i",
+          },
+        },
+      },
     },
   },
 }

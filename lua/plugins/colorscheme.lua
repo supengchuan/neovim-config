@@ -176,4 +176,10 @@ return {
     lazy = false,
     priority = 1000,
   },
+  {
+    "armannikoyan/rusty",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
 }

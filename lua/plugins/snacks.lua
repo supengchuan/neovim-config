@@ -11,6 +11,7 @@ local M = {
     scroll = { enabled = true },
     words = { enabled = true },
     debug = { enabled = true },
+    picker = { enabled = true },
     dashboard = {
       enabled = true,
       formats = {

@@ -37,6 +37,13 @@ local M = {
         opts = {
           show_defaults = false, -- hiding default adapters
         },
+        deepseek = function()
+          return require("codecompanion.adapters").extend("deepseek", {
+            env = {
+              api_key = "DEEPSEEK_API_KEY",
+            },
+          })
+        end,
         gemini = function()
           return require("codecompanion.adapters").extend("gemini", {
             env = {
@@ -46,9 +53,6 @@ local M = {
         end,
       },
       acp = {
-        opts = {
-          show_defaults = false, -- hiding default adapters
-        },
         gemini_cli = function()
           return require("codecompanion.adapters").extend("gemini_cli", {
             defaults = {

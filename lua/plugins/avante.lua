@@ -32,7 +32,7 @@ return {
         },
       },
       auto_suggestions_provider = "deepseek",
-      provider = "deepseek",
+      provider = "iflow", -- 使用 iFlow CLI 作为默认提供者
       providers = {
         deepseek = {
           __inherited_from = "openai",
@@ -40,6 +40,23 @@ return {
           endpoint = "https://api.deepseek.com",
           model = "deepseek-reasoner",
           max_tokens = 8192,
+        },
+        iflow = {
+          endpoint = "https://apis.iflow.cn/v1",
+          __inherited_from = "openai",
+          model = "qwen3-coder",
+          api_key_name = "IFLOW_API_KEY", -- iFlow CLI 不需要 API 密钥
+        },
+      },
+      -- ACP 提供者配置 (用于命令行工具集成)
+      acp_providers = {
+        ["iflow-cli"] = {
+          command = "iflow",
+          args = { "--yolo=true" }, -- 自动接受所有操作
+          env = {
+            NODE_NO_WARNINGS = "1",
+            IFLOW_API_KEY = os.getenv("IFLOW_API_KEY"),
+          },
         },
       },
     },

@@ -22,6 +22,12 @@ return {
       },
     },
     opts = {
+      -- 行为配置，确保以 diff 方式生成代码而不是直接修改
+      behaviour = {
+        auto_apply_diff_after_generation = false, -- 不自动应用生成的 diff
+        minimize_diff = true, -- 最小化 diff，只显示必要的更改
+        auto_approve_tool_permissions = false,
+      },
       input = {
         provider = "snacks", -- "native" | "dressing" | "snacks"
         provider_opts = {
@@ -52,7 +58,7 @@ return {
       acp_providers = {
         ["iflow-cli"] = {
           command = "iflow",
-          args = { "--yolo=true" }, -- 自动接受所有操作
+          args = { "--yolo=false" }, -- 需要确认操作
           env = {
             NODE_NO_WARNINGS = "1",
             IFLOW_API_KEY = os.getenv("IFLOW_API_KEY"),

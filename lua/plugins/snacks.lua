@@ -46,6 +46,13 @@ local M = {
         git_hl = true,
       },
     },
+    styles = {
+      terminal = {
+        keys = {
+          ["<esc>"] = "hide",
+        },
+      },
+    },
   },
   keys = {
     {

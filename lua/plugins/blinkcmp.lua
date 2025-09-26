@@ -2,6 +2,7 @@ local M = {
   "saghen/blink.cmp",
   dependencies = {
     "L3MON4D3/LuaSnip",
+    "Kaiser-Yang/blink-cmp-avante",
   },
   event = "VeryLazy",
   -- use a release tag to download pre-built binaries
@@ -120,13 +121,20 @@ local M = {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { "lsp", "snippets", "buffer", "path" },
+      default = { "lsp", "snippets", "buffer", "avante", "path" },
       providers = {
         lsp = {
           fallbacks = { "buffer" }, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
         },
         path = {
           fallbacks = {}, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
+        },
+        avante = {
+          module = "blink-cmp-avante",
+          name = "Avante",
+          opts = {
+            -- options for blink-cmp-avante
+          },
         },
       },
     },

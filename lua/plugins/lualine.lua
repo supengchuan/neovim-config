@@ -79,7 +79,7 @@ local M = {
     },
     winbar = {},
     inactive_winbar = {},
-    extensions = { "man", "neo-tree", "aerial", "nvim-dap-ui" },
+    extensions = { "man", "neo-tree", "aerial", "nvim-dap-ui", "avante" },
   },
 }
 

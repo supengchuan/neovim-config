@@ -50,6 +50,9 @@ vim.opt.termguicolors = true
 vim.o.showmode = false
 vim.o.hidden = false
 
+-- 视图只能通过全局状态栏完全折叠
+vim.opt.laststatus = 3
+
 if require("utils").IsWindows() then
   -- use pwsh on windows
   vim.opt.shell = vim.fn.executable("nu") and "nu" or (vim.fn.executable("pwsh") and "pwsh" or "powershell")

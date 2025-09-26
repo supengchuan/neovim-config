@@ -24,7 +24,7 @@ return {
     opts = {
       -- 行为配置，确保以 diff 方式生成代码而不是直接修改
       behaviour = {
-        auto_apply_diff_after_generation = false, -- 不自动应用生成的 diff
+        auto_apply_diff_after_generation = true, -- 不自动应用生成的 diff
         minimize_diff = true, -- 最小化 diff，只显示必要的更改
         auto_approve_tool_permissions = false,
       },

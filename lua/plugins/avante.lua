@@ -37,8 +37,7 @@ return {
           placeholder = "Enter your API key...",
         },
       },
-      auto_suggestions_provider = "deepseek",
-      provider = "iflow", -- 使用 iFlow CLI 作为默认提供者
+      provider = "iflow", -- 使用 iFlow 作为默认提供者
       providers = {
         deepseek = {
           __inherited_from = "openai",
@@ -55,6 +54,8 @@ return {
         },
       },
       -- ACP 提供者配置 (用于命令行工具集成)
+      -- 好像这个配置不能使用
+      -- 如果把 provider 设置为 iflow-cli 会卡死
       acp_providers = {
         ["iflow-cli"] = {
           command = "iflow",

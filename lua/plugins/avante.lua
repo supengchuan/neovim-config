@@ -22,6 +22,12 @@ return {
       },
     },
     opts = {
+      windows = {
+        position = "left",
+        sidebar_header = {
+          align = "right", -- left, center, right for title
+        },
+      },
       -- 行为配置，确保以 diff 方式生成代码而不是直接修改
       behaviour = {
         auto_apply_diff_after_generation = true, -- 不自动应用生成的 diff

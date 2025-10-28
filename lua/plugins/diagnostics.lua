@@ -9,6 +9,12 @@ local M = {
       preset = "ghost",
 
       options = {
+        add_messages = {
+          display_count = true,
+        },
+        multilines = {
+          enabled = true,
+        },
         show_source = {
           enabled = true,
           if_many = true,

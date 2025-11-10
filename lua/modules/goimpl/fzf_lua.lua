@@ -108,13 +108,18 @@ local function fzf_lua_settings(bufnr, gopls)
   ---@type integer?
   local running_request_id = -1
 
-  ---@type fun(query: string): function
+  -- 一开始的时候传递的是string， 不知道什么时候改为 table 了
+  ---@type fun(query: table): function
   local contents = function(query)
     ---@param fzf_cb fun(line?: string, cb?: fun())
     return function(fzf_cb)
       -- Cancel the previous request
       if gopls and running_request_id ~= -1 then
         gopls:cancel_request(running_request_id)
+      end
+      -- change query table to string
+      if type(query) == "table" then
+        query = query[1]
       end
 
       -- If gopls is not found, return an error

@@ -71,3 +71,5 @@ vim.filetype.add({
 })
 
 vim.o.exrc = true
+
+vim.o.autoread = true

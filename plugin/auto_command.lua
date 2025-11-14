@@ -211,3 +211,12 @@ cmd("User", {
     vim.g.snacks_animate = true
   end,
 })
+
+cmd("BufLeave", {
+  pattern = "*",
+  callback = function()
+    if vim.bo.filetype == "aerial" then
+      vim.cmd("AerialClose")
+    end
+  end,
+})

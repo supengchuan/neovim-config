@@ -49,8 +49,13 @@ vim.api.nvim_create_user_command("GoMethodList", function()
   local struct = vim.fn.expand("<cword>")
   local pattern = [[^func\s*\(\s*[\w\*]+\s+\*?]] .. struct .. [[\)\s+]]
 
+  -- 获取当前文件的目录，限制搜索范围到当前package
+  local current_file = vim.api.nvim_buf_get_name(0)
+  local current_dir = vim.fn.fnamemodify(current_file, ":h")
+
   require("fzf-lua").grep({
     search = pattern,
+    cwd = current_dir,  -- 限制搜索目录到当前文件所在目录
     -- pattern 中的特殊字符不进行转义
     no_esc = true,
     winopts = {

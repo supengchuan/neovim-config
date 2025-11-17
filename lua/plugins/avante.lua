@@ -30,9 +30,14 @@ return {
       },
       -- 行为配置，确保以 diff 方式生成代码而不是直接修改
       behaviour = {
-        auto_apply_diff_after_generation = true, -- 不自动应用生成的 diff
+        auto_apply_diff_after_generation = false, -- 不自动应用生成的 diff
         minimize_diff = true, -- 最小化 diff，只显示必要的更改
-        auto_approve_tool_permissions = false,
+        auto_approve_tool_permissions = false, -- 不自动批准工具权限，需要手动确认
+        ---@type "popup" | "inline_buttons"
+        confirmation_ui_style = "popup",
+        -- 添加请求处理相关配置
+        cache = false, -- 禁用缓存以确保请求实时处理
+        support_native_tools = true, -- 启用原生工具支持
       },
       input = {
         provider = "snacks", -- "native" | "dressing" | "snacks"
@@ -57,18 +62,13 @@ return {
           __inherited_from = "openai",
           model = "qwen3-coder",
           api_key_name = "IFLOW_API_KEY", -- iFlow CLI 不需要 API 密钥
-        },
-      },
-      -- ACP 提供者配置 (用于命令行工具集成)
-      -- 好像这个配置不能使用
-      -- 如果把 provider 设置为 iflow-cli 会卡死
-      acp_providers = {
-        ["iflow-cli"] = {
-          command = "iflow",
-          args = { "--yolo=false" }, -- 需要确认操作
-          env = {
-            NODE_NO_WARNINGS = "1",
-            IFLOW_API_KEY = os.getenv("IFLOW_API_KEY"),
+          timeout = 30000, -- Timeout in milliseconds
+          context_window = 1048576,
+          use_ReAct_prompt = true,
+          extra_request_body = {
+            generationConfig = {
+              temperature = 0.75,
+            },
           },
         },
       },

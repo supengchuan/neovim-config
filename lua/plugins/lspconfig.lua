@@ -95,6 +95,24 @@ local servers = {
       },
     },
   },
+  gopls = {
+    settings = {
+      gopls = {
+        -- Important: make gopls faster
+        directoryFilters = {
+          "-.git",
+          "-node_modules",
+          "-vendor",
+          "-bazel-bin",
+          "-bazel-out",
+        },
+        buildFlags = { "-tags", "integration" },
+        hints = { parameterNames = true },
+        staticcheck = true,
+        usePlaceholders = true,
+      },
+    },
+  },
 }
 
 local mason_extra_tools = {
@@ -114,7 +132,7 @@ local mason_extra_tools = {
   -- lsp
   "rust-analyzer",
   "vue-language-server",
-  "gopls",
+  --"gopls",
 }
 
 local M = {
@@ -123,9 +141,12 @@ local M = {
     -- lspkind adds vscode-like pictograms to neovim built-in lsp
     "onsails/lspkind-nvim",
     {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       opts = {
         ui = {
+          ---@since 1.0.0
+          -- Whether to automatically check for new versions when opening the :Mason window.
+          check_outdated_packages_on_open = false,
           border = "single",
           icons = {
             package_installed = "✓",
@@ -135,7 +156,7 @@ local M = {
         },
       },
     },
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
 
     -- for code completion

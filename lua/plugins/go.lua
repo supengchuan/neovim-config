@@ -27,16 +27,7 @@ local M = {
     require("go").setup({
       tag_transform = "camelcase",
       icons = false,
-      lsp_cfg = {
-        capabilities = capabilities,
-        settings = {
-          gopls = {
-            hints = {
-              parameterNames = true,
-            },
-          },
-        },
-      },
+      lsp_cfg = false,
       lsp_codelens = false,
       lsp_inlay_hints = {
         enable = false,

@@ -60,7 +60,7 @@ return {
         iflow = {
           endpoint = "https://apis.iflow.cn/v1",
           __inherited_from = "openai",
-          model = "qwen3-coder",
+          model = "qwen3-coder-plus",
           api_key_name = "IFLOW_API_KEY", -- iFlow CLI 不需要 API 密钥
           timeout = 30000, -- Timeout in milliseconds
           context_window = 1048576,

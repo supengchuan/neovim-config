@@ -34,6 +34,11 @@ local M = {
         prompt = "Rg❯ ",
         input_prompt = "Grep For❯ ",
       },
+      lsp = {
+        -- 使用异步的调用 lsp 的 method，它默认时 5000ms，
+        -- 但是在go中的一些 go-to-implementations 时会超时，我将它设置为 异步
+        async_or_timeout = true,
+      },
     }
   end,
   keys = {

@@ -72,9 +72,28 @@ local M = {
     tabline = {
       lualine_a = { "mode" },
       lualine_b = { "searchcount", "selectioncount" },
-      lualine_c = { "windows" },
+      lualine_c = {
+        {
+          "windows",
+          -- Automatically updates active window color to match color of other components (will be overidden if buffers_color is set)
+          use_mode_colors = true,
+          show_modified_status = true, -- Shows indicator when the window is modified.
+
+          mode = 0, -- 0: Shows window name
+          -- 1: Shows window index
+          -- 2: Shows window name + window index
+
+          filetype_names = {
+            Avante = "Avante",
+            AvanteSelectedFiles = "AvanteSelectedFiles",
+            AvanteInput = "AvanteInput",
+          }, -- Shows specific window name for that filetype ( { `filetype` = `window_name`, ... } )
+
+          disabled_buftypes = { "quickfix", "prompt", "nofile" }, -- Hide a window if its buffer's type is disabled
+        },
+      },
       lualine_x = { "lsp_status" },
-      lualine_y = { "filename" },
+      lualine_y = { "tabs" },
       lualine_z = { "mode" },
     },
     winbar = {},

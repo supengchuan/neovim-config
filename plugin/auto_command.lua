@@ -212,11 +212,11 @@ cmd("User", {
   end,
 })
 
-cmd("BufLeave", {
-  pattern = "*",
-  callback = function()
-    if vim.bo.filetype == "aerial" then
-      vim.cmd("AerialClose")
-    end
-  end,
-})
+--cmd("BufLeave", {
+--  pattern = "*",
+--  callback = function()
+--    if vim.bo.filetype == "aerial" then
+--      vim.cmd("AerialClose")
+--    end
+--  end,
+--})

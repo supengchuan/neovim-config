@@ -53,26 +53,24 @@ return {
           },
         },
       },
+      commands = {
+        yank_file_path = function(state)
+          local node = state.tree:get_node()
+          local path = node:get_id()
+          vim.fn.setreg("+", path, "c")
+        end,
+        open_with_sys_app = function(state)
+          require("lazy.util").open(state.tree:get_node().path, { system = true })
+        end,
+      },
       window = {
         mappings = {
           --["l"] = "open",
           ["h"] = "close_node",
           ["<CR>"] = "open",
           ["<space>"] = "none",
-          ["Y"] = {
-            function(state)
-              local node = state.tree:get_node()
-              local path = node:get_id()
-              vim.fn.setreg("+", path, "c")
-            end,
-            desc = "Copy Path to Clipboard",
-          },
-          ["O"] = {
-            function(state)
-              require("lazy.util").open(state.tree:get_node().path, { system = true })
-            end,
-            desc = "Open with System Application",
-          },
+          ["Y"] = "yank_file_path",
+          ["O"] = "open_with_sys_app",
           ["P"] = { "toggle_preview", config = { use_float = false } },
           ["<C-v>"] = "vsplit_with_window_picker",
         },

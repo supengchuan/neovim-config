@@ -27,8 +27,14 @@ local M = {
       placement = "window",
     },
 
+    -- List of enum values that configure when to auto-close the aerial window
+    --   unfocus       - close aerial when you leave the original source window
+    --   switch_buffer - close aerial when you change buffers in the source window
+    --   unsupported   - close aerial when attaching to a buffer that has no symbol source
+    close_automatic_events = { "unfocus", "switch_buffer", "unsupported" },
+
     -- Highlight the symbol in the source buffer when cursor is in the aerial win
-    highlight_on_hover = true,
+    highlight_on_hover = false,
 
     -- Define symbol icons. You can also specify "<Symbol>Collapsed" to change the
     -- icon when the tree is collapsed at that symbol, or "Collapsed" to specify a

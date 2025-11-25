@@ -58,7 +58,7 @@ local M = {
     keys = {
       {
         -- toggle oil with preview mode
-        ";a",
+        "<C-O>",
         function()
           local l_oil = require("oil")
           if vim.w.is_oil_win then

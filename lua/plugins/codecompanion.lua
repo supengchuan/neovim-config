@@ -53,6 +53,9 @@ local M = {
         end,
       },
       acp = {
+        iflow = function()
+          return require("modules.ai.extensions.codecompanion.iflow")
+        end,
         gemini_cli = function()
           return require("codecompanion.adapters").extend("gemini_cli", {
             defaults = {

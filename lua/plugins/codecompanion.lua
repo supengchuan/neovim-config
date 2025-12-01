@@ -24,6 +24,9 @@ local M = {
     strategies = {
       chat = {
         adapter = "gemini",
+        opts = {
+          completion_provider = "blink", -- blink|cmp|coc|default
+        },
       },
       inline = {
         adapter = "gemini",

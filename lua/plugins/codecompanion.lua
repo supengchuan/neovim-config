@@ -45,6 +45,11 @@ local M = {
             env = {
               api_key = "DEEPSEEK_API_KEY",
             },
+            schema = {
+              model = {
+                default = "deepseek-chat",
+              },
+            },
           })
         end,
         gemini = function()

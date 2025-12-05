@@ -2,7 +2,7 @@ local myAutoGroup = vim.api.nvim_create_augroup("LocalGroup", {
   clear = true,
 })
 
-local cmd = vim.api.nvim_create_autocmd
+local auto_cmd = vim.api.nvim_create_autocmd
 
 -- nvim-tree 自动关闭
 --autocmd("BufEnter", {
@@ -16,27 +16,27 @@ local cmd = vim.api.nvim_create_autocmd
 --})
 
 -- 进入Terminal 自动进入插入模式
-cmd("TermOpen", {
+auto_cmd("TermOpen", {
   group = myAutoGroup,
   command = "startinsert",
 })
 
 -- 自动保存
-cmd({ "InsertLeave", "TextChanged" }, {
+auto_cmd({ "InsertLeave", "TextChanged" }, {
   group = myAutoGroup,
   pattern = { "*" },
   command = "silent! wall",
 })
 
 -- 保存时自动格式化
-cmd("BufWritePre", {
+auto_cmd("BufWritePre", {
   group = myAutoGroup,
   pattern = { "*.lua", "*.py", "*.go", "*.rs", "*.md" },
   --	callback = vim.lsp.buf.formatting_sync,
   command = "Format",
 })
 
-cmd("BufWritePre", {
+auto_cmd("BufWritePre", {
   group = myAutoGroup,
   pattern = { "*" },
   callback = function()
@@ -63,7 +63,7 @@ cmd("BufWritePre", {
 --})
 
 -- 用o换行不要延续注释
-cmd("BufEnter", {
+auto_cmd("BufEnter", {
   group = myAutoGroup,
   pattern = "*",
   callback = function()
@@ -74,7 +74,7 @@ cmd("BufEnter", {
 })
 
 -- set rust file space chars
-cmd("BufEnter", {
+auto_cmd("BufEnter", {
   group = myAutoGroup,
   pattern = "*.rs",
   callback = function()
@@ -84,7 +84,7 @@ cmd("BufEnter", {
 })
 
 -- reopen file in the same position
-cmd("BufReadPost", {
+auto_cmd("BufReadPost", {
   callback = function()
     local row, col = unpack(vim.api.nvim_buf_get_mark(0, '"'))
     if { row, col } ~= { 0, 0 } then
@@ -99,7 +99,7 @@ cmd("BufReadPost", {
 })
 
 -- wrap file according filetype
-cmd("FileType", {
+auto_cmd("FileType", {
   pattern = { "markdown", "tex", "codecompanion" },
   group = myAutoGroup,
   callback = function()
@@ -122,7 +122,7 @@ cmd("FileType", {
 --})
 
 -- Turn off syntax highlighting for large files
-cmd("BufEnter", {
+auto_cmd("BufEnter", {
   group = myAutoGroup,
   pattern = "*",
   callback = function()
@@ -134,7 +134,7 @@ cmd("BufEnter", {
 
 -- set <C-]> to jump to tag in nvim help document
 -- because I mapped lsp_definition to <C-]>, it cannot jump to tag in nvim help documents
-cmd({ "FileType" }, {
+auto_cmd({ "FileType" }, {
   pattern = { "help" },
   callback = function(opts)
     vim.keymap.set("n", "<C-]>", "<C-]>", { silent = true, buffer = opts.buf })
@@ -142,7 +142,7 @@ cmd({ "FileType" }, {
 })
 
 -- add line number for telescope preview
-cmd("User", {
+auto_cmd("User", {
   pattern = "TelescopePreviewerLoaded",
   callback = function()
     vim.cmd([[setlocal number]])
@@ -196,7 +196,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- disable buggy anims in completion windows
 -- sanck animate conflict with blink
-cmd("User", {
+auto_cmd("User", {
   group = myAutoGroup,
   pattern = "BlinkCmpMenuOpen",
   callback = function()
@@ -204,12 +204,18 @@ cmd("User", {
   end,
 })
 
-cmd("User", {
+auto_cmd("User", {
   group = myAutoGroup,
   pattern = "BlinkCmpMenuClose",
   callback = function()
     vim.g.snacks_animate = true
   end,
+})
+
+-- auto reload the buffer if the file is changed by other tools
+auto_cmd({ "FocusGained", "BufEnter" }, {
+  group = myAutoGroup,
+  command = "checktime",
 })
 
 --cmd("BufLeave", {

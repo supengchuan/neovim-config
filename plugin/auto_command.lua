@@ -226,3 +226,27 @@ auto_cmd({ "FocusGained", "BufEnter" }, {
 --    end
 --  end,
 --})
+
+-- 主动开启 treesitter
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "rust",
+    "javascript",
+    "c",
+    "lua",
+    "vim",
+    "go",
+    "toml",
+    "vimdoc",
+    "yaml",
+    "bash",
+    "sql",
+    "proto",
+    "css",
+    "markdown",
+    "json",
+  },
+  callback = function()
+    vim.treesitter.start()
+  end,
+})

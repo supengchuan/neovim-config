@@ -55,7 +55,7 @@ vim.api.nvim_create_user_command("GoMethodList", function()
 
   require("fzf-lua").grep({
     search = pattern,
-    cwd = current_dir,  -- 限制搜索目录到当前文件所在目录
+    cwd = current_dir, -- 限制搜索目录到当前文件所在目录
     -- pattern 中的特殊字符不进行转义
     no_esc = true,
     winopts = {
@@ -65,3 +65,7 @@ vim.api.nvim_create_user_command("GoMethodList", function()
     },
   })
 end, { desc = "List methods of struct (fzf-lua regex)" })
+
+vim.api.nvim_create_user_command("Impl", function()
+  require("modules.goimpl").open()
+end, { desc = "implement the interface by using impl and fzf-lua" })

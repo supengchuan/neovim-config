@@ -7,7 +7,10 @@ local nui_event = require("nui.utils.autocmd").event
 
 local M = {}
 
+-- Small receiver input popup
 function M.get_receiver(default_value, callback)
+  -- Keep receiver input isolated in a tiny cursor-relative popup so the rest
+  -- of the flow can remain asynchronous and resume through a single callback.
   local nui_opts = {
     relative = "cursor",
     position = { row = 1, col = 0 },
@@ -26,6 +29,8 @@ function M.get_receiver(default_value, callback)
     on_change = function() end,
   })
 
+  -- The popup is transient: leaving the buffer/window or insert mode should
+  -- dismiss it so the command does not leave orphaned floating windows around.
   input:mount()
   for _, event in ipairs({
     nui_event.BufWinLeave,

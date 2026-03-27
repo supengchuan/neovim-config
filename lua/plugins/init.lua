@@ -56,9 +56,4 @@ return {
     lazy = true,
     cmd = { "DiffviewOpen", "DiffviewClose" },
   },
-  {
-    "noearc/jieba.nvim",
-    dependencies = { "noearc/jieba-lua" },
-    event = "VeryLazy",
-  },
 }

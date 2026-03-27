@@ -1,4 +1,12 @@
 local M = {
+
+  dependencies = {
+    "saecki/crates.nvim",
+    tag = "stable",
+    config = function()
+      require("crates").setup({})
+    end,
+  },
   "mrcjkb/rustaceanvim",
   ft = { "rust" },
   config = function()
@@ -24,7 +32,12 @@ local M = {
         default_settings = {
           ["rust-analyzer"] = {
             completion = {
+              -- 开启 experimental attribute completion
+              snippets = "all",
               fullFunctionSignatures = {
+                enable = true,
+              },
+              derive = {
                 enable = true,
               },
             },

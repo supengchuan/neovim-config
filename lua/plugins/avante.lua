@@ -26,6 +26,7 @@ return {
         position = "left",
         sidebar_header = {
           align = "right", -- left, center, right for title
+          include_model = true, -- fix statup Info popup
         },
       },
       -- 行为配置，确保以 diff 方式生成代码而不是直接修改

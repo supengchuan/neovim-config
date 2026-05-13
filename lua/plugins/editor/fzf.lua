@@ -81,7 +81,15 @@ local M = {
     {
       "<C-]>",
       function()
-        require("fzf-lua").lsp_definitions({ jump1 = true, ignore_current_line = true })
+        for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+          if client:supports_method("textDocument/definition") then
+            vim.lsp.buf.definition({ reuse_win = true })
+            return
+          end
+        end
+
+        local ctrl_right_bracket = vim.api.nvim_replace_termcodes("<C-]>", true, false, true)
+        vim.api.nvim_feedkeys(ctrl_right_bracket, "n", false)
       end,
       desc = "Go to definition",
     },

@@ -47,15 +47,10 @@ function utils.ToggleInlayHints()
 end
 
 function utils.GetColorshemeFromENV()
-  local scheme = "onedark"
-  --local scheme = "kanagawa"
-  local fromENV = os.getenv("NVIM_COLOR")
-  if fromENV ~= nil then
-    scheme = fromENV
-  end
-
-  return scheme
+  return require("config.theme").current()
 end
+
+utils.GetColorschemeFromENV = utils.GetColorshemeFromENV
 
 function utils.Sep()
   if is_windows then

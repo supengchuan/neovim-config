@@ -1,16 +1,41 @@
--- Interface
+-- Shared data shapes used across the picker, catalog, and impl pipeline.
 ---@class InterfaceItem
 ---@field container_name string?
+---@field kind string?
+---@field query string?
+---@field name string?
+---@field generic_parameters string[]?
+---@field import_path string? canonical import path used for display and search
+---@field package_name string? package identifier shown to the user
+---@field source_kind string? workspace | dependency | stdlib
+---@field match_score integer?
 ---@field path string
 ---@field line integer
 ---@field col integer
 
+-- Package metadata used by the package picker and catalog cache.
+---@class PackageItem
+---@field import_path string
+---@field package_name string
+---@field dir string
+---@field source_kind string
+
+-- Detailed interface information parsed from the source file after selection.
 ---@class InterfaceData
 ---@field name string?
 ---@field declaration string?
----@field real_package_name string?
+---@field real_package_name string? actual `package foo` name parsed from the source file
 ---@field generic_parameters string[]?
 
+-- Normalized query state shared by search and fallback logic.
+---@class QueryParts
+---@field raw string
+---@field normalized string
+---@field package_name string?
+---@field interface_name string?
+---@field qualified boolean
+
+-- Struct metadata extracted from the cursor position to build a receiver.
 ---@class StructInfo
 ---@field name string?
 ---@field line_start integer? the struct start at line, the first line is 0

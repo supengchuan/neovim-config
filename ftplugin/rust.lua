@@ -1,0 +1,1 @@
+require("filetypes.rust").setup()

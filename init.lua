@@ -1,7 +1,13 @@
-require("lazy_plugins")
+require("config.options")
+require("config.lazy")
+require("config.diagnostics")
+require("config.autocmds")
+require("config.keymaps")
+require("config.commands")
 
-vim.cmd.colorscheme(require("utils").GetColorshemeFromENV())
-vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
+require("config.theme").setup()
+require("config.theme").apply()
+
 if vim.g.neovide then
-  require("neovide-conf")
+  require("config.neovide")
 end

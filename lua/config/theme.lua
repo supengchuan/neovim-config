@@ -26,6 +26,17 @@ local plugin_by_theme = {
   tokyonight = "tokyonight.nvim",
 }
 
+local function apply_highlight_overrides()
+  vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
+
+  vim.api.nvim_set_hl(0, "Visual", { bg = "#4B5263" })
+  vim.api.nvim_set_hl(0, "VisualNOS", { bg = "#4B5263" })
+
+  vim.api.nvim_set_hl(0, "Cursor", { fg = "#1E222A", bg = "#E5C07B", bold = true })
+  vim.api.nvim_set_hl(0, "lCursor", { fg = "#1E222A", bg = "#E5C07B", bold = true })
+  vim.api.nvim_set_hl(0, "MatchParen", { fg = "#1E222A", bg = "#E5C07B", bold = true })
+end
+
 function M.current()
   return vim.g.nvim_theme or os.getenv("NVIM_COLOR") or M.default
 end
@@ -70,10 +81,16 @@ function M.apply(name)
     end
   end
 
-  vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
+  apply_highlight_overrides()
 end
 
 function M.setup()
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("LocalThemeHighlightOverrides", { clear = true }),
+    callback = apply_highlight_overrides,
+    desc = "Keep local selection highlights readable",
+  })
+
   vim.api.nvim_create_user_command("Theme", function(opts)
     local theme = opts.args ~= "" and opts.args or nil
     if theme then

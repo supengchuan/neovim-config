@@ -22,12 +22,35 @@ local function setup_commands()
   end, { desc = "Run pytest for current python file", force = true })
 end
 
+local function remove_python_type_annotation_reindent()
+  local keys = vim.split(vim.bo.indentkeys, ",", { plain = true, trimempty = true })
+  local filtered = {}
+  local blocked = {
+    [":"] = true,
+    ["<:>"] = true,
+  }
+
+  for _, key in ipairs(keys) do
+    if not blocked[key] then
+      filtered[#filtered + 1] = key
+    end
+  end
+
+  vim.bo.indentkeys = table.concat(filtered, ",")
+end
+
 function M.setup()
   local common = require("filetypes.common")
 
   common.indent(4)
   common.text_width(120)
   setup_commands()
+
+  vim.schedule(function()
+    if vim.bo.filetype == "python" then
+      remove_python_type_annotation_reindent()
+    end
+  end)
 
   vim.keymap.set("n", "<leader>pr", "<cmd>PyRunFile<cr>", { buffer = true, desc = "run python file" })
   vim.keymap.set("n", "<leader>pf", "<cmd>PyTestFile<cr>", { buffer = true, desc = "pytest current file" })

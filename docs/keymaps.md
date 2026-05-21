@@ -2,37 +2,45 @@
 
 > Leader key: `<Space>` / Leader 键是空格。
 
-Last synchronized: 2026-05-13.
-最后同步时间：2026-05-13。
+Last synchronized: 2026-05-15.
+最后同步时间：2026-05-15。
 
-This document follows the current config under `lua/config`, `lua/plugins`, `lua/filetypes`, `ftplugin`, and `snippets`.
-本文档依据当前 `lua/config`、`lua/plugins`、`lua/filetypes`、`ftplugin` 和 `snippets` 中的配置整理。
+This document is based on the keymaps that are actually active in Neovim, including `init.lua`, `lua/config`, active lazy imports under `lua/plugins/{core,ai,coding,editor,lang,tools,ui}`, `lua/filetypes`, `ftplugin`, `after/ftplugin`, and `snippets`.
+本文档依据 Neovim 实际生效的快捷键整理，范围包括 `init.lua`、`lua/config`、当前 lazy 加载的 `lua/plugins/{core,ai,coding,editor,lang,tools,ui}`、`lua/filetypes`、`ftplugin`、`after/ftplugin` 和 `snippets`。
 
-## Design / 设计规则
+Legacy top-level files such as `lua/plugins/fzf.lua` are not counted unless they are imported by `lua/config/lazy.lua`.
+未被 `lua/config/lazy.lua` 导入的旧顶层文件，例如 `lua/plugins/fzf.lua`，不计入本文档。
+
+## Behavior Notes / 行为说明
+
+| Area | 中文说明 | English |
+| --- | --- | --- |
+| Split context | `nvim-treesitter-context` 已启用，但没有直接快捷键；当前使用 `multiwindow = true`、`mode = "topline"`、`max_lines = 3`、`min_window_height = 20`，使左右分屏的顶部上下文互相独立 | `nvim-treesitter-context` is enabled without a direct keymap; it uses `multiwindow = true`, `mode = "topline"`, `max_lines = 3`, and `min_window_height = 20` so split context headers stay independent |
+| Scroll isolation | 滚轮、翻页、半页滚动键会先断开普通编辑窗口的 `scrollbind` / `cursorbind`，再执行 Neovim 原生滚动 | Mouse wheel, page, and half-page scroll keys clear `scrollbind` / `cursorbind` in normal editor windows before native scrolling |
+
+## Prefixes / 前缀
 
 | Prefix | 中文说明 | English |
 | --- | --- | --- |
-| `<leader>b` | 构建、运行、CMake 工程工作流 | Build, run, and CMake project workflow |
-| `<leader>G` | Go 语言工作流 | Go language workflow |
-| `<leader>f` | 查找、搜索、列表 | Find, search, and lists |
-| `<leader>c` | 代码动作、LSP、格式化 | Code actions, LSP, and formatting |
+| `<leader>a` | Avante AI | Avante AI |
+| `<leader>b` | 构建、运行、CMake | Build, run, CMake |
+| `<leader>c` | 代码动作、格式化、LSP | Code actions, formatting, LSP |
 | `<leader>d` | 调试 | Debugging |
-| `<leader>e` | 文件树、文件管理器、项目根目录 | Explorer, file manager, and project roots |
+| `<leader>e` | 文件树、文件管理器、项目根 | Explorer, file manager, project root |
+| `<leader>f` | 查找、搜索、列表 | Find, search, lists |
 | `<leader>g` | Git | Git |
+| `<leader>G` | Go | Go |
 | `<leader>m` | Markdown | Markdown |
 | `<leader>p` | Python | Python |
-| `<leader>r` | Rust 和 Cargo | Rust and Cargo |
+| `<leader>r` | Rust / Cargo / crates.nvim | Rust / Cargo / crates.nvim |
 | `<leader>t` | 终端 | Terminal |
-| `<leader>u` | UI 开关和临时状态 | UI toggles and temporary state |
-
-Removed old mixed top-level mappings such as single-action `<leader>f`, `<leader>s`, `ff`, breakpoint `<leader>b`, `<leader>rn`, `<C-O>`, `[[`, and `]]`. Current language workflows use grouped prefixes such as `<leader>p*`, `<leader>m*`, `<leader>r*`, and `<leader>G*`.
-已经移除旧的混杂顶层快捷键，例如单动作 `<leader>f`、`<leader>s`、`ff`、断点 `<leader>b`、`<leader>rn`、`<C-O>`、`[[`、`]]`。当前语言工作流使用分组前缀，例如 `<leader>p*`、`<leader>m*`、`<leader>r*`、`<leader>G*`。
+| `<leader>u` | UI 和临时状态 | UI and temporary state |
 
 ## General / 通用
 
 | Key | Mode | 中文说明 | English |
 | --- | --- | --- | --- |
-| `<leader>/` | Normal | 打开 which-key 快捷键总览 | Show which-key keymap overview |
+| `<leader>/` | Normal | 打开 which-key 快捷键总览 | Show which-key overview |
 | `<leader>w` | Normal | 保存当前 buffer | Save current buffer |
 | `<leader>q` | Normal | 关闭当前窗口 | Quit current window |
 | `<leader>Q` | Normal | 强制退出所有窗口 | Force quit all windows |
@@ -40,29 +48,38 @@ Removed old mixed top-level mappings such as single-action `<leader>f`, `<leader
 | `<leader>-` | Normal | 当前窗口变窄 | Make current split narrower |
 | `<leader>=` | Normal | 当前窗口变宽 | Make current split wider |
 | `<leader>uc` | Normal | 清空系统剪贴板寄存器 | Clear system clipboard registers |
-| `<leader>uw` | Normal | 切换当前窗口自动折行 | Toggle line wrap for current window |
-| `[q` | Normal | 跳到上一条 quickfix 项 | Previous quickfix item |
-| `]q` | Normal | 跳到下一条 quickfix 项 | Next quickfix item |
+| `<leader>uw` | Normal | 切换当前窗口自动折行；分屏之间互不联动 | Toggle line wrap for current window; split windows stay independent |
+| `<leader>c;` | Normal | 行尾补分号并新建下一行 | Add semicolon and open a new line |
+| `[q` | Normal | 跳到上一条 quickfix 项；quickfix 未打开时提示 | Previous quickfix item; notify if quickfix is closed |
+| `]q` | Normal | 跳到下一条 quickfix 项；quickfix 未打开时提示 | Next quickfix item; notify if quickfix is closed |
+| `gx` | Normal | 用系统程序打开光标下路径或 URL | Open path or URL under cursor with the system handler |
+| `gcc` | Normal | 注释/取消注释当前行 | Toggle comment for current line |
+| `gc{motion}` | Normal / Operator | 注释/取消注释 motion 范围 | Toggle comment for a motion |
+| `gc` | Visual | 注释/取消注释选区 | Toggle comment for selection |
+| `<ScrollWheelUp/Down/Left/Right>` | Normal / Visual | 滚动前断开窗口联动，再执行原生滚动 | Disable window binding before native mouse-wheel scrolling |
+| `<S-ScrollWheelUp/Down>` | Normal / Visual | 横向滚动前断开窗口联动，再执行原生滚动 | Disable window binding before native shifted mouse-wheel scrolling |
+| `<C-y>/<C-e>/<C-u>/<C-d>/<C-b>/<C-f>` | Normal / Visual | 滚动前断开窗口联动，再执行原生滚动 | Disable window binding before native keyboard scrolling |
+| `<PageUp>/<PageDown>` | Normal / Visual | 翻页前断开窗口联动，再执行原生翻页 | Disable window binding before native page scrolling |
 
-Source / 来源: `lua/config/keymaps.lua`, `lua/plugins/editor/which-key.lua`.
+Source / 来源: `lua/config/keymaps.lua`, `lua/plugins/editor/which-key.lua`, Neovim defaults.
 
-## Find / 查找与导航
+## Find And Navigation / 查找与导航
 
 | Key | Mode | 中文说明 | English |
 | --- | --- | --- | --- |
 | `<leader>ff` | Normal | 查找文件 | Find files |
 | `<leader>fb` | Normal | 切换 buffer | Switch buffers |
 | `<leader>fg` | Normal | 全项目 live grep 搜索 | Search project with live grep |
-| `<leader>fg` | Visual | 搜索选中的文本 | Search selected text |
+| `<leader>fg` | Visual | 搜索选中文本 | Search selected text |
 | `<leader>fd` | Normal | 列出 workspace 诊断 | List workspace diagnostics |
-| `<C-]>` | Normal | 跳转到定义 | Go to definition |
-| `gr` | Normal | 查找引用 | Go to references |
-| `gi` | Normal | 查找实现 | Go to implementations |
+| `<C-]>` | Normal | 直接 LSP definition 跳转，并把目标位置靠近窗口顶部；无 LSP 时回退 tag 跳转 | Direct LSP definition jump and place the target near the top; fallback to tag jump without LSP |
+| `gr` | Normal | 用 fzf-lua 查找引用 | Find references with fzf-lua |
+| `gi` | Normal | 用 fzf-lua 查找实现 | Find implementations with fzf-lua |
 | `s` | Normal / Visual / Operator | Flash 快速跳转 | Jump with Flash |
 
 Source / 来源: `lua/plugins/editor/fzf.lua`, `lua/plugins/editor/flash.lua`.
 
-### Inside fzf-lua / fzf-lua 窗口内
+### fzf-lua
 
 | Key | 中文说明 | English |
 | --- | --- | --- |
@@ -74,7 +91,25 @@ Source / 来源: `lua/plugins/editor/fzf.lua`, `lua/plugins/editor/flash.lua`.
 | `<C-b>` | 预览窗口向上翻页 | Scroll preview up |
 | `<F12>` | 切换预览窗口 | Toggle preview |
 
-Source / 来源: `lua/plugins/editor/fzf.lua`.
+## Native LSP Defaults / Neovim LSP 默认键
+
+| Key | Mode | 中文说明 | English |
+| --- | --- | --- | --- |
+| `gra` | Normal / Visual | LSP code action | LSP code action |
+| `grn` | Normal | LSP rename | LSP rename |
+| `grr` | Normal | LSP references | LSP references |
+| `gri` | Normal | LSP implementation | LSP implementation |
+| `grt` | Normal | LSP type definition | LSP type definition |
+| `grx` | Normal | 运行 codelens | Run codelens |
+| `gO` | Normal | 当前 buffer 符号大纲 | Document symbols |
+| `[d` | Normal | 上一个诊断 | Previous diagnostic |
+| `]d` | Normal | 下一个诊断 | Next diagnostic |
+| `[D` | Normal | 当前 buffer 第一个诊断 | First diagnostic in current buffer |
+| `]D` | Normal | 当前 buffer 最后一个诊断 | Last diagnostic in current buffer |
+| `<C-w>d` | Normal | 显示光标处诊断 | Show diagnostics under cursor |
+| `<C-s>` | Insert / Select | LSP signature help | LSP signature help |
+
+Source / 来源: Neovim LSP defaults.
 
 ## Code / 代码动作
 
@@ -85,30 +120,53 @@ Source / 来源: `lua/plugins/editor/fzf.lua`.
 | `<leader>cd` | Normal | 打开当前行诊断浮窗 | Open diagnostic float for current line |
 | `<leader>ch` | Normal | 显示 LSP hover 信息 | Show LSP hover documentation |
 | `<leader>ci` | Normal | 切换 LSP inlay hints | Toggle LSP inlay hints |
-| `<leader>cr` | Normal | LSP 重命名符号 | Rename symbol |
+| `<leader>cr` | Normal | LSP rename | LSP rename |
 | `<leader>co` | Normal | 打开/关闭当前 buffer 符号大纲 | Toggle buffer outline |
-| `<leader>c;` | Normal | 行尾补分号并新建下一行 | Add semicolon if needed and open a new line |
-| `;;` | Normal / Insert, C/C++/Rust buffer | 行尾补分号并新建下一行 | Add semicolon if needed and open a new line |
 | `<leader>cg` | Normal, Go buffer | 选择 Go interface 并生成实现 | Pick a Go interface and generate implementation |
 | `<leader>cH` | Normal, C/C++ buffer | 在源文件和头文件之间切换 | Switch between source and header |
 | `<leader>cS` | Normal, C/C++ buffer | 显示 clangd 符号信息 | Show clangd symbol info |
+| `;;` | Normal / Insert, C/C++/Rust buffer | 行尾补分号并新建下一行 | Add semicolon and open a new line |
 
-Source / 来源: `lua/config/keymaps.lua`, `lua/config/autocmds.lua`, `lua/plugins/coding/conform.lua`, `lua/plugins/editor/aerial.lua`, `lua/plugins/editor/which-key.lua`, `lua/plugins/lang/go-impl.lua`, `lua/filetypes/c_family.lua`.
+Source / 来源: `lua/plugins/coding/conform.lua`, `lua/plugins/editor/aerial.lua`, `lua/plugins/editor/which-key.lua`, `lua/plugins/lang/go-impl.lua`, `lua/filetypes/c_family.lua`, `lua/config/autocmds.lua`.
 
-## Build and CMake / 构建与 CMake
+## AI / Avante
+
+| Key | Mode | 中文说明 | English |
+| --- | --- | --- | --- |
+| `<leader>aa` | Normal / Visual / Select | Avante ask | Avante ask |
+| `<leader>an` | Normal / Visual / Select | 新建 Avante ask | Create new Avante ask |
+| `<leader>ae` | Visual / Select | 编辑选区 | Edit selected range |
+| `<leader>az` | Normal / Visual / Select | 切换 Avante Zen Mode | Toggle Avante Zen Mode |
+| `<leader>at` | Normal | 打开/关闭 Avante 面板 | Toggle Avante panel |
+| `<leader>ar` | Normal | 刷新 Avante | Refresh Avante |
+| `<leader>af` | Normal | 聚焦 Avante | Focus Avante |
+| `<leader>aS` | Normal | 停止当前 Avante 请求 | Stop current Avante request |
+| `<leader>ad` | Normal | 切换 Avante debug | Toggle Avante debug |
+| `<leader>aC` | Normal | 切换 selection | Toggle selection |
+| `<leader>as` | Normal | 切换 suggestion | Toggle suggestion |
+| `<leader>aR` | Normal | 显示 repo map | Display repo map |
+| `<leader>a?` | Normal | 选择模型 | Select model |
+| `<leader>ah` | Normal | 选择历史 | Select history |
+| `<leader>aM` | Normal | 选择 ACP model | Select ACP model |
+| `<leader>am` | Normal | 选择 ACP mode | Select ACP mode |
+| `<leader>aB` | Normal | 添加所有已打开 buffer | Add all open buffers |
+
+Source / 来源: `lua/plugins/ai/avante.lua`, `avante.nvim` defaults.
+
+## Build And CMake / 构建与 CMake
 
 | Key | Mode | 中文说明 | English |
 | --- | --- | --- | --- |
 | `<leader>bg` | Normal | CMake generate / configure | CMake generate / configure |
 | `<leader>bb` | Normal | 构建选中的 CMake target | Build selected CMake target |
-| `<leader>bf` | Normal | 构建当前文件关联的 target | Build target related to current file |
+| `<leader>bf` | Normal | 构建当前文件关联 target | Build target related to current file |
 | `<leader>br` | Normal | 运行选中的可执行 target | Run selected executable target |
-| `<leader>bR` | Normal | 运行当前文件关联的 target | Run target related to current file |
+| `<leader>bR` | Normal | 运行当前文件关联 target | Run target related to current file |
 | `<leader>bd` | Normal | 调试选中的可执行 target | Debug selected executable target |
-| `<leader>bD` | Normal | 调试当前文件关联的 target | Debug target related to current file |
+| `<leader>bD` | Normal | 调试当前文件关联 target | Debug target related to current file |
 | `<leader>bt` | Normal | 运行 CTest 测试 | Run CTest tests |
 | `<leader>bc` | Normal | 清理 CMake 构建产物 | Clean CMake build artifacts |
-| `<leader>bB` | Normal | 选择构建类型，如 Debug/Release | Select build type, such as Debug/Release |
+| `<leader>bB` | Normal | 选择构建类型 | Select build type |
 | `<leader>bT` | Normal | 选择 build target | Select build target |
 | `<leader>bL` | Normal | 选择 launch target | Select launch target |
 | `<leader>bp` | Normal | 选择 configure preset | Select configure preset |
@@ -117,11 +175,11 @@ Source / 来源: `lua/config/keymaps.lua`, `lua/config/autocmds.lua`, `lua/plugi
 | `<leader>bs` | Normal | 打开 CMake settings | Open CMake settings |
 | `<leader>bo` | Normal | 打开 CMake executor 窗口 | Open CMake executor window |
 | `<leader>bO` | Normal | 打开 CMake runner 窗口 | Open CMake runner window |
-| `<leader>bx` | Normal | 停止正在运行的 CMake 任务 | Stop running CMake jobs |
+| `<leader>bx` | Normal | 停止 CMake 任务 | Stop CMake jobs |
 
 Source / 来源: `lua/plugins/tools/cmake.lua`.
 
-## Windows, Explorer, and Terminal / 窗口、文件与终端
+## Windows, Explorer, Terminal / 窗口、文件、终端
 
 | Key | Mode / Context | 中文说明 | English |
 | --- | --- | --- | --- |
@@ -129,20 +187,21 @@ Source / 来源: `lua/plugins/tools/cmake.lua`.
 | `<C-j>` | Normal | 跳到下方 nvim/tmux pane | Move to lower nvim/tmux pane |
 | `<C-k>` | Normal | 跳到上方 nvim/tmux pane | Move to upper nvim/tmux pane |
 | `<C-l>` | Normal | 跳到右侧 nvim/tmux pane | Move to right nvim/tmux pane |
-| `<C-\>` | Normal, after plugin setup | 跳回上一个活跃 nvim/tmux pane | Move to last active nvim/tmux pane |
-| `<C-Space>` | Normal, after plugin setup | 跳到下一个 nvim/tmux pane | Move to next nvim/tmux pane |
+| `<C-\>` | Normal, tmux-navigation | 跳回上一个活跃 pane | Move to last active pane |
+| `<C-Space>` | Normal, tmux-navigation | 跳到下一个 pane | Move to next pane |
 | `<leader><Tab>` | Normal | 用 window-picker 选择窗口 | Pick a window |
 | `<leader>M` | Normal | 启动 WinShift 移动窗口 | Move windows with WinShift |
 | `<C-n>` | Normal | 打开/关闭 Neo-tree | Toggle Neo-tree |
-| `<leader>ee` | Normal | 打开/关闭 Neo-tree 文件树 | Toggle Neo-tree file tree |
+| `<leader>ee` | Normal | 打开/关闭 Neo-tree | Toggle Neo-tree |
 | `<leader>eo` | Normal | 打开/关闭 Oil 浮动文件管理器 | Toggle Oil floating file manager |
-| `<leader>eg` | Normal, Go buffer | 将 Neo-tree 根目录切到 Go 项目根目录 | Set Neo-tree root to Go project root |
+| `<leader>eg` | Normal, Go/gomod/gowork buffer | 将 Neo-tree 根目录切到 Go 项目根 | Set Neo-tree root to Go project root |
 | `<leader>tt` | Normal | 打开/关闭 Snacks terminal | Toggle Snacks terminal |
+| `<leader>th` | Normal | 在底部水平分屏打开/关闭 Snacks terminal | Toggle Snacks terminal in a bottom horizontal split |
 | `<Esc>` | Snacks terminal | 隐藏 terminal | Hide terminal |
 
 Source / 来源: `lua/plugins/editor/tmux-navigation.lua`, `lua/plugins/editor/window-picker.lua`, `lua/plugins/core.lua`, `lua/plugins/editor/neo-tree.lua`, `lua/plugins/editor/oil.lua`, `lua/filetypes/go.lua`, `lua/plugins/ui/snacks.lua`.
 
-### Inside Neo-tree / Neo-tree 窗口内
+### Neo-tree
 
 | Key | 中文说明 | English |
 | --- | --- | --- |
@@ -151,12 +210,12 @@ Source / 来源: `lua/plugins/editor/tmux-navigation.lua`, `lua/plugins/editor/w
 | `Y` | 复制文件路径到系统剪贴板 | Copy file path to system clipboard |
 | `O` | 用系统应用打开 | Open with system app |
 | `P` | 切换预览 | Toggle preview |
-| `<C-v>` | 用窗口选择器垂直分屏打开 | Open in vertical split with window picker |
-| `<Space>` | 禁用，避免误触 | Disabled to avoid accidental actions |
+| `<C-v>` | 用窗口选择器垂直分屏打开，并保持两侧滚动独立 | Open in vertical split with window picker, keeping both sides independently scrollable |
+| `<Space>` | 禁用 | Disabled |
 
 Source / 来源: `lua/plugins/editor/neo-tree.lua`.
 
-### Inside Oil / Oil 窗口内
+### Oil
 
 | Key | 中文说明 | English |
 | --- | --- | --- |
@@ -174,10 +233,10 @@ Source / 来源: `lua/plugins/editor/oil.lua`.
 | --- | --- | --- | --- |
 | `<leader>gg` | Normal | 打开/关闭 lazygit | Toggle lazygit |
 | `<leader>gb` | Normal | 查看当前行 blame | Show blame for current line |
-| `<leader>gr` | Normal | 重置当前 hunk | Reset current hunk |
+| `<leader>gr` | Normal | reset 当前 hunk | Reset current hunk |
 | `<leader>gs` | Normal | stage 当前 hunk | Stage current hunk |
-| `[g` | Normal | 跳到上一个 Git hunk | Jump to previous Git hunk |
-| `]g` | Normal | 跳到下一个 Git hunk | Jump to next Git hunk |
+| `[g` | Normal | 上一个 Git hunk | Previous Git hunk |
+| `]g` | Normal | 下一个 Git hunk | Next Git hunk |
 
 Source / 来源: `lua/plugins/ui/snacks.lua`, `lua/plugins/tools/gitsigns.lua`.
 
@@ -207,26 +266,26 @@ Source / 来源: `lua/plugins/tools/dap.lua`.
 | `<leader>Gf` | Normal, Go buffer | 运行当前文件测试 | Run tests for current file |
 | `<leader>Gn` | Normal, Go buffer | 运行光标附近测试函数 | Run nearest test function |
 | `<leader>Gp` | Normal, Go buffer | 运行当前 package 测试 | Run current package tests |
-| `<leader>Gc` | Normal, Go buffer | 运行当前 package 覆盖率 | Run package coverage |
+| `<leader>Gc` | Normal, Go buffer | 当前 package 覆盖率 | Package test coverage |
 | `<leader>Gd` | Normal, Go buffer | 启动 Go 调试 | Start Go debugger |
 | `<leader>GD` | Normal, Go buffer | 调试光标附近测试 | Debug nearest Go test |
-| `<leader>Ga` | Normal, Go buffer | 在实现文件和测试文件之间切换 | Switch implementation/test file |
+| `<leader>Ga` | Normal, Go buffer | 在实现文件和测试文件间切换 | Switch implementation/test file |
 | `<leader>Gv` | Normal, Go buffer | 垂直分屏打开对应实现/测试文件 | Open alternate file in vertical split |
-| `<leader>Gh` | Normal, Go buffer | 查看 Go 文档浮窗 | Show Go documentation |
+| `<leader>Gh` | Normal, Go buffer | 查看 Go 文档 | Show Go documentation |
 | `<leader>Gm` | Normal, Go/gomod buffer | 执行 go mod tidy | Run go mod tidy |
 | `<leader>Gw` | Normal, gowork buffer | 执行 go work sync | Run go work sync |
-| `<leader>Gi` | Normal, Go buffer | 使用自定义 interface 实现选择器 | Use custom interface implementation picker |
-| `<leader>GI` | Normal, Go buffer | 调用 go.nvim 的 GoImpl | Run go.nvim GoImpl |
-| `<leader>Ge` | Normal, Go buffer | 插入 if err 处理 | Insert if err block |
+| `<leader>Gi` | Normal, Go buffer | 自定义 interface 实现选择器 | Custom interface implementation picker |
+| `<leader>GI` | Normal, Go buffer | go.nvim GoImpl | go.nvim GoImpl |
+| `<leader>Ge` | Normal, Go buffer | 插入 if err | Insert if err block |
 | `<leader>Gs` | Normal, Go buffer | 填充 struct 字段 | Fill struct fields |
 | `<leader>Gj` | Normal, Go buffer | 添加 json struct tag | Add json struct tags |
 | `<leader>GJ` | Normal, Go buffer | 删除 json struct tag | Remove json struct tags |
 | `<leader>Gl` | Normal, Go buffer | 运行 golangci-lint | Run golangci-lint |
 | `<leader>Gg` | Normal, Go buffer | 执行 go generate | Run go generate |
-| `:GoMethodList` | Command, Go buffer | 列出当前 struct 的方法 | List methods for current struct |
-| `:Impl` | Command, Go buffer | 使用自定义 GoImpl 流程生成 interface 实现 | Generate interface implementation with custom GoImpl flow |
+| `:GoMethodList` | Command, Go buffer | 列出当前 struct 方法 | List methods for current struct |
+| `:Impl` | Command, Go buffer | 自定义 Go interface 实现流程 | Custom Go interface implementation flow |
 
-Source / 来源: `lua/filetypes/go.lua`, `lua/plugins/lang/go.lua`, `lua/plugins/tools/dap.lua`, `lua/modules/goimpl`.
+Source / 来源: `lua/filetypes/go.lua`, `lua/plugins/lang/go.lua`, `lua/plugins/lang/go-impl.lua`.
 
 ## Python / Python
 
@@ -239,24 +298,24 @@ Source / 来源: `lua/filetypes/go.lua`, `lua/plugins/lang/go.lua`, `lua/plugins
 | `<leader>pv` | Normal, Python buffer | 选择 Python virtualenv | Select Python virtualenv |
 | `<leader>pc` | Normal, Python buffer | 使用缓存的 Python virtualenv | Reuse cached Python virtualenv |
 | `:PyRunFile` | Command, Python buffer | 运行当前 Python 文件 | Run current Python file |
-| `:PyTestFile` | Command, Python buffer | 对当前 Python 文件运行 pytest | Run pytest for current Python file |
+| `:PyTestFile` | Command, Python buffer | 对当前文件运行 pytest | Run pytest for current Python file |
 
 Source / 来源: `lua/filetypes/python.lua`, `lua/plugins/lang/python.lua`.
 
-## Rust and Cargo / Rust 与 Cargo
+## Rust And Cargo / Rust 与 Cargo
 
 | Key / Command | Mode | 中文说明 | English |
 | --- | --- | --- | --- |
-| `<leader>rb` | Normal, Rust buffer | 执行 cargo build | Run cargo build |
-| `<leader>rc` | Normal, Rust buffer | 执行 cargo check | Run cargo check |
-| `<leader>rC` | Normal, Rust buffer | 执行 cargo clippy --all-targets --all-features | Run cargo clippy --all-targets --all-features |
-| `<leader>rr` | Normal, Rust buffer | 执行 cargo run | Run cargo run |
-| `<leader>rt` | Normal, Rust buffer | 执行 cargo test | Run cargo test |
-| `<leader>rR` | Normal, Rust buffer | 选择 rust-analyzer runnable | Select rust-analyzer runnable |
-| `<leader>rT` | Normal, Rust buffer | 选择 rust-analyzer testable | Select rust-analyzer testable |
-| `<leader>rd` | Normal, Rust buffer | 调试光标所在 runnable | Debug runnable at cursor |
+| `<leader>rb` | Normal, Rust buffer | cargo build | cargo build |
+| `<leader>rc` | Normal, Rust buffer | cargo check | cargo check |
+| `<leader>rC` | Normal, Rust buffer | cargo clippy --all-targets --all-features | cargo clippy --all-targets --all-features |
+| `<leader>rr` | Normal, Rust buffer | cargo run | cargo run |
+| `<leader>rt` | Normal, Rust buffer | cargo test | cargo test |
+| `<leader>rR` | Normal, Rust buffer | rust-analyzer runnables | rust-analyzer runnables |
+| `<leader>rT` | Normal, Rust buffer | rust-analyzer testables | rust-analyzer testables |
+| `<leader>rd` | Normal, Rust buffer | 调试光标所在目标 | Debug target at cursor |
 | `<leader>rD` | Normal, Rust buffer | 选择可调试目标 | Select debuggable target |
-| `<leader>ra` | Normal, Rust buffer | Rust 分组 code action | Rust grouped code action |
+| `<leader>ra` | Normal, Rust buffer | Rust code action | Rust code action |
 | `<leader>rh` | Normal, Rust buffer | Rust hover actions | Rust hover actions |
 | `<leader>re` | Normal, Rust buffer | 解释当前 Rust 错误 | Explain current Rust error |
 | `<leader>rE` | Normal, Rust buffer | 渲染当前 Rust 诊断 | Render current Rust diagnostic |
@@ -278,76 +337,76 @@ Source / 来源: `lua/filetypes/python.lua`, `lua/plugins/lang/python.lua`.
 | `<leader>rH` | Normal, Cargo.toml | 打开 crate homepage | Open crate homepage |
 | `<leader>rO` | Normal, Cargo.toml | 打开 crate repository | Open crate repository |
 | `<leader>rW` | Normal, Cargo.toml | 打开 crates.io 页面 | Open crates.io page |
-| `:RustCargoBuild` | Command, Rust buffer | 执行 cargo build，可追加参数 | Run cargo build with optional args |
-| `:RustCargoCheck` | Command, Rust buffer | 执行 cargo check，可追加参数 | Run cargo check with optional args |
-| `:RustCargoClippy` | Command, Rust buffer | 执行 cargo clippy，可追加参数 | Run cargo clippy with optional args |
-| `:RustCargoRun` | Command, Rust buffer | 执行 cargo run，可追加参数 | Run cargo run with optional args |
-| `:RustCargoTest` | Command, Rust buffer | 执行 cargo test，可追加参数 | Run cargo test with optional args |
+| `:RustCargoBuild` | Command, Rust buffer | cargo build，可追加参数 | cargo build with optional args |
+| `:RustCargoCheck` | Command, Rust buffer | cargo check，可追加参数 | cargo check with optional args |
+| `:RustCargoClippy` | Command, Rust buffer | cargo clippy，可追加参数 | cargo clippy with optional args |
+| `:RustCargoRun` | Command, Rust buffer | cargo run，可追加参数 | cargo run with optional args |
+| `:RustCargoTest` | Command, Rust buffer | cargo test，可追加参数 | cargo test with optional args |
 
-Source / 来源: `lua/filetypes/rust.lua`, `lua/filetypes/toml.lua`, `lua/plugins/lang/rust.lua`, `lua/plugins/tools/dap.lua`.
+Note / 说明: `<leader>ra` depends on context. In Rust source files it is rust-analyzer code action; in `Cargo.toml` it updates all crates.
+`<leader>ra` 依赖上下文。在 Rust 源码文件中是 rust-analyzer code action；在 `Cargo.toml` 中是更新所有 crates。
 
-Note / 说明: `<leader>ra` is context-specific. In Rust source files it opens rust-analyzer code actions; in `Cargo.toml` it updates all crates.
-`<leader>ra` 是上下文相关快捷键。在 Rust 源码文件中是 rust-analyzer code action；在 `Cargo.toml` 中是更新所有 crates。
+Source / 来源: `lua/filetypes/rust.lua`, `lua/filetypes/toml.lua`, `lua/plugins/lang/rust.lua`.
 
-## Other Languages / 其他语言
-
-| Key / Command | Mode | 中文说明 | English |
-| --- | --- | --- | --- |
-| `:LspClangdSwitchSourceHeader` | Command, C/C++ buffer | 在源文件和头文件之间切换 | Switch between source and header |
-| `:LspClangdShowSymbolInfo` | Command, C/C++ buffer | 显示 clangd 符号信息 | Show clangd symbol info |
-
-Source / 来源: `lua/config/autocmds.lua`, `lua/filetypes/c_family.lua`.
-
-## Markdown / Markdown
+## Markdown And Text / Markdown 与文本
 
 | Key | Mode | 中文说明 | English |
 | --- | --- | --- | --- |
-| `j` | Normal, Markdown/TeX/CodeCompanion buffer | 在自动折行文本中按视觉行向下移动 | Move down by visual line when wrapped |
-| `k` | Normal, Markdown/TeX/CodeCompanion buffer | 在自动折行文本中按视觉行向上移动 | Move up by visual line when wrapped |
+| `j` | Normal, Markdown/TeX/CodeCompanion buffer | 当前窗口开启 wrap 时按视觉行向下移动，否则保持普通 `j` | Move down by visual line only when the current window has wrap enabled; otherwise normal `j` |
+| `k` | Normal, Markdown/TeX/CodeCompanion buffer | 当前窗口开启 wrap 时按视觉行向上移动，否则保持普通 `k` | Move up by visual line only when the current window has wrap enabled; otherwise normal `k` |
 | `<leader>mr` | Normal, Markdown buffer | 切换 Markdown 内联渲染 | Toggle inline Markdown rendering |
-| `<leader>mp` | Normal, Markdown buffer | 打开 render-markdown 侧边预览 | Open render-markdown side preview |
+| `<leader>mp` | Normal, Markdown buffer | render-markdown 预览 | render-markdown preview |
 | `<leader>mP` | Normal, Markdown buffer | 切换浏览器 Markdown 预览 | Toggle browser Markdown preview |
+| `[[` | Normal, Markdown buffer | 上一个 section | Previous section |
+| `]]` | Normal, Markdown buffer | 下一个 section | Next section |
+| `gO` | Normal, Markdown buffer | 当前 buffer outline | Current buffer outline |
 
-Source / 来源: `lua/config/autocmds.lua`, `lua/plugins/lang/markdown.lua`.
+Source / 来源: `lua/config/autocmds.lua`, `lua/plugins/lang/markdown.lua`, Neovim markdown defaults.
 
-## Completion and Snippets / 补全与代码片段
+## Completion And Snippets / 补全与代码片段
 
 | Key | Mode | 中文说明 | English |
 | --- | --- | --- | --- |
-| `<Tab>` | Insert / Completion | 接受当前补全项；snippet 激活时接受 snippet | Accept completion item; accept active snippet |
 | `<CR>` | Insert / Completion | 接受当前补全项，来自 blink.cmp `enter` preset | Accept selected completion item from blink.cmp `enter` preset |
+| `<Tab>` | Insert / Completion | 接受当前补全项；snippet 激活时接受 snippet | Accept completion item; accept active snippet |
 | `<Tab>` | Cmdline completion | 选择并接受命令行补全 | Select and accept command-line completion |
-| `<C-k>` | Insert / Select | 展开 snippet 或跳到下一个占位符 | Expand snippet or jump to next placeholder |
-| `<C-j>` | Insert / Select | 跳到上一个 snippet 占位符 | Jump to previous snippet placeholder |
-| `<C-l>` | Insert / Select | 切换 snippet choice node | Cycle snippet choice node |
+| `<C-k>` | Insert / Select | LuaSnip 展开或跳到下一个占位符 | LuaSnip expand or jump to next placeholder |
+| `<C-j>` | Insert / Select | LuaSnip 跳到上一个占位符 | LuaSnip jump to previous placeholder |
+| `<C-l>` | Insert / Select | LuaSnip 切换 choice node | LuaSnip cycle choice node |
 
 Source / 来源: `lua/plugins/coding/blinkcmp.lua`, `lua/plugins/coding/luasnip.lua`.
 
-## Surround Defaults / nvim-surround 默认实用键
-
-These are plugin defaults from `kylechui/nvim-surround` with `opts = {}`.
-这些来自 `nvim-surround` 默认配置，当前工程未覆盖它们。
+## Textobjects And Surround / 文本对象与包围符
 
 | Key | Mode | 中文说明 | English |
 | --- | --- | --- | --- |
+| `an` | Visual / Operator | 选择父级 Treesitter node | Select parent Treesitter node |
+| `in` | Visual / Operator | 选择子级 Treesitter node | Select child Treesitter node |
+| `[n` | Visual | 选择上一个 Treesitter node | Select previous Treesitter node |
+| `]n` | Visual | 选择下一个 Treesitter node | Select next Treesitter node |
 | `ys{motion}{char}` | Normal | 给 motion 范围添加包围符 | Add surrounding pair to a motion |
 | `yss{char}` | Normal | 给整行添加包围符 | Add surrounding pair to the whole line |
 | `S{char}` | Visual | 给选区添加包围符 | Surround visual selection |
 | `ds{char}` | Normal | 删除包围符 | Delete surrounding pair |
 | `cs{old}{new}` | Normal | 修改包围符 | Change surrounding pair |
 
-Example / 示例: `ysiw"` wraps inner word with quotes; `cs"'` changes double quotes to single quotes.
+Source / 来源: Neovim defaults, `kylechui/nvim-surround`.
 
-## Useful Commands Without Direct Keys / 无直接快捷键但常用的命令
+## Useful Commands / 常用命令
 
 | Command | 中文说明 | English |
 | --- | --- | --- |
-| `:Theme {name}` | 切换主题，如 `:Theme catppuccin` | Switch colorscheme, e.g. `:Theme catppuccin` |
+| `:Theme {name}` | 切换主题，例如 `:Theme catppuccin` | Switch colorscheme, e.g. `:Theme catppuccin` |
 | `:Format` | 使用 Conform 格式化当前文件或选区 | Format current file or selected range |
 | `:ClearX` | 清空系统剪贴板寄存器 | Clear system clipboard registers |
 | `:CWD` | 将 cwd 切到当前文件目录 | Set cwd to current file directory |
 | `:FoldEnable` | 启用 Treesitter fold | Enable Treesitter folding |
+| `:TSContext enable / disable / toggle` | 开启、关闭或切换 Treesitter 顶部上下文 | Enable, disable, or toggle Treesitter sticky context |
 | `:DefSplit` | 在垂直分屏中打开定义 | Open definition in vertical split |
+| `:RunLab` | 打开当前实验性 Go interface 实现流程 | Open the current experimental Go interface implementation flow |
+| `:WinNoBind` | 断开当前 tab 中普通窗口的滚动/光标联动 | Disable scroll/cursor binding for normal windows in the current tab |
+| `:WinBindStatus` | 查看当前 tab 各窗口的滚动/光标联动状态 | Show scroll/cursor binding status for windows in the current tab |
+| `:PythonLspInfo` | 查看当前 Python buffer 的 Pyright/Ruff 根目录、venv、extraPaths 和诊断模式 | Show Pyright/Ruff root, venv, extraPaths, and diagnostic mode for the current Python buffer |
 | `:UnescapeJSON` | 反转义当前行 JSON 字符串 | Unescape JSON string on current line |
 | `:QuoteJSON` | 将当前行转成 JSON 字符串 | Quote current line as JSON string |
 | `:MarkdownPreview` | 打开 Markdown 预览 | Open Markdown preview |
@@ -362,14 +421,14 @@ Example / 示例: `ysiw"` wraps inner word with quotes; `cs"'` changes double qu
 | `:CodeCompanion` | 执行 CodeCompanion inline/chat 操作 | Run a CodeCompanion inline/chat action |
 | `:CodeCompanionCmd` | 执行 CodeCompanion 命令策略 | Run CodeCompanion command strategy |
 
-Source / 来源: `lua/config/commands.lua`, `lua/config/theme.lua`, `lua/plugins/lang/markdown.lua`, `lua/plugins/core.lua`, `lua/plugins/tools/cmake.lua`, `lua/plugins/ai/codecompanion.lua`.
+Source / 来源: `lua/config/commands.lua`, `lua/config/theme.lua`, `lua/plugins/coding/treesitter.lua`, `lua/plugins/lang/markdown.lua`, `lua/plugins/core.lua`, `lua/plugins/tools/cmake.lua`, `lua/plugins/ai/codecompanion.lua`.
 
 ## Markdown Snippets / Markdown 代码片段
 
 | Trigger | 中文说明 | English |
 | --- | --- | --- |
 | `d` | 插入 DANGER callout | Insert DANGER callout |
-| `s` | 插入 SUMMARY / SUCCESS callout；当前配置有重复 trigger，建议后续拆开 | Insert SUMMARY / SUCCESS callout; duplicate trigger exists |
+| `s` | 插入 SUMMARY / SUCCESS callout；当前配置有重复 trigger | Insert SUMMARY / SUCCESS callout; duplicate trigger exists |
 | `tl` | 插入 TLDR callout | Insert TLDR callout |
 | `e` | 插入 ERROR callout | Insert ERROR callout |
 | `q` | 插入 QUESTION callout | Insert QUESTION callout |

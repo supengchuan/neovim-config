@@ -55,3 +55,33 @@ end, { silent = true, desc = "next quickfix item" })
 vim.keymap.set("n", "[q", function()
   choose_quickfix(false)
 end, { silent = true, desc = "previous quickfix item" })
+
+local function isolated_scroll(keys)
+  return function()
+    require("utils").IsolateEditorWindows()
+    return keys
+  end
+end
+
+for _, keys in ipairs({
+  "<ScrollWheelUp>",
+  "<ScrollWheelDown>",
+  "<ScrollWheelLeft>",
+  "<ScrollWheelRight>",
+  "<S-ScrollWheelUp>",
+  "<S-ScrollWheelDown>",
+  "<C-y>",
+  "<C-e>",
+  "<C-u>",
+  "<C-d>",
+  "<C-b>",
+  "<C-f>",
+  "<PageUp>",
+  "<PageDown>",
+}) do
+  vim.keymap.set({ "n", "x" }, keys, isolated_scroll(keys), {
+    expr = true,
+    silent = true,
+    desc = "Scroll without binding other windows",
+  })
+end

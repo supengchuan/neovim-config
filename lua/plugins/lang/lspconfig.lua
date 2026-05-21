@@ -1,3 +1,120 @@
+local python_root_markers = {
+  "pyrightconfig.json",
+  "pyproject.toml",
+  "setup.py",
+  "setup.cfg",
+  "requirements.txt",
+  "Pipfile",
+  "uv.lock",
+  "poetry.lock",
+  ".venv",
+  ".git",
+}
+
+local python_venv_dirs = { ".venv", "venv", ".env" }
+local python_extra_dirs = { "src", "tests" }
+local python_analysis_exclude = {
+  "**/.git",
+  "**/.venv",
+  "**/venv",
+  "**/.env",
+  "**/__pycache__",
+  "**/.pytest_cache",
+  "**/.ruff_cache",
+  "**/*.egg-info",
+}
+
+local function append_unique(target, values)
+  local result = {}
+  local seen = {}
+
+  for _, value in ipairs(target or {}) do
+    if value ~= nil and value ~= "" and not seen[value] then
+      seen[value] = true
+      table.insert(result, value)
+    end
+  end
+
+  for _, value in ipairs(values or {}) do
+    if value ~= nil and value ~= "" and not seen[value] then
+      seen[value] = true
+      table.insert(result, value)
+    end
+  end
+
+  return result
+end
+
+local function is_dir(path)
+  local stat = path and vim.uv.fs_stat(path)
+  return stat and stat.type == "directory"
+end
+
+local function find_project_python(root_dir)
+  if not root_dir or root_dir == "" then
+    return nil
+  end
+
+  for _, venv_name in ipairs(python_venv_dirs) do
+    local venv_dir = vim.fs.joinpath(root_dir, venv_name)
+    for _, executable in ipairs({ "bin/python", "bin/python3", "Scripts/python.exe" }) do
+      local python = vim.fs.joinpath(venv_dir, executable)
+      if vim.fn.executable(python) == 1 then
+        return python, venv_dir
+      end
+    end
+  end
+
+  return nil
+end
+
+local function find_python_extra_paths(root_dir)
+  local paths = {}
+  if not root_dir or root_dir == "" then
+    return paths
+  end
+
+  for _, dir_name in ipairs(python_extra_dirs) do
+    local path = vim.fs.joinpath(root_dir, dir_name)
+    if is_dir(path) then
+      table.insert(paths, path)
+    end
+  end
+
+  return paths
+end
+
+local function root_uri_to_path(root_uri)
+  if type(root_uri) == "string" then
+    local ok, path = pcall(vim.uri_to_fname, root_uri)
+    return ok and path or nil
+  end
+
+  return nil
+end
+
+local function configure_pyright_environment(params, config)
+  local root_dir = config.root_dir
+    or root_uri_to_path(params.rootUri)
+    or vim.fs.root(0, python_root_markers)
+    or vim.fn.getcwd()
+  local python, venv_dir = find_project_python(root_dir)
+
+  config.settings = config.settings or {}
+  config.settings.python = config.settings.python or {}
+  config.settings.python.analysis = config.settings.python.analysis or {}
+
+  local analysis = config.settings.python.analysis
+  analysis.extraPaths = append_unique(analysis.extraPaths, find_python_extra_paths(root_dir))
+  analysis.exclude = append_unique(analysis.exclude, python_analysis_exclude)
+
+  if python and venv_dir then
+    config.settings.python.pythonPath = python
+    config.settings.python.venv = vim.fn.fnamemodify(venv_dir, ":t")
+    config.settings.python.venvPath = vim.fn.fnamemodify(venv_dir, ":h")
+  end
+end
+
 local servers = {
   vtsls = {
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
@@ -32,11 +149,18 @@ local servers = {
   bashls = {},
   protols = {},
   pyright = {
+    root_markers = python_root_markers,
+    before_init = configure_pyright_environment,
     settings = {
       python = {
         analysis = {
           autoImportCompletions = true,
           diagnosticMode = "workspace",
+          diagnosticSeverityOverrides = {
+            reportArgumentType = "warning",
+            reportCallIssue = "warning",
+            reportPrivateImportUsage = "none",
+          },
           typeCheckingMode = "basic",
           useLibraryCodeForTypes = true,
         },
@@ -245,6 +369,9 @@ local M = {
 
     local capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
     capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.workspace = capabilities.workspace or {}
+    capabilities.workspace.didChangeWatchedFiles = capabilities.workspace.didChangeWatchedFiles or {}
+    capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
     for server_name, server in pairs(servers) do
       server = server or {}

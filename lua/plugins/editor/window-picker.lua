@@ -14,9 +14,28 @@ local M = {
       -- used
       hint = "floating-big-letter",
       filter_rules = {
+        autoselect_one = true,
+        include_current_win = false,
+        include_unfocusable_windows = false,
         bo = {
-          filetype = { "oil", "notify", "snacks_notif" },
-          buftype = {},
+          filetype = {
+            "neo-tree",
+            "neo-tree-popup",
+            "notify",
+            "snacks_notif",
+            "oil",
+            "Trouble",
+            "trouble",
+            "qf",
+            "Outline",
+          },
+          buftype = {
+            "help",
+            "nofile",
+            "prompt",
+            "quickfix",
+            "terminal",
+          },
         },
       },
     })

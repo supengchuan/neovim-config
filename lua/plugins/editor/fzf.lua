@@ -1,3 +1,71 @@
+local function reveal_cursor_near_top()
+  vim.cmd("normal! zv")
+
+  local win = vim.api.nvim_get_current_win()
+  local cursor = vim.api.nvim_win_get_cursor(win)
+  local view = vim.fn.winsaveview()
+  local scrolloff = math.min(vim.wo[win].scrolloff, 3)
+
+  vim.wo[win].scrolloff = scrolloff
+  view.topline = math.max(cursor[1] - scrolloff, 1)
+  vim.fn.winrestview(view)
+end
+
+local function jump_to_location_item(item)
+  local from = vim.fn.getpos(".")
+  from[1] = vim.api.nvim_get_current_buf()
+
+  vim.cmd("normal! m'")
+  vim.fn.settagstack(vim.fn.win_getid(), {
+    items = {
+      {
+        tagname = vim.fn.expand("<cword>"),
+        from = from,
+      },
+    },
+  }, "t")
+
+  local bufnr = item.bufnr or vim.fn.bufadd(item.filename)
+  vim.bo[bufnr].buflisted = true
+
+  local win = vim.api.nvim_get_current_win()
+  if vim.api.nvim_win_get_buf(win) ~= bufnr then
+    local existing_win = vim.fn.bufwinid(bufnr)
+    if existing_win >= 0 then
+      win = existing_win
+      vim.api.nvim_set_current_win(win)
+    else
+      vim.api.nvim_win_set_buf(win, bufnr)
+    end
+  end
+
+  vim.api.nvim_win_set_cursor(win, { item.lnum, math.max((item.col or 1) - 1, 0) })
+  reveal_cursor_near_top()
+end
+
+local function definition_on_list(options)
+  if #options.items == 1 then
+    jump_to_location_item(options.items[1])
+    return
+  end
+
+  vim.fn.setqflist({}, " ", options)
+  vim.cmd("botright copen")
+end
+
+local function go_to_definition()
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+    if client:supports_method("textDocument/definition") then
+      vim.lsp.buf.definition({ reuse_win = true, on_list = definition_on_list })
+      return
+    end
+  end
+
+  local ctrl_right_bracket = vim.api.nvim_replace_termcodes("<C-]>", true, false, true)
+  vim.api.nvim_feedkeys(ctrl_right_bracket, "n", false)
+  vim.defer_fn(reveal_cursor_near_top, 20)
+end
+
 local M = {
   "ibhagwan/fzf-lua",
   -- optional for icon support
@@ -80,17 +148,7 @@ local M = {
     },
     {
       "<C-]>",
-      function()
-        for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
-          if client:supports_method("textDocument/definition") then
-            vim.lsp.buf.definition({ reuse_win = true })
-            return
-          end
-        end
-
-        local ctrl_right_bracket = vim.api.nvim_replace_termcodes("<C-]>", true, false, true)
-        vim.api.nvim_feedkeys(ctrl_right_bracket, "n", false)
-      end,
+      go_to_definition,
       desc = "Go to definition",
     },
     {

@@ -75,25 +75,130 @@ return {
       vim.opt_local.wrap = false
     end
 
-    local redraw_timer = nil
+    local blocked_picker_filetypes = {
+      ["neo-tree"] = true,
+      ["neo-tree-popup"] = true,
+      notify = true,
+      snacks_notif = true,
+      oil = true,
+      Trouble = true,
+      trouble = true,
+      qf = true,
+      Outline = true,
+    }
 
-    local function redraw_if_neotree_visible()
-      if redraw_timer then
+    local blocked_picker_buftypes = {
+      help = true,
+      nofile = true,
+      prompt = true,
+      quickfix = true,
+      terminal = true,
+    }
+
+    local function isolate_window(win)
+      require("utils").IsolateWindow(win)
+    end
+
+    local function is_edit_window(win)
+      if not vim.api.nvim_win_is_valid(win) or win == vim.api.nvim_get_current_win() then
+        return false
+      end
+
+      local config = vim.api.nvim_win_get_config(win)
+      if config.relative ~= "" or config.focusable == false then
+        return false
+      end
+
+      local buf = vim.api.nvim_win_get_buf(win)
+      if blocked_picker_filetypes[vim.bo[buf].filetype] or blocked_picker_buftypes[vim.bo[buf].buftype] then
+        return false
+      end
+
+      return true
+    end
+
+    local function pick_edit_window()
+      local candidates = {}
+      local candidate_set = {}
+
+      for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if is_edit_window(win) then
+          candidates[#candidates + 1] = win
+          candidate_set[win] = true
+        end
+      end
+
+      if #candidates == 0 then
+        vim.notify("No editable window available for vertical split", vim.log.levels.WARN)
+        return nil
+      end
+
+      if #candidates == 1 then
+        return candidates[1]
+      end
+
+      return require("window-picker").pick_window({
+        filter_func = function(windows)
+          return vim.tbl_filter(function(win)
+            return candidate_set[win] == true
+          end, windows)
+        end,
+      })
+    end
+
+    local function open_vsplit_with_window_picker(state)
+      local node = state.tree:get_node()
+      if not node or node.type == "message" then
         return
       end
 
-      redraw_timer = vim.defer_fn(function()
-        redraw_timer = nil
+      if node.type == "directory" then
+        require("neo-tree.sources.filesystem.commands").toggle_node(state)
+        return
+      end
 
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-          local buf = vim.api.nvim_win_get_buf(win)
-          if vim.bo[buf].filetype == "neo-tree" then
-            vim.api.nvim_win_call(win, apply_neotree_window_options)
-            vim.cmd("redraw!")
-            return
-          end
-        end
-      end, 16)
+      local path = node.path or node:get_id()
+      if type(path) ~= "string" or path == "" then
+        return
+      end
+
+      local target_win = pick_edit_window()
+      if not target_win or not vim.api.nvim_win_is_valid(target_win) then
+        return
+      end
+
+      local events = require("neo-tree.events")
+      local event_result = events.fire_event(events.FILE_OPEN_REQUESTED, {
+        state = state,
+        path = path,
+        open_cmd = "vsplit",
+      }) or {}
+
+      if event_result.handled then
+        events.fire_event(events.FILE_OPENED, path)
+        return
+      end
+
+      isolate_window(target_win)
+      vim.api.nvim_set_current_win(target_win)
+
+      local ok, err = pcall(vim.cmd, "vsplit " .. vim.fn.fnameescape(path))
+      if not ok then
+        vim.notify("Failed to open vertical split: " .. tostring(err), vim.log.levels.ERROR)
+        return
+      end
+
+      local new_win = vim.api.nvim_get_current_win()
+      vim.bo.buflisted = true
+      isolate_window(target_win)
+      isolate_window(new_win)
+      require("utils").IsolateEditorWindows()
+      vim.schedule(function()
+        isolate_window(target_win)
+        isolate_window(new_win)
+        require("utils").IsolateEditorWindows()
+      end)
+      events.fire_event(events.FILE_OPENED, path)
     end
 
     require("neo-tree").setup({
@@ -106,10 +211,6 @@ return {
         {
           event = "neo_tree_buffer_enter",
           handler = apply_neotree_window_options,
-        },
-        {
-          event = "after_render",
-          handler = redraw_if_neotree_visible,
         },
       },
       filesystem = {
@@ -133,7 +234,7 @@ return {
       default_component_configs = {
         container = {
           enable_character_fade = false,
-          right_padding = 0,
+          right_padding = 1,
           width = "100%",
         },
         name = {
@@ -166,6 +267,7 @@ return {
         open_with_sys_app = function(state)
           require("lazy.util").open(state.tree:get_node().path, { system = true })
         end,
+        vsplit_with_isolated_window_picker = open_vsplit_with_window_picker,
       },
       window = {
         mappings = {
@@ -176,7 +278,7 @@ return {
           ["Y"] = "yank_file_path",
           ["O"] = "open_with_sys_app",
           ["P"] = { "toggle_preview", config = { use_float = false } },
-          ["<C-v>"] = "vsplit_with_window_picker",
+          ["<C-v>"] = "vsplit_with_isolated_window_picker",
         },
       },
     })
@@ -196,11 +298,6 @@ return {
       desc = "Keep Neo-tree window rendering isolated",
     })
 
-    vim.api.nvim_create_autocmd({ "WinScrolled", "WinResized" }, {
-      group = vim.api.nvim_create_augroup("LocalNeoTreeRedraw", { clear = true }),
-      callback = redraw_if_neotree_visible,
-      desc = "Clear stale Neo-tree right-aligned status cells",
-    })
   end,
   keys = {
     { "<C-n>", "<cmd>Neotree toggle<CR>", desc = "toggle folder tree on left" },

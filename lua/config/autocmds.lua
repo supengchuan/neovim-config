@@ -2,7 +2,97 @@ local myAutoGroup = vim.api.nvim_create_augroup("LocalGroup", {
   clear = true,
 })
 
+-- Clear the old Neo-tree scroll redraw hook when the config is sourced in a live session.
+vim.api.nvim_create_augroup("LocalNeoTreeRedraw", {
+  clear = true,
+})
+
 local auto_cmd = vim.api.nvim_create_autocmd
+local prose_filetypes = {
+  codecompanion = true,
+  markdown = true,
+  tex = true,
+}
+
+local function isolate_current_window()
+  require("utils").IsolateWindow()
+end
+
+local function collect_python_import_positions(bufnr)
+  local line_count = math.min(vim.api.nvim_buf_line_count(bufnr), 120)
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, line_count, false)
+  local positions = {}
+  local in_from_import_block = false
+  local skip_words = {
+    ["as"] = true,
+    ["from"] = true,
+    ["import"] = true,
+  }
+
+  local function add_position(line_index, line, start_col, word)
+    if skip_words[word] or #positions >= 24 then
+      return
+    end
+
+    table.insert(positions, {
+      line = line_index - 1,
+      character = start_col - 1,
+    })
+  end
+
+  for line_index, line in ipairs(lines) do
+    local is_import_line = line:match("^%s*import%s+") or line:match("^%s*from%s+[%w_%.]+%s+import%s+")
+
+    if is_import_line then
+      for start_col, word in line:gmatch("()([%a_][%w_]*)") do
+        add_position(line_index, line, start_col, word)
+      end
+
+      in_from_import_block = line:match("%(%s*$") ~= nil
+    elseif in_from_import_block then
+      if line:match("^%s*%)") then
+        in_from_import_block = false
+      else
+        local start_col, word = line:find("([%a_][%w_]*)")
+        if start_col and word then
+          add_position(line_index, line, start_col, line:sub(start_col, word))
+        end
+      end
+    end
+  end
+
+  return positions
+end
+
+local function warmup_pyright(client_id, bufnr)
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return
+  end
+
+  local client = vim.lsp.get_client_by_id(client_id)
+  if not client or client.name ~= "pyright" then
+    return
+  end
+
+  local uri = vim.uri_from_bufnr(bufnr)
+
+  if client:supports_method("textDocument/documentSymbol", bufnr) then
+    client:request("textDocument/documentSymbol", {
+      textDocument = { uri = uri },
+    }, function() end, bufnr)
+  end
+
+  if not client:supports_method("textDocument/definition", bufnr) then
+    return
+  end
+
+  for _, position in ipairs(collect_python_import_positions(bufnr)) do
+    client:request("textDocument/definition", {
+      textDocument = { uri = uri },
+      position = position,
+    }, function() end, bufnr)
+  end
+end
 
 -- nvim-tree 自动关闭
 --autocmd("BufEnter", {
@@ -100,15 +190,66 @@ auto_cmd("BufReadPost", {
 
 -- wrap file according filetype
 auto_cmd("FileType", {
-  pattern = { "markdown", "tex", "codecompanion" },
+  pattern = "*",
+  group = myAutoGroup,
+  callback = function(opts)
+    isolate_current_window()
+
+    if prose_filetypes[vim.bo[opts.buf].filetype] then
+      vim.opt_local.colorcolumn = ""
+      vim.opt_local.wrap = true
+      require("utils").SetSoftWrapKeymaps(opts.buf)
+    elseif vim.bo[opts.buf].buftype == "" then
+      vim.opt_local.wrap = false
+    end
+  end,
+})
+
+auto_cmd("LspAttach", {
+  group = myAutoGroup,
+  callback = function(opts)
+    local client = vim.lsp.get_client_by_id(opts.data.client_id)
+    if not client or client.name ~= "pyright" or vim.bo[opts.buf].filetype ~= "python" then
+      return
+    end
+
+    local warmup_key = "local_pyright_warmup_" .. client.id
+    if vim.b[opts.buf][warmup_key] then
+      return
+    end
+    vim.b[opts.buf][warmup_key] = true
+
+    vim.defer_fn(function()
+      warmup_pyright(client.id, opts.buf)
+    end, 100)
+
+    vim.defer_fn(function()
+      warmup_pyright(client.id, opts.buf)
+    end, 900)
+  end,
+})
+
+auto_cmd({ "WinNew", "WinEnter", "BufWinEnter", "TabEnter" }, {
   group = myAutoGroup,
   callback = function()
-    vim.opt_local.colorcolumn = ""
-    vim.opt_local.wrap = true
-    local map = vim.keymap.set
-    map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-    map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-    vim.api.nvim_echo({ { "gj, gk mode" } }, false, {})
+    local utils = require("utils")
+    utils.IsolateEditorWindows()
+    utils.RememberAllWindowViews()
+  end,
+})
+
+auto_cmd("WinScrolled", {
+  group = myAutoGroup,
+  callback = function()
+    require("utils").RestoreNonCurrentWindowViews()
+  end,
+})
+
+auto_cmd("OptionSet", {
+  group = myAutoGroup,
+  pattern = { "scrollbind", "cursorbind" },
+  callback = function()
+    require("utils").IsolateEditorWindows()
   end,
 })
 

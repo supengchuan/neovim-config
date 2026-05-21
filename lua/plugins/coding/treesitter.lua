@@ -52,13 +52,13 @@ local M = {
     config = function()
       require("treesitter-context").setup({
         enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-        multiwindow = false, -- Enable multiwindow support.
-        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-        line_numbers = true,
-        multiline_threshold = 20, -- Maximum number of lines to show for a single context
+        multiwindow = true, -- Keep sticky context state independent per split.
+        max_lines = 3, -- Bound the floating context so it cannot cover too much of a split.
+        min_window_height = 20, -- Avoid showing context in short splits.
+        line_numbers = false,
+        multiline_threshold = 4, -- Keep long function/class headers compact.
         trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-        mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
+        mode = "topline", -- Calculate context from each window's visible top line.
         -- Separator between context and content. Should be a single character string, like '-'.
         -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
         separator = nil,

@@ -193,6 +193,7 @@ function SetWindow()
 		--window_decorations = "RESIZE",
 		integrated_title_buttons = { "Maximize", "Close" },
 		window_background_opacity = 1,
+		adjust_window_size_when_changing_font_size = false,
 		initial_rows = 20,
 		initial_cols = 80,
 		window_padding = {
@@ -300,8 +301,15 @@ config = Merge(config, SetMouseMap())
 local center = function(window, _)
 	local overrides = window:get_config_overrides() or {}
 	local tabsz = window:active_tab():get_size()
+	if tabsz.rows == 0 or tabsz.cols == 0 then
+		return
+	end
+
 	local cellheight = tabsz.pixel_height / tabsz.rows
 	local cellwidth = tabsz.pixel_width / tabsz.cols
+	if cellheight <= 0 or cellwidth <= 0 then
+		return
+	end
 
 	local win_dim = window:get_dimensions()
 	local window_height = win_dim.pixel_height
@@ -323,6 +331,5 @@ local center = function(window, _)
 	window:set_config_overrides(overrides)
 end
 
-wezterm.on("window-resized", center)
 wezterm.on("window-config-reloaded", center)
 return config

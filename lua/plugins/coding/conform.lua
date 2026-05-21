@@ -1,8 +1,65 @@
+local function formatter_names(bufnr)
+  local names = {}
+
+  for _, formatter in ipairs(require("conform").list_formatters(bufnr)) do
+    if formatter.available then
+      names[#names + 1] = formatter.name
+    end
+  end
+
+  return names
+end
+
+local function format_buffer(opts)
+  opts = opts or {}
+  local bufnr = opts.bufnr or 0
+  local conform = require("conform")
+  local names = formatter_names(bufnr)
+
+  if opts.notify and #names == 0 then
+    local ft = vim.bo[bufnr].filetype
+    vim.notify("No available formatter for " .. (ft ~= "" and ft or "current buffer"), vim.log.levels.WARN)
+    return
+  end
+
+  conform.format({
+    async = opts.async ~= false,
+    bufnr = bufnr,
+    formatters = opts.formatters,
+    lsp_format = "fallback",
+    range = opts.range,
+    timeout_ms = 5000,
+  }, function(err, did_edit)
+    if opts.leave_visual then
+      local mode = vim.api.nvim_get_mode().mode
+      if vim.startswith(string.lower(mode), "v") then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+      end
+    end
+
+    if not opts.notify then
+      return
+    end
+
+    vim.schedule(function()
+      if err then
+        vim.notify("Format failed: " .. tostring(err), vim.log.levels.ERROR)
+      elseif did_edit then
+        vim.notify("Formatted with " .. table.concat(names, ", "), vim.log.levels.INFO)
+      else
+        vim.notify("Already formatted", vim.log.levels.INFO)
+      end
+    end)
+  end)
+end
+
 local M = {
   "stevearc/conform.nvim",
   event = "VeryLazy",
   config = function()
-    require("conform").setup({
+    local conform = require("conform")
+
+    conform.setup({
       log_level = vim.log.levels.DEBUG,
       formatters_by_ft = {
         lua = { "stylua" },
@@ -90,15 +147,12 @@ local M = {
 
       local formatters = formatterTable[cmd.fargs[1]] or ""
       if formatters ~= "" then
-        require("conform").format({
-          async = true,
+        format_buffer({
           formatters = { formatters },
-          lsp_format = "fallback",
           range = range,
         })
       else
-        -- use default
-        require("conform").format({ async = true, lsp_format = "fallback", range = range })
+        format_buffer({ range = range })
       end
     end, { range = true, nargs = "?", bang = true, bar = true })
   end,
@@ -106,19 +160,18 @@ local M = {
     {
       "<leader>cf",
       function()
-        require("conform").format({ async = true }, function(err)
-          if not err then
-            local mode = vim.api.nvim_get_mode().mode
-            if vim.startswith(string.lower(mode), "v") then
-              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
-            end
-          end
-        end)
+        format_buffer({ leave_visual = true, notify = true })
       end,
       desc = "range file format and leave visual mode",
       mode = "x",
     },
-    { "<leader>cf", "<cmd>Format<CR>", desc = "file format" },
+    {
+      "<leader>cf",
+      function()
+        format_buffer({ notify = true })
+      end,
+      desc = "file format",
+    },
   },
 }
 

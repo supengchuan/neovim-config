@@ -20,6 +20,47 @@ create_cmd("FoldEnable", function()
   vim.opt.foldtext = require("modules.foldtext")
 end, {})
 
+create_cmd("RunLab", function()
+  require("modules.lab").work()
+end, {})
+
+create_cmd("WinNoBind", function()
+  require("utils").IsolateEditorWindows()
+  vim.notify("Disabled scrollbind/cursorbind in editor windows", vim.log.levels.INFO)
+end, {})
+
+create_cmd("WinBindStatus", function()
+  require("utils").WindowBindStatus()
+end, {})
+
+create_cmd("PythonLspInfo", function()
+  local lines = {}
+
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+    if client.name == "pyright" or client.name == "ruff" then
+      table.insert(lines, client.name .. " root: " .. (client.root_dir or "<single-file>"))
+
+      if client.name == "pyright" then
+        local settings = client.settings or client.config.settings or {}
+        local python = settings.python or {}
+        local analysis = python.analysis or {}
+
+        table.insert(lines, "pythonPath: " .. (python.pythonPath or "<not set>"))
+        table.insert(lines, "venv: " .. (python.venvPath and (python.venvPath .. "/" .. (python.venv or "")) or "<not set>"))
+        table.insert(lines, "extraPaths: " .. table.concat(analysis.extraPaths or {}, ", "))
+        table.insert(lines, "diagnosticMode: " .. (analysis.diagnosticMode or "<not set>"))
+      end
+    end
+  end
+
+  if #lines == 0 then
+    vim.notify("No Python LSP client is attached to this buffer", vim.log.levels.INFO)
+    return
+  end
+
+  vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO, { title = "Python LSP" })
+end, {})
+
 create_cmd("DefSplit", function()
   require("fzf-lua").lsp_definitions({
     sync = true,

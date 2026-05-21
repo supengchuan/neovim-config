@@ -105,7 +105,13 @@ return {
       },
       {
         "<leader>pc",
-        "<cmd>VenvSelectCached<cr>",
+        function()
+          require("venv-selector.cached_venv").retrieve(0, function(activated)
+            if not activated then
+              vim.notify("No cached python virtualenv for this project", vim.log.levels.INFO)
+            end
+          end)
+        end,
         ft = "python",
         desc = "reuse cached python virtualenv",
       },

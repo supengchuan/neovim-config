@@ -25,7 +25,28 @@ return {
   {
     "brenoprata10/nvim-highlight-colors",
     config = function()
-      require("nvim-highlight-colors").setup({})
+      local color_filetypes = {
+        css = true,
+        html = true,
+        javascript = true,
+        javascriptreact = true,
+        json = true,
+        less = true,
+        lua = true,
+        sass = true,
+        scss = true,
+        toml = true,
+        typescript = true,
+        typescriptreact = true,
+        vue = true,
+        yaml = true,
+      }
+
+      require("nvim-highlight-colors").setup({
+        exclude_buffer = function(bufnr)
+          return not color_filetypes[vim.bo[bufnr].filetype]
+        end,
+      })
     end,
   },
   --{

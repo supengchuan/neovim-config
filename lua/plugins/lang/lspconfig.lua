@@ -151,16 +151,25 @@ local servers = {
   pyright = {
     root_markers = python_root_markers,
     before_init = configure_pyright_environment,
+    capabilities = {
+      workspace = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = true,
+        },
+      },
+    },
     settings = {
       python = {
         analysis = {
           autoImportCompletions = true,
+          autoSearchPaths = true,
           diagnosticMode = "workspace",
           diagnosticSeverityOverrides = {
             reportArgumentType = "warning",
             reportCallIssue = "warning",
             reportPrivateImportUsage = "none",
           },
+          indexing = true,
           typeCheckingMode = "basic",
           useLibraryCodeForTypes = true,
         },
@@ -355,7 +364,10 @@ local M = {
   config = function()
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, mason_extra_tools)
-    require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+    require("mason-tool-installer").setup({
+      ensure_installed = ensure_installed,
+      run_on_start = true,
+    })
     --require("mason-lspconfig").setup({
     --  --automatic_enable = {
     --  --  exclude = {

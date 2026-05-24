@@ -55,6 +55,37 @@ NVIM_COLOR=catppuccin nvim
 
 进入 nvim 后可以用 `:Theme gruvbox` 快速切换.
 
+## Mason / Ubuntu
+
+Mason 工具默认不在启动时自动安装, 避免 Ubuntu 缺少系统依赖或网络不通时反复提示
+`clang-format/debugpy/ruff failed to install`.
+
+首次安装工具前, Ubuntu 建议先安装基础依赖:
+
+```bash
+sudo apt update
+sudo apt install -y curl unzip tar gzip python3 python3-venv python3-pip npm build-essential
+```
+
+然后在 nvim 里运行:
+
+```vim
+:MasonToolsInstall
+```
+
+如果希望启动 nvim 时自动执行 Mason 安装, 使用:
+
+```bash
+NVIM_MASON_AUTO_INSTALL=1 nvim
+```
+
+也可以直接使用系统包绕过 Mason:
+
+```bash
+sudo apt install -y clang-format
+python3 -m pip install --user ruff debugpy
+```
+
 ## C / C++ / CMake
 
 C/C++ 默认启用 `clangd` + `clang-format` + `codelldb`:

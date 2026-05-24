@@ -1,0 +1,2 @@
+WRN 2026-05-24T23:46:27.665 ?.36378    server_start:197: Failed to start server: operation not permitted: /var/folders/t0/822jm6bj6978zr5jmmk0q0740000gn/T/nvim.yuemx/n7C0Fr/nvim.36378.0
+WRN 2026-05-24T23:46:27.851 ?.36378    server_start:197: Failed to start server: operation not permitted: /var/folders/t0/822jm6bj6978zr5jmmk0q0740000gn/T/nvim.yuemx/n7C0Fr/fzf-lua.1779637587.36378.1

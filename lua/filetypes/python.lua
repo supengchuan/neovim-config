@@ -22,6 +22,15 @@ local function setup_commands()
   end, { desc = "Run pytest for current python file", force = true })
 end
 
+local function setup_black_compatible_indent()
+  vim.g.python_indent = vim.tbl_deep_extend("force", vim.g.python_indent or {}, {
+    closed_paren_align_last_line = false,
+    continue = "shiftwidth()",
+    nested_paren = "shiftwidth()",
+    open_paren = "shiftwidth()",
+  })
+end
+
 local function remove_python_type_annotation_reindent()
   local keys = vim.split(vim.bo.indentkeys, ",", { plain = true, trimempty = true })
   local filtered = {}
@@ -42,6 +51,7 @@ end
 function M.setup()
   local common = require("filetypes.common")
 
+  setup_black_compatible_indent()
   common.indent(4)
   common.text_width(120)
   setup_commands()

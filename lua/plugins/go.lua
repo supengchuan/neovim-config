@@ -34,6 +34,9 @@ local M = {
       },
       lsp_keymaps = false,
       comment_placeholder = "  ",
+      -- dap-view owns the debugger UI and virtual text; keep go.nvim from loading dap-ui/old vt.
+      dap_debug_gui = false,
+      dap_debug_vt = false,
       golangci_lint = {
         default = "fast", -- set to one of { 'standard', 'fast', 'all', 'none' }
       },

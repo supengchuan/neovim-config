@@ -2,14 +2,6 @@ local M = {
   {
     "mfussenegger/nvim-dap",
     event = "VeryLazy",
-    dependencies = {
-      "rcarriga/nvim-dap-ui",
-      -- virtual text for the debugger
-      {
-        "theHamsta/nvim-dap-virtual-text",
-        opts = {},
-      },
-    },
     -- stylua: ignore
     keys = {
       { "<F5>", function() require("dap").continue() end, desc = "debug continue, go to next breakpoint" },
@@ -41,38 +33,41 @@ local M = {
       }
     end,
   },
+  { "leoluz/nvim-dap-go", ft = { "go", "gomod" }, opts = {} },
   {
-    "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
-    dependencies = { "nvim-neotest/nvim-nio" },
-    opts = {},
+    "igorlfs/nvim-dap-view",
+    -- let the plugin lazy load itself
+    lazy = false,
+    version = "1.*",
+    ---@module 'dap-view'
+    ---@type dapview.Config
+    opts = {
+      winbar = {
+        default_section = "scopes",
+        show_keymap_hints = false,
+        controls = {
+          enabled = true,
+        },
+      },
+      windows = {
+        position = "below",
+        size = 0.25,
+      },
+      virtual_text = {
+        enabled = true,
+      },
+      -- Keep debuggee output visible after the session ends.
+      auto_toggle = "keep_terminal",
+      follow_tab = true,
+    },
+    keys = {
+      { "<leader>du", "<cmd>DapViewToggle<cr>", desc = "toggle dap view" },
+      { "<leader>dw", "<cmd>DapViewWatch<cr>", mode = { "n", "v" }, desc = "add dap watch" },
+    },
     config = function(_, opts)
-      local dap, dapui = require("dap"), require("dapui")
+      local dap = require("dap")
 
-      dapui.setup(opts)
-      local debug_open = function()
-        dapui.open()
-        vim.api.nvim_command("DapVirtualTextEnable")
-      end
-      local debug_close = function()
-        dap.repl.close()
-        dapui.close()
-        vim.api.nvim_command("DapVirtualTextDisable")
-        -- vim.api.nvim_command("bdelete! term:")   -- close debug temrinal
-      end
-
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        debug_open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        debug_close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        debug_close()
-      end
-      dap.listeners.before.disconnect["dapui_config"] = function()
-        debug_close()
-      end
+      require("dap-view").setup(opts)
 
       dap.listeners.after.event_initialized["prevent-insert-mode"] = function()
         vim.defer_fn(function()
@@ -86,7 +81,6 @@ local M = {
       end
     end,
   },
-  { "leoluz/nvim-dap-go", ft = { "go", "gomod" }, opts = {} },
 }
 
 return M

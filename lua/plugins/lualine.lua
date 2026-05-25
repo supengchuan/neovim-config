@@ -20,7 +20,7 @@ local M = {
         winbar = {},
       },
       always_divide_middle = true,
-      globalstatus = false,
+      globalstatus = true,
       refresh = {
         statusline = 100,
         tabline = 100,
@@ -98,7 +98,7 @@ local M = {
     },
     winbar = {},
     inactive_winbar = {},
-    extensions = { "man", "neo-tree", "aerial", "nvim-dap-ui", "avante" },
+    extensions = { "man", "neo-tree", "aerial", "avante" },
   },
 }
 

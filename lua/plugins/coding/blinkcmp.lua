@@ -1,3 +1,53 @@
+local python_pairs = {
+  ["("] = ")",
+  ["["] = "]",
+  ["{"] = "}",
+}
+
+local function python_pair_newline()
+  if vim.bo.filetype ~= "python" then
+    return false
+  end
+
+  local bufnr = vim.api.nvim_get_current_buf()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local line = vim.api.nvim_get_current_line()
+  local before = line:sub(1, col)
+  local after = line:sub(col + 1)
+  local opener = before:sub(-1)
+  local closer = after:sub(1, 1)
+
+  if python_pairs[opener] ~= closer then
+    return false
+  end
+
+  vim.schedule(function()
+    if not vim.api.nvim_buf_is_valid(bufnr) then
+      return
+    end
+
+    local latest = vim.api.nvim_buf_get_lines(bufnr, row - 1, row, false)[1]
+    if not latest then
+      return
+    end
+
+    before = latest:sub(1, col)
+    after = latest:sub(col + 1)
+    local base_indent = before:match("^%s*") or ""
+    local inner_indent = base_indent .. string.rep(" ", vim.bo.shiftwidth)
+
+    vim.api.nvim_buf_set_lines(bufnr, row - 1, row, false, {
+      before,
+      inner_indent,
+      base_indent .. after,
+    })
+    vim.api.nvim_win_set_cursor(0, { row + 1, #inner_indent })
+    vim.cmd("startinsert")
+  end)
+
+  return true
+end
+
 local M = {
   "saghen/blink.cmp",
   dependencies = {
@@ -18,6 +68,17 @@ local M = {
     -- See the full "keymap" documentation for information on defining your own keymap.
     keymap = {
       preset = "enter",
+      ["<CR>"] = {
+        "accept",
+        python_pair_newline,
+        function()
+          local ok, npairs = pcall(require, "nvim-autopairs")
+          if ok then
+            return npairs.autopairs_cr()
+          end
+        end,
+        "fallback",
+      },
       ["<Tab>"] = {
         function(cmp)
           if cmp.snippet_active() then

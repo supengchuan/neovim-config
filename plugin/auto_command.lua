@@ -127,7 +127,8 @@ auto_cmd("BufEnter", {
   pattern = "*",
   callback = function()
     if vim.api.nvim_buf_line_count(0) > 20000 then
-      vim.cmd([[ syntax off ]])
+      vim.bo.syntax = "off"
+      pcall(vim.treesitter.stop, 0)
     end
   end,
 })
@@ -232,6 +233,11 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "rust",
     "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact",
+    "vue",
+    "html",
     "c",
     "lua",
     "vim",
@@ -247,6 +253,6 @@ vim.api.nvim_create_autocmd("FileType", {
     "json",
   },
   callback = function()
-    vim.treesitter.start()
+    pcall(vim.treesitter.start)
   end,
 })

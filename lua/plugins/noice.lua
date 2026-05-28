@@ -38,6 +38,10 @@ return {
         },
       },
       lsp = {
+        progress = {
+          -- Pyright sends frequent indexing/analyzing progress messages; keep them out of popups.
+          enabled = false,
+        },
         hover = {
           view = "hover",
         },

@@ -8,7 +8,7 @@ local M = {
     local sep = require("utils").Sep()
 
     require("cmake-tools").setup({
-      cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON" },
+      cmake_generate_options = { "-G", "Unix Makefiles", "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON" },
       cmake_build_directory = "build" .. sep .. "${variant:buildType}",
       cmake_compile_commands_options = {
         action = "soft_link",

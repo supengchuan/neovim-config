@@ -31,6 +31,73 @@ local function setup_black_compatible_indent()
   })
 end
 
+local python_pairs = {
+  ["("] = ")",
+  ["["] = "]",
+  ["{"] = "}",
+}
+
+local function termcodes(keys)
+  return vim.api.nvim_replace_termcodes(keys, true, false, true)
+end
+
+local function python_insert_cr()
+  local ok_cmp, cmp = pcall(require, "blink.cmp")
+  if ok_cmp and cmp.is_visible and cmp.is_visible() and cmp.accept() then
+    return ""
+  end
+
+  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local line = vim.api.nvim_get_current_line()
+  local before = line:sub(1, col)
+  local after = line:sub(col + 1)
+  local opener = before:sub(-1)
+  local closer = after:sub(1, 1)
+
+  if python_pairs[opener] == closer then
+    return termcodes("<C-g>u<CR><Esc>O")
+  end
+
+  local ok_pairs, npairs = pcall(require, "nvim-autopairs")
+  if ok_pairs then
+    return npairs.autopairs_cr()
+  end
+
+  return termcodes("<CR>")
+end
+
+local function setup_python_enter_keymap()
+  local function set_keymap()
+    vim.keymap.set("i", "<CR>", python_insert_cr, {
+      buffer = true,
+      desc = "python newline with formatter-like pair indent",
+      expr = true,
+      noremap = true,
+      replace_keycodes = false,
+      silent = true,
+    })
+  end
+
+  set_keymap()
+
+  if vim.b.local_python_enter_autocmd then
+    return
+  end
+
+  local bufnr = vim.api.nvim_get_current_buf()
+  vim.b.local_python_enter_autocmd = vim.api.nvim_create_autocmd("InsertEnter", {
+    buffer = bufnr,
+    group = vim.api.nvim_create_augroup("LocalPythonEnter", { clear = false }),
+    callback = function()
+      vim.schedule(function()
+        if vim.api.nvim_buf_is_valid(bufnr) then
+          set_keymap()
+        end
+      end)
+    end,
+  })
+end
+
 local function remove_python_type_annotation_reindent()
   local keys = vim.split(vim.bo.indentkeys, ",", { plain = true, trimempty = true })
   local filtered = {}
@@ -55,6 +122,7 @@ function M.setup()
   common.indent(4)
   common.text_width(120)
   setup_commands()
+  setup_python_enter_keymap()
 
   vim.schedule(function()
     if vim.bo.filetype == "python" then

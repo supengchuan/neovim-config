@@ -1,3 +1,64 @@
+local function looks_like_call_opener(prefix)
+  return prefix:match("[%w_%.:%]%)]%s*$") ~= nil
+end
+
+local function cursor_is_in_call_args()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local start_row = math.max(1, row - 30)
+  local depth = 0
+
+  for lnum = row, start_row, -1 do
+    local line = vim.api.nvim_buf_get_lines(0, lnum - 1, lnum, false)[1] or ""
+    if lnum == row then
+      line = line:sub(1, col)
+    end
+
+    for i = #line, 1, -1 do
+      local char = line:sub(i, i)
+      if char == ")" then
+        depth = depth + 1
+      elseif char == "(" then
+        if depth == 0 then
+          return looks_like_call_opener(line:sub(1, i - 1))
+        end
+        depth = depth - 1
+      end
+    end
+  end
+
+  return false
+end
+
+local function brackets_for_callable(item)
+  local kind = vim.lsp.protocol.CompletionItemKind
+  local is_callable = item.kind == kind.Function or item.kind == kind.Method
+
+  if cursor_is_in_call_args() then
+    if is_callable then
+      item.kind = kind.Variable
+    end
+    return { "", "" }
+  end
+
+  return { "(", ")" }
+end
+
+local auto_bracket_filetypes = {
+  "c",
+  "go",
+  "javascript",
+  "javascriptreact",
+  "lua",
+  "python",
+  "typescript",
+  "typescriptreact",
+}
+
+local auto_bracket_overrides = {}
+for _, filetype in ipairs(auto_bracket_filetypes) do
+  auto_bracket_overrides[filetype] = brackets_for_callable
+end
+
 local M = {
   "saghen/blink.cmp",
   dependencies = {
@@ -55,6 +116,11 @@ local M = {
     },
 
     completion = {
+      accept = {
+        auto_brackets = {
+          override_brackets_for_filetypes = auto_bracket_overrides,
+        },
+      },
       menu = {
         border = "rounded",
         scrollbar = false,

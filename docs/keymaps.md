@@ -125,9 +125,8 @@ Source / 来源: Neovim LSP defaults.
 | `<leader>cg` | Normal, Go buffer | 选择 Go interface 并生成实现 | Pick a Go interface and generate implementation |
 | `<leader>cH` | Normal, C/C++ buffer | 在源文件和头文件之间切换 | Switch between source and header |
 | `<leader>cS` | Normal, C/C++ buffer | 显示 clangd 符号信息 | Show clangd symbol info |
-| `;;` | Normal / Insert, C/C++/Rust buffer | 行尾补分号并新建下一行 | Add semicolon and open a new line |
 
-Source / 来源: `lua/plugins/coding/conform.lua`, `lua/plugins/editor/aerial.lua`, `lua/plugins/editor/which-key.lua`, `lua/plugins/lang/go-impl.lua`, `lua/filetypes/c_family.lua`, `lua/config/autocmds.lua`.
+Source / 来源: `lua/config/keymaps.lua`, `lua/plugins/coding/conform.lua`, `lua/plugins/editor/aerial.lua`, `lua/plugins/editor/which-key.lua`, `lua/plugins/lang/go-impl.lua`, `lua/filetypes/c_family.lua`.
 
 ## AI / Avante
 

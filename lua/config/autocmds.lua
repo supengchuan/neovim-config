@@ -18,6 +18,61 @@ local function isolate_current_window()
   require("utils").IsolateWindow()
 end
 
+local function new_c_file_header(path)
+  return {
+    "/*",
+    " * File: " .. vim.fn.fnamemodify(path, ":t"),
+    " * Created: " .. os.date("%Y-%m-%d %H:%M:%S"),
+    " */",
+  }
+end
+
+local function new_c_header_guard(path)
+  local name = vim.fn.fnamemodify(path, ":t")
+  local guard = name:gsub("%W", "_"):upper()
+  guard = guard:gsub("_+", "_"):gsub("^_", ""):gsub("_$", "")
+  return guard ~= "" and guard or "HEADER_H"
+end
+
+local function apply_new_c_file_template()
+  local path = vim.api.nvim_buf_get_name(0)
+  if
+    path == ""
+    or vim.bo.buftype ~= ""
+    or not vim.bo.modifiable
+    or vim.fn.filereadable(path) == 1
+    or vim.api.nvim_buf_line_count(0) ~= 1
+    or vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] ~= ""
+  then
+    return
+  end
+
+  local ext = vim.fn.fnamemodify(path, ":e"):lower()
+  local lines = new_c_file_header(path)
+  local cursor_line = #lines
+
+  if ext == "h" then
+    local guard = new_c_header_guard(path)
+    vim.list_extend(lines, {
+      "",
+      "#ifndef " .. guard,
+      "#define " .. guard,
+      "",
+      "",
+      "#endif /* " .. guard .. " */",
+    })
+    cursor_line = 8
+  elseif ext == "c" then
+    table.insert(lines, "")
+    cursor_line = #lines
+  else
+    return
+  end
+
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+  vim.api.nvim_win_set_cursor(0, { cursor_line, 0 })
+end
+
 local function collect_python_import_positions(bufnr)
   local line_count = math.min(vim.api.nvim_buf_line_count(bufnr), 120)
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, line_count, false)
@@ -109,6 +164,12 @@ end
 auto_cmd("TermOpen", {
   group = myAutoGroup,
   command = "startinsert",
+})
+
+auto_cmd("BufNewFile", {
+  group = myAutoGroup,
+  pattern = { "*.c", "*.h" },
+  callback = apply_new_c_file_template,
 })
 
 -- 自动保存

@@ -193,17 +193,25 @@ local servers = {
   },
   clangd = {
     filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+    capabilities = {
+      textDocument = {
+        completion = {
+          completionItem = {
+            snippetSupport = false,
+          },
+        },
+      },
+    },
     cmd = {
       "clangd",
       "--background-index",
       "--clang-tidy",
       "--header-insertion=iwyu",
       "--completion-style=detailed",
-      "--function-arg-placeholders",
       "--fallback-style=llvm",
     },
     init_options = {
-      usePlaceholders = true,
+      usePlaceholders = false,
       completeUnimported = true,
       clangdFileStatus = true,
     },

@@ -3,12 +3,14 @@ local M = {}
 function M.indent(width)
   vim.bo.tabstop = width
   vim.bo.shiftwidth = width
+  vim.bo.softtabstop = width
   vim.bo.expandtab = true
 end
 
 function M.tab_indent(width)
   vim.bo.tabstop = width
   vim.bo.shiftwidth = width
+  vim.bo.softtabstop = 0
   vim.bo.expandtab = false
 end
 

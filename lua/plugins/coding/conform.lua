@@ -10,6 +10,16 @@ local function formatter_names(bufnr)
   return names
 end
 
+local clang_format_style = table.concat({
+  "BasedOnStyle: LLVM",
+  "IndentWidth: 4",
+  "TabWidth: 4",
+  "UseTab: Never",
+  "ColumnLimit: 120",
+}, ", ")
+
+local clang_format_args = { "-assume-filename", "$FILENAME", "--style={" .. clang_format_style .. "}" }
+
 local function format_buffer(opts)
   opts = opts or {}
   local bufnr = opts.bufnr or 0
@@ -86,6 +96,24 @@ local M = {
         vue = { "prettier" },
       },
       formatters = {
+        ["clang-format"] = {
+          args = clang_format_args,
+          range_args = function(_, ctx)
+            local util = require("conform.util")
+            local start_offset, end_offset = util.get_offsets_from_range(ctx.buf, ctx.range)
+            local length = end_offset - start_offset
+
+            return {
+              "-assume-filename",
+              "$FILENAME",
+              "--style={" .. clang_format_style .. "}",
+              "--offset",
+              tostring(start_offset),
+              "--length",
+              tostring(length),
+            }
+          end,
+        },
         shfmt = {
           args = {
             "-i",

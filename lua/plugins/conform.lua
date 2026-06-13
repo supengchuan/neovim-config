@@ -6,7 +6,7 @@ local M = {
       log_level = vim.log.levels.DEBUG,
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "yapf" },
+        python = { "black" },
         -- You can customize some of the format options for the filetype (:help conform.format)
         rust = { "rustfmt", lsp_format = "fallback" },
         markdown = { "prettier", "injected" },

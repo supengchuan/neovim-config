@@ -124,7 +124,7 @@ local mason_extra_tools = {
   "prettier",
   "sql-formatter",
   "jq",
-  "yapf",
+  "black",
 
   -- linter
   "shellcheck",

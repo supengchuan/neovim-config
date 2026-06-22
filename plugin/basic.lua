@@ -35,7 +35,7 @@ vim.o.spelllang = "en"
 vim.o.clipboard = "unnamedplus"
 -- Set updatetime for CursorHold
 -- 300ms of no cursor movement to trigger CursorHold
-vim.o.updatetime = 300
+vim.o.updatetime = 1000
 
 vim.wo.colorcolumn = "120"
 vim.o.fileformats = "unix,dos"

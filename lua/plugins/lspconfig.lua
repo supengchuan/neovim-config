@@ -1,4 +1,5 @@
 local servers = {
+  jdtls = {},
   vtsls = {
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
     settings = {

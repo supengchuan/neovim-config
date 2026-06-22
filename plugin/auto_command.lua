@@ -214,7 +214,7 @@ auto_cmd("User", {
 })
 
 -- auto reload the buffer if the file is changed by other tools
-auto_cmd({ "FocusGained", "BufEnter" }, {
+auto_cmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
   group = myAutoGroup,
   command = "checktime",
 })

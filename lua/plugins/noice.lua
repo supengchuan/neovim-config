@@ -7,6 +7,19 @@ return {
   event = "VeryLazy",
   config = function()
     require("noice").setup({
+      routes = {
+        {
+          filter = {
+            event = "lsp",
+            kind = "progress",
+            cond = function(message)
+              local progress = message.opts and message.opts.progress
+              return progress and progress.client == "pyright"
+            end,
+          },
+          opts = { skip = true },
+        },
+      },
       presets = {
         lsp_doc_border = true,
       },

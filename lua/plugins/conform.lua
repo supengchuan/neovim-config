@@ -27,7 +27,7 @@ local M = {
         css = { "prettier" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
         vue = { "prettier" },
-        java = { "google-java-format" },
+        java = { "lsp_format" },
       },
       formatters = {
         shfmt = {

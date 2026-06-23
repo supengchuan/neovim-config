@@ -43,7 +43,8 @@ local M = {
         --  "select_next",
         --  "fallback",
         --},
-        ["<Tab>"] = { "select_and_accept" },
+        -- ["<Tab>"] = { "select_and_accept" },
+        ["<Tab>"] = { "show", "accept" },
         ["<Left>"] = {},
         ["<Right>"] = {},
       },
@@ -85,7 +86,7 @@ local M = {
       -- Sets the fallback highlight groups to nvim-cmp's highlight groups
       -- Useful for when your theme doesn't support blink.cmp
       -- Will be removed in a future release
-      use_nvim_cmp_as_default = true,
+      -- use_nvim_cmp_as_default = true,
       -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
       nerd_font_variant = "normal",
@@ -121,10 +122,10 @@ local M = {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { "lsp", "snippets", "buffer", "avante", "path" },
+      default = { "lsp", "path", "snippets", "buffer", "avante" },
       providers = {
         lsp = {
-          fallbacks = { "buffer" }, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
+          fallbacks = {},
         },
         path = {
           fallbacks = {}, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
@@ -138,13 +139,13 @@ local M = {
         },
       },
     },
-    fuzzy = {
-      sorts = {
-        "exact",
-        "score",
-        "sort_text",
-      },
-    },
+    --fuzzy = {
+    --  sorts = {
+    --    "exact",
+    --    "score",
+    --    "sort_text",
+    --  },
+    --},
   },
   opts_extend = { "sources.default" },
 }

@@ -252,6 +252,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "markdown",
     "json",
     "python",
+    "java",
   },
   callback = function()
     pcall(vim.treesitter.start)

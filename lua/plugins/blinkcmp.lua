@@ -46,6 +46,7 @@ local M = {
         -- ["<Tab>"] = { "select_and_accept" },
         ["<Tab>"] = { "show", "accept" },
         ["<Left>"] = {},
+        ["<C-f>"] = { "accept" },
         ["<Right>"] = {},
       },
       completion = {

@@ -57,11 +57,14 @@ local servers = {
   },
   lua_ls = {
     on_init = function(client)
-      local path = client.workspace_folders[1].name
+      local path = client.config.root_dir
+        or (client.workspace_folders and client.workspace_folders[1] and client.workspace_folders[1].name)
+        or vim.uv.cwd()
       if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
         return
       end
 
+      client.config.settings.Lua = client.config.settings.Lua or {}
       client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
         runtime = {
           -- Tell the language server which version of Lua you're using

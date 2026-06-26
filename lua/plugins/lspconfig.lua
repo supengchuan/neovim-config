@@ -24,6 +24,7 @@ local servers = {
       "clangd",
       "--background-index",
       "--clang-tidy",
+      "--query-driver=/usr/bin/clang,/usr/bin/clang++,/usr/bin/gcc,/usr/bin/g++,/usr/local/bin/clang,/usr/local/bin/clang++,/usr/local/bin/gcc-*,/usr/local/bin/g++-*,/opt/homebrew/bin/clang,/opt/homebrew/bin/clang++,/opt/homebrew/bin/gcc-*,/opt/homebrew/bin/g++-*,/opt/homebrew/opt/llvm/bin/clang,/opt/homebrew/opt/llvm/bin/clang++",
       "--header-insertion=never",
       "--completion-style=detailed",
       "--function-arg-placeholders",
@@ -33,6 +34,7 @@ local servers = {
       usePlaceholders = true,
       completeUnimported = false,
       clangdFileStatus = true,
+      fallbackFlags = { "-I.", "-Iinclude", "-Isrc" },
     },
   },
   lua_ls = {

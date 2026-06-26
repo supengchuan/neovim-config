@@ -24,6 +24,33 @@ local python_analysis_exclude = {
   "**/*.egg-info",
 }
 
+local clangd_root_markers = {
+  "compile_commands.json",
+  "compile_flags.txt",
+  ".clangd",
+  "CMakeLists.txt",
+  ".git",
+}
+
+local clangd_query_drivers = table.concat({
+  "/usr/bin/clang",
+  "/usr/bin/clang++",
+  "/usr/bin/gcc",
+  "/usr/bin/g++",
+  "/usr/local/bin/clang",
+  "/usr/local/bin/clang++",
+  "/usr/local/bin/gcc-*",
+  "/usr/local/bin/g++-*",
+  "/opt/homebrew/bin/clang",
+  "/opt/homebrew/bin/clang++",
+  "/opt/homebrew/bin/gcc-*",
+  "/opt/homebrew/bin/g++-*",
+  "/opt/homebrew/opt/llvm/bin/clang",
+  "/opt/homebrew/opt/llvm/bin/clang++",
+}, ",")
+
+local clangd_fallback_include_dirs = { ".", "include", "src" }
+
 local function append_unique(target, values)
   local result = {}
   local seen = {}
@@ -115,6 +142,35 @@ local function configure_pyright_environment(params, config)
   end
 end
 
+local function find_clangd_fallback_flags(root_dir)
+  local flags = {}
+  if not root_dir or root_dir == "" then
+    return flags
+  end
+
+  for _, dir_name in ipairs(clangd_fallback_include_dirs) do
+    local path = dir_name == "." and root_dir or vim.fs.joinpath(root_dir, dir_name)
+    if is_dir(path) then
+      table.insert(flags, "-I" .. path)
+    end
+  end
+
+  return flags
+end
+
+local function configure_clangd_environment(params, config)
+  local root_dir = config.root_dir
+    or root_uri_to_path(params.rootUri)
+    or vim.fs.root(0, clangd_root_markers)
+    or vim.fn.getcwd()
+
+  config.init_options = config.init_options or {}
+  config.init_options.fallbackFlags = append_unique(
+    config.init_options.fallbackFlags,
+    find_clangd_fallback_flags(root_dir)
+  )
+end
+
 local servers = {
   vtsls = {
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
@@ -192,7 +248,9 @@ local servers = {
     },
   },
   clangd = {
+    root_markers = clangd_root_markers,
     filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+    before_init = configure_clangd_environment,
     capabilities = {
       textDocument = {
         completion = {
@@ -206,6 +264,7 @@ local servers = {
       "clangd",
       "--background-index",
       "--clang-tidy",
+      "--query-driver=" .. clangd_query_drivers,
       "--header-insertion=never",
       "--completion-style=detailed",
       "--fallback-style=llvm",

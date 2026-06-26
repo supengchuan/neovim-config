@@ -61,6 +61,32 @@ create_cmd("PythonLspInfo", function()
   vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO, { title = "Python LSP" })
 end, {})
 
+create_cmd("ClangdLspInfo", function()
+  local lines = {}
+
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+    if client.name == "clangd" then
+      local root = client.root_dir or client.config.root_dir or vim.fn.getcwd()
+      local compile_commands = vim.fs.joinpath(root, "compile_commands.json")
+      local init_options = client.config.init_options or {}
+
+      table.insert(lines, "root: " .. root)
+      table.insert(
+        lines,
+        "compile_commands.json: " .. (vim.uv.fs_stat(compile_commands) and compile_commands or "<not found>")
+      )
+      table.insert(lines, "fallbackFlags: " .. table.concat(init_options.fallbackFlags or {}, ", "))
+    end
+  end
+
+  if #lines == 0 then
+    vim.notify("No clangd client is attached to this buffer", vim.log.levels.INFO)
+    return
+  end
+
+  vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO, { title = "clangd LSP" })
+end, {})
+
 create_cmd("DefSplit", function()
   require("fzf-lua").lsp_definitions({
     sync = true,

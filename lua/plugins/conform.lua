@@ -30,6 +30,11 @@ local M = {
         java = { "lsp_format" },
       },
       formatters = {
+        goimports = {
+          command = "goimports",
+          args = function(_, ctx) return require("modules.go").goimports_args(ctx) end,
+          stdin = true,
+        },
         shfmt = {
           args = {
             "-i",

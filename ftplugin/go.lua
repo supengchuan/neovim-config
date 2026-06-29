@@ -69,3 +69,7 @@ end, { desc = "List methods of struct (fzf-lua regex)" })
 vim.api.nvim_create_user_command("Impl", function()
   require("modules.goimpl").open()
 end, { desc = "implement the interface by using impl and fzf-lua" })
+
+vim.api.nvim_create_user_command("GoModuleCache", function()
+  require("modules.go").print_module_cache()
+end, { desc = "Print cached Go module names used by goimports" })

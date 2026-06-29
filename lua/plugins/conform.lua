@@ -27,12 +27,14 @@ local M = {
         css = { "prettier" },
         ["*"] = { "trim_whitespace", "trim_newlines" },
         vue = { "prettier" },
-        java = { "lsp_format" },
+        java = { lsp_format = "prefer" },
       },
       formatters = {
         goimports = {
           command = "goimports",
-          args = function(_, ctx) return require("modules.go").goimports_args(ctx) end,
+          args = function(_, ctx)
+            return require("modules.go").goimports_args(ctx)
+          end,
           stdin = true,
         },
         shfmt = {
@@ -104,7 +106,7 @@ local M = {
         })
       else
         -- use default
-        require("conform").format({ async = true, lsp_format = "fallback", range = range })
+        require("conform").format({ async = true, range = range })
       end
     end, { range = true, nargs = "?", bang = true, bar = true })
   end,

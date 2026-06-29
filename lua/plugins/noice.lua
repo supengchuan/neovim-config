@@ -1,3 +1,27 @@
+local function is_lsp_progress(message, client_name, patterns)
+  local progress = message.opts and message.opts.progress
+  if not progress or progress.client ~= client_name then
+    return false
+  end
+
+  if not patterns then
+    return true
+  end
+
+  local text = string.lower(table.concat({
+    progress.title or "",
+    progress.message or "",
+  }, " "))
+
+  for _, pattern in ipairs(patterns) do
+    if text:find(pattern, 1, true) then
+      return true
+    end
+  end
+
+  return false
+end
+
 return {
   "folke/noice.nvim",
   dependencies = {
@@ -13,8 +37,11 @@ return {
             event = "lsp",
             kind = "progress",
             cond = function(message)
-              local progress = message.opts and message.opts.progress
-              return progress and progress.client == "pyright"
+              return is_lsp_progress(message, "pyright")
+                or is_lsp_progress(message, "jdtls", {
+                  "publish diagnostics",
+                  "validate document",
+                })
             end,
           },
           opts = { skip = true },

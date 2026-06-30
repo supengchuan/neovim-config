@@ -19,6 +19,12 @@ return {
       close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       enable_diagnostics = false,
       filesystem = {
+        window = {
+          mappings = {
+            ["L"] = "expand_all_nodes",
+            ["H"] = "close_all_nodes",
+          },
+        },
         hijack_netrw_behavior = "disabled",
         -- open_default
         -- "open_current",

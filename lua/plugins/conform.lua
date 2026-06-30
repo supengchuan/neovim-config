@@ -28,6 +28,7 @@ local M = {
         ["*"] = { "trim_whitespace", "trim_newlines" },
         vue = { "prettier" },
         java = { lsp_format = "prefer" },
+        thrift = { lsp_format = "prefer" },
       },
       formatters = {
         goimports = {

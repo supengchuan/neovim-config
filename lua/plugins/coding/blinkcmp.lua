@@ -45,7 +45,11 @@ end
 
 local auto_bracket_filetypes = {
   "c",
+  "cpp",
+  "cuda",
   "go",
+  "objc",
+  "objcpp",
   "javascript",
   "javascriptreact",
   "lua",

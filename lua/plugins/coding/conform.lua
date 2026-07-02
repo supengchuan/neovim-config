@@ -18,7 +18,27 @@ local clang_format_style = table.concat({
   "ColumnLimit: 120",
 }, ", ")
 
-local clang_format_args = { "-assume-filename", "$FILENAME", "--style={" .. clang_format_style .. "}" }
+local cpp_header_extensions = {
+  h = true,
+  hh = true,
+  hpp = true,
+  hxx = true,
+}
+
+local function clang_format_assume_filename(ctx)
+  local filename = vim.api.nvim_buf_get_name(ctx.buf)
+  local extension = vim.fn.fnamemodify(filename, ":e"):lower()
+
+  if vim.bo[ctx.buf].filetype == "cpp" and cpp_header_extensions[extension] then
+    return filename .. ".cpp"
+  end
+
+  return "$FILENAME"
+end
+
+local function clang_format_base_args(ctx)
+  return { "-assume-filename", clang_format_assume_filename(ctx), "--style={" .. clang_format_style .. "}" }
+end
 
 local function format_buffer(opts)
   opts = opts or {}
@@ -97,21 +117,23 @@ local M = {
       },
       formatters = {
         ["clang-format"] = {
-          args = clang_format_args,
+          args = function(_, ctx)
+            return clang_format_base_args(ctx)
+          end,
           range_args = function(_, ctx)
             local util = require("conform.util")
             local start_offset, end_offset = util.get_offsets_from_range(ctx.buf, ctx.range)
             local length = end_offset - start_offset
 
-            return {
-              "-assume-filename",
-              "$FILENAME",
-              "--style={" .. clang_format_style .. "}",
+            local args = clang_format_base_args(ctx)
+            vim.list_extend(args, {
               "--offset",
               tostring(start_offset),
               "--length",
               tostring(length),
-            }
+            })
+
+            return args
           end,
         },
         shfmt = {

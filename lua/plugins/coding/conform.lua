@@ -15,6 +15,7 @@ local clang_format_style = table.concat({
   "IndentWidth: 4",
   "TabWidth: 4",
   "UseTab: Never",
+  "AccessModifierOffset: -4",
   "ColumnLimit: 120",
 }, ", ")
 
@@ -29,7 +30,7 @@ local function clang_format_assume_filename(ctx)
   local filename = vim.api.nvim_buf_get_name(ctx.buf)
   local extension = vim.fn.fnamemodify(filename, ":e"):lower()
 
-  if vim.bo[ctx.buf].filetype == "cpp" and cpp_header_extensions[extension] then
+  if cpp_header_extensions[extension] then
     return filename .. ".cpp"
   end
 
@@ -38,6 +39,15 @@ end
 
 local function clang_format_base_args(ctx)
   return { "-assume-filename", clang_format_assume_filename(ctx), "--style={" .. clang_format_style .. "}" }
+end
+
+local function lsp_format_mode(bufnr)
+  local ft = vim.bo[bufnr].filetype
+  if ft == "c" or ft == "cpp" then
+    return "never"
+  end
+
+  return "fallback"
 end
 
 local function format_buffer(opts)
@@ -56,7 +66,7 @@ local function format_buffer(opts)
     async = opts.async ~= false,
     bufnr = bufnr,
     formatters = opts.formatters,
-    lsp_format = "fallback",
+    lsp_format = opts.lsp_format or lsp_format_mode(bufnr),
     range = opts.range,
     timeout_ms = 5000,
   }, function(err, did_edit)

@@ -1,3 +1,43 @@
+local clang_format_style = table.concat({
+  "BasedOnStyle: LLVM",
+  "IndentWidth: 4",
+  "TabWidth: 4",
+  "UseTab: Never",
+  "AccessModifierOffset: -4",
+  "ColumnLimit: 120",
+}, ", ")
+
+local cpp_header_extensions = {
+  h = true,
+  hh = true,
+  hpp = true,
+  hxx = true,
+}
+
+local function clang_format_assume_filename(ctx)
+  local filename = vim.api.nvim_buf_get_name(ctx.buf)
+  local extension = vim.fn.fnamemodify(filename, ":e"):lower()
+
+  if cpp_header_extensions[extension] then
+    return filename .. ".cpp"
+  end
+
+  return "$FILENAME"
+end
+
+local function clang_format_base_args(ctx)
+  return { "-assume-filename", clang_format_assume_filename(ctx), "--style={" .. clang_format_style .. "}" }
+end
+
+local function lsp_format_mode(bufnr)
+  local ft = vim.bo[bufnr].filetype
+  if ft == "c" or ft == "cpp" then
+    return "never"
+  end
+
+  return "fallback"
+end
+
 local M = {
   "stevearc/conform.nvim",
   event = "VeryLazy",
@@ -27,6 +67,26 @@ local M = {
         ["*"] = { "trim_whitespace", "trim_newlines" },
       },
       formatters = {
+        ["clang-format"] = {
+          args = function(_, ctx)
+            return clang_format_base_args(ctx)
+          end,
+          range_args = function(_, ctx)
+            local util = require("conform.util")
+            local start_offset, end_offset = util.get_offsets_from_range(ctx.buf, ctx.range)
+            local length = end_offset - start_offset
+
+            local args = clang_format_base_args(ctx)
+            vim.list_extend(args, {
+              "--offset",
+              tostring(start_offset),
+              "--length",
+              tostring(length),
+            })
+
+            return args
+          end,
+        },
         shfmt = {
           args = {
             "-i",
@@ -91,12 +151,12 @@ local M = {
         require("conform").format({
           async = true,
           formatters = { formatters },
-          lsp_format = "fallback",
+          lsp_format = lsp_format_mode(0),
           range = range,
         })
       else
         -- use default
-        require("conform").format({ async = true, lsp_format = "fallback", range = range })
+        require("conform").format({ async = true, lsp_format = lsp_format_mode(0), range = range })
       end
     end, { range = true, nargs = "?", bang = true, bar = true })
   end,
@@ -104,7 +164,7 @@ local M = {
     {
       "ff",
       function()
-        require("conform").format({ async = true }, function(err)
+        require("conform").format({ async = true, lsp_format = lsp_format_mode(0) }, function(err)
           if not err then
             local mode = vim.api.nvim_get_mode().mode
             if vim.startswith(string.lower(mode), "v") then

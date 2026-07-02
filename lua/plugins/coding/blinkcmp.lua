@@ -30,7 +30,7 @@ local function cursor_is_in_call_args()
 end
 
 local function brackets_for_callable(item)
-  local kind = vim.lsp.protocol.CompletionItemKind
+  local kind = require("blink.cmp.types").CompletionItemKind
   local is_callable = item.kind == kind.Function or item.kind == kind.Method
 
   if cursor_is_in_call_args() then
@@ -122,6 +122,7 @@ local M = {
     completion = {
       accept = {
         auto_brackets = {
+          force_allow_filetypes = auto_bracket_filetypes,
           override_brackets_for_filetypes = auto_bracket_overrides,
         },
       },

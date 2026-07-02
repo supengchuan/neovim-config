@@ -251,15 +251,6 @@ local servers = {
     root_markers = clangd_root_markers,
     filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
     before_init = configure_clangd_environment,
-    capabilities = {
-      textDocument = {
-        completion = {
-          completionItem = {
-            snippetSupport = false,
-          },
-        },
-      },
-    },
     cmd = {
       "clangd",
       "--background-index",
@@ -267,10 +258,11 @@ local servers = {
       "--query-driver=" .. clangd_query_drivers,
       "--header-insertion=never",
       "--completion-style=detailed",
+      "--function-arg-placeholders",
       "--fallback-style=llvm",
     },
     init_options = {
-      usePlaceholders = false,
+      usePlaceholders = true,
       completeUnimported = false,
       clangdFileStatus = true,
     },

@@ -4,6 +4,7 @@ local clang_format_style = table.concat({
   "TabWidth: 4",
   "UseTab: Never",
   "AccessModifierOffset: -4",
+  "NamespaceIndentation: All",
   "ColumnLimit: 120",
 }, ", ")
 

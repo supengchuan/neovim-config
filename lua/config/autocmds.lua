@@ -13,9 +13,44 @@ local prose_filetypes = {
   markdown = true,
   tex = true,
 }
+local responsive_wrap_width = 100
 
 local function isolate_current_window()
   require("utils").IsolateWindow()
+end
+
+local function apply_responsive_wrap(win)
+  win = win or vim.api.nvim_get_current_win()
+  if not vim.api.nvim_win_is_valid(win) or vim.wo[win].diff then
+    return
+  end
+
+  local buf = vim.api.nvim_win_get_buf(win)
+  local buftype = vim.bo[buf].buftype
+  if buftype ~= "" then
+    return
+  end
+
+  local ft = vim.bo[buf].filetype
+  local should_wrap = prose_filetypes[ft] or vim.api.nvim_win_get_width(win) < responsive_wrap_width
+
+  if prose_filetypes[ft] then
+    vim.wo[win].colorcolumn = ""
+  end
+
+  vim.wo[win].wrap = should_wrap
+  vim.wo[win].linebreak = should_wrap
+  vim.wo[win].breakindent = should_wrap
+
+  if should_wrap then
+    require("utils").SetSoftWrapKeymaps(buf)
+  end
+end
+
+local function apply_all_responsive_wraps()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    apply_responsive_wrap(win)
+  end
 end
 
 local function new_c_file_header(path)
@@ -255,14 +290,7 @@ auto_cmd("FileType", {
   group = myAutoGroup,
   callback = function(opts)
     isolate_current_window()
-
-    if prose_filetypes[vim.bo[opts.buf].filetype] then
-      vim.opt_local.colorcolumn = ""
-      vim.opt_local.wrap = true
-      require("utils").SetSoftWrapKeymaps(opts.buf)
-    elseif vim.bo[opts.buf].buftype == "" then
-      vim.opt_local.wrap = false
-    end
+    apply_responsive_wrap(vim.fn.bufwinid(opts.buf))
   end,
 })
 
@@ -296,7 +324,13 @@ auto_cmd({ "WinNew", "WinEnter", "BufWinEnter", "TabEnter" }, {
     local utils = require("utils")
     utils.IsolateEditorWindows()
     utils.RememberAllWindowViews()
+    apply_all_responsive_wraps()
   end,
+})
+
+auto_cmd({ "WinResized", "VimResized" }, {
+  group = myAutoGroup,
+  callback = apply_all_responsive_wraps,
 })
 
 auto_cmd("WinScrolled", {

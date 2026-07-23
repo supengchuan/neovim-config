@@ -66,4 +66,25 @@ end
 function utils.IsWindows()
   return is_windows
 end
+
+function utils.CopyLocation(first_line, last_line)
+  local path = vim.api.nvim_buf_get_name(0)
+  if path == "" then
+    vim.notify("Cannot copy location for an unnamed buffer", vim.log.levels.WARN)
+    return
+  end
+
+  local root = vim.fs.root(path, { ".git" }) or vim.fn.getcwd()
+  local relative_path = vim.fs.relpath(root, path) or path
+  local location = relative_path .. ":" .. first_line
+
+  if last_line ~= first_line then
+    location = location .. "-" .. last_line
+  end
+
+  vim.fn.setreg("+", location)
+  vim.notify("Copied location: " .. location, vim.log.levels.INFO)
+  return location
+end
+
 return utils

@@ -62,3 +62,10 @@ create_cmd("QuoteJSON", function()
   -- Replace the line with the quoted string
   vim.api.nvim_buf_set_lines(0, row - 1, row, false, { encoded })
 end, {})
+
+create_cmd("CopyLocation", function(args)
+  require("utils").CopyLocation(args.line1, args.line2)
+end, {
+  range = true,
+  desc = "Copy the selected file location for AI chat",
+})

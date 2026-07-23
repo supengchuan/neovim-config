@@ -61,3 +61,13 @@ end, { silent = true, desc = "next quickfix or mvoe down 5 lines" })
 vim.keymap.set("n", "<leader>k", function()
   choseQuickfixorMoveCursor(false)
 end, { silent = true, desc = "prev quickfix or move up 5 lines " })
+
+vim.keymap.set("n", "<leader>yl", "<cmd>CopyLocation<CR>", {
+  silent = true,
+  desc = "copy file location for AI chat",
+})
+
+vim.keymap.set("x", "<leader>yl", ":<C-U>'<,'>CopyLocation<CR>", {
+  silent = true,
+  desc = "copy selected file location for AI chat",
+})

@@ -104,11 +104,7 @@ auto_cmd("FileType", {
   group = myAutoGroup,
   callback = function()
     vim.opt_local.colorcolumn = ""
-    vim.opt_local.wrap = true
-    local map = vim.keymap.set
-    map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-    map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-    vim.api.nvim_echo({ { "gj, gk mode" } }, false, {})
+    vim.opt_local.wrap = false
   end,
 })
 

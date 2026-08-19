@@ -48,7 +48,9 @@ local M = {
     show_guides = true,
 
     -- When true, aerial will automatically close after jumping to a symbol
-    close_on_select = true,
+    close_on_select = false,
+    -- Jump to symbol in source window when the cursor moves
+    autojump = true,
   },
   keys = {
     {

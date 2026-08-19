@@ -9,7 +9,7 @@ local M = {
         python = { "black" },
         -- You can customize some of the format options for the filetype (:help conform.format)
         rust = { "rustfmt", lsp_format = "fallback" },
-        markdown = { "prettier", "injected" },
+        markdown = { "prettier", "injected", "markdown_reflow" },
         json = { "jq" },
         yaml = { "prettier" },
         sql = { "sql_formatter" },
@@ -31,6 +31,11 @@ local M = {
         thrift = { lsp_format = "prefer" },
       },
       formatters = {
+        markdown_reflow = {
+          format = function(_, _, lines, callback)
+            callback(nil, require("modules.markdown_reflow").reflow_lines(lines, 85, 90))
+          end,
+        },
         goimports = {
           command = "goimports",
           args = function(_, ctx)

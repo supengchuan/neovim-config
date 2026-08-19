@@ -18,6 +18,44 @@ local function is_protected(line)
     or line:match("^%s*[-*_][-%s*_]+$")
 end
 
+local closing_punctuation = {
+  ["，"] = true,
+  ["。"] = true,
+  ["！"] = true,
+  ["？"] = true,
+  ["；"] = true,
+  ["："] = true,
+  ["、】【"] = true,
+  ["）"] = true,
+  ["】"] = true,
+  ["》"] = true,
+  ["”"] = true,
+  ["’"] = true,
+}
+
+local function inline_code_token(text, index, length)
+  local delimiter_length = 1
+  while index + delimiter_length < length and vim.fn.strcharpart(text, index + delimiter_length, 1) == "`" do
+    delimiter_length = delimiter_length + 1
+  end
+
+  local cursor = index + delimiter_length
+  while cursor + delimiter_length <= length do
+    local matched = true
+    for offset = 0, delimiter_length - 1 do
+      if vim.fn.strcharpart(text, cursor + offset, 1) ~= "`" then
+        matched = false
+        break
+      end
+    end
+    if matched then
+      local end_index = cursor + delimiter_length
+      return vim.fn.strcharpart(text, index, end_index - index), end_index
+    end
+    cursor = cursor + 1
+  end
+end
+
 local function tokenize(text)
   local tokens = {}
   local pending_space = false
@@ -29,6 +67,17 @@ local function tokenize(text)
     if char:match("%s") then
       pending_space = true
       index = index + 1
+    elseif char == "`" then
+      local code, end_index = inline_code_token(text, index, length)
+      if code then
+        table.insert(tokens, { text = code, space = pending_space })
+        pending_space = false
+        index = end_index
+      else
+        table.insert(tokens, { text = char, space = pending_space })
+        pending_space = false
+        index = index + 1
+      end
     elseif #char == 1 and char:match("[A-Za-z0-9_@#%%+%-%./:=?&~]") then
       local word = char
       index = index + 1
@@ -59,10 +108,13 @@ local function reflow_block(output, text, width, prefix)
 
   for _, token in ipairs(tokenize(text)) do
     local separator = current ~= "" and token.space and " " or ""
+    if closing_punctuation[token.text] then
+      separator = ""
+    end
     local line_prefix = first_line and (prefix or "") or continuation_prefix
     local candidate = current .. separator .. token.text
 
-    if current ~= "" and vim.fn.strdisplaywidth(line_prefix .. candidate) > width then
+    if current ~= "" and not closing_punctuation[token.text] and vim.fn.strdisplaywidth(line_prefix .. candidate) > width then
       table.insert(output, line_prefix .. current)
       current = token.text
       first_line = false

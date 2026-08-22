@@ -196,6 +196,7 @@ Source / 来源: `lua/plugins/tools/cmake.lua`.
 | `<leader>eg` | Normal, Go/gomod/gowork buffer | 将 Neo-tree 根目录切到 Go 项目根 | Set Neo-tree root to Go project root |
 | `<leader>tt` | Normal | 打开/关闭 Snacks terminal | Toggle Snacks terminal |
 | `<leader>th` | Normal | 在底部水平分屏打开/关闭 Snacks terminal | Toggle Snacks terminal in a bottom horizontal split |
+| `<leader>tf` | Normal | 打开/关闭 Snacks 浮动 terminal | Toggle Snacks terminal in a floating window |
 | `<Esc>` | Snacks terminal | 隐藏 terminal | Hide terminal |
 
 Source / 来源: `lua/plugins/editor/tmux-navigation.lua`, `lua/plugins/editor/window-picker.lua`, `lua/plugins/core.lua`, `lua/plugins/editor/neo-tree.lua`, `lua/plugins/editor/oil.lua`, `lua/filetypes/go.lua`, `lua/plugins/ui/snacks.lua`.

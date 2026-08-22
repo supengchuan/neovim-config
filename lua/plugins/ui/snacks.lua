@@ -67,6 +67,17 @@ local M = {
       desc = "toggle horizontal terminal",
     },
     {
+      "<leader>tf",
+      function()
+        Snacks.terminal(nil, {
+          win = {
+            position = "float",
+          },
+        })
+      end,
+      desc = "toggle floating terminal",
+    },
+    {
       "<leader>gg",
       function()
         Snacks.lazygit()

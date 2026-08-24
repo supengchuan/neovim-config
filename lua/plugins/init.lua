@@ -55,5 +55,18 @@ return {
     --event = "VeryLazy",
     lazy = true,
     cmd = { "DiffviewOpen", "DiffviewClose" },
+    opts = function()
+      local actions = require("diffview.actions")
+      return {
+        keymaps = {
+          view = {
+            { "n", "<C-n>", actions.toggle_files, { desc = "Toggle file panel" } },
+          },
+          file_panel = {
+            { "n", "<C-n>", actions.toggle_files, { desc = "Toggle file panel" } },
+          },
+        },
+      }
+    end,
   },
 }

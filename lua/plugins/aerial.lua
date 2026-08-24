@@ -46,9 +46,8 @@ local M = {
 
     -- Show box drawing characters for the tree hierarchy
     show_guides = true,
-
     -- When true, aerial will automatically close after jumping to a symbol
-    close_on_select = false,
+    close_on_select = true,
     -- Jump to symbol in source window when the cursor moves
     autojump = true,
   },

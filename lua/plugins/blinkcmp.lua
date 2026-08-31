@@ -3,6 +3,13 @@ local M = {
   dependencies = {
     "L3MON4D3/LuaSnip",
     "Kaiser-Yang/blink-cmp-avante",
+    {
+      "neo451/jieba-lua",
+      tag = "0.0.1",
+      lazy = true,
+      pkg = false,
+      build = false,
+    },
   },
   event = "VeryLazy",
   -- use a release tag to download pre-built binaries
@@ -123,13 +130,23 @@ local M = {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "avante" },
+      default = { "lsp", "path", "snippets", "jieba_buffer", "avante" },
       providers = {
         lsp = {
           fallbacks = {},
         },
         path = {
           fallbacks = {}, -- 这里默认的是 buffer, 但在这样会导致lsp有返回时始终命中不了buffer
+        },
+        jieba_buffer = {
+          name = "Buffer",
+          module = "modules.blink_jieba.source",
+          async = true,
+          score_offset = -3,
+          opts = {
+            batch_size = 20,
+            cache_size = 1000,
+          },
         },
         avante = {
           module = "blink-cmp-avante",
